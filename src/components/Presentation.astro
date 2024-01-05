@@ -1,0 +1,165 @@
+---
+import "../style/header.css";
+import Model3d from "./Model3d";
+import Model from "../assets/model.png";
+---
+
+<style>
+  /* Agrega estilos según sea necesario */
+  .marquee-text-wrap__01,
+  .marquee-text-wrap__02,
+  .marquee-text-wrap__03,
+  .marquee-text-wrap__04 {
+    overflow: hidden;
+  }
+</style>
+<script is:inline src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<!-- Incluye jQuery.marquee -->
+<script is:inline src="https://cdn.jsdelivr.net/npm/jquery.marquee@1.6.0/jquery.marquee.min.js"></script>
+
+<section class="home__section card" id="home">
+  <div class="intro">
+    <div class="intro--banner">
+      <h1>FullStack<br />Developer</h1>
+      <!-- <button class="cta">Hire Us
+        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 150 118" style="enable-background:new 0 0 150 118;" xml:space="preserve">
+        <g transform="translate(0.000000,118.000000) scale(0.100000,-0.100000)">
+          <path d="M870,1167c-34-17-55-57-46-90c3-15,81-100,194-211l187-185l-565-1c-431,0-571-3-590-13c-55-28-64-94-18-137c21-20,33-20,597-20h575l-192-193C800,103,794,94,849,39c20-20,39-29,61-29c28,0,63,30,298,262c147,144,272,271,279,282c30,51,23,60-219,304C947,1180,926,1196,870,1167z"></path>
+        </g>
+        </svg>
+        <span class="btn-background"></span>
+      </button> -->
+      <!-- <img src={Model.src} alt="Welcome"> -->
+      <Model3d client:load></Model3d>
+    </div>
+    <div class="intro--options">
+      <div class="bento dark">
+        <div class="marquee">
+          <div class="marquee-text-wrap__01">
+            <p
+              class="marquee-text marquee-text--1">
+              HTML&nbsp; CSS3&nbsp; JavaScript&nbsp;
+              Tailwind&nbsp; Bootstrap&nbsp; UI/UX&nbsp;
+            </p>
+          </div>
+          <div class="marquee-text-wrap__02">
+            <p
+              class="marquee-text1 marquee-text--2">
+             Git & GitHub&nbsp; Figma&nbsp; 
+            </p>
+          </div>
+          <div class="marquee-text-wrap__03">
+            <p
+              class="marquee-text marquee-text--3"
+            >
+              Flutter&nbsp;Dart.&nbsp; Node Js&nbsp;  php&nbsp;  Firebase&nbsp;
+            </p>
+          </div><div class="marquee-text-wrap__04">
+            <p
+              class="marquee-text marquee-text--4"
+            >
+              Mongo DB&nbsp; MySql&nbsp;  Sql&nbsp;
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  <!-- <div class="description">
+      <div class="img-description">
+
+      </div>
+      <div class="title">
+        <h1>FullStack<br>developer<br>and mobile</h1>
+       
+      </div>
+
+    </div>
+    <div class="element__3d">
+
+      <div class="icon">
+
+        <Model3d client:load></Model3d>
+
+      </div>
+
+
+    </div> -->
+</section>
+<section class="card" 2 id="about">
+  <div></div>
+</section>
+<section class="card2" id="skills">
+  <div></div>
+</section>
+<section class="card2" id="portafolio">
+  <div></div>
+</section>
+<section class="card2" id="servicios">
+  <div></div>
+</section>
+<section class="card2" id="contacto">
+  <div></div>
+</section>
+<script is:inline>
+
+</script>
+
+<script is:inline>
+
+ $(document).ready(function () {
+    $('.marquee-text-wrap__01').marquee({
+      duration: 5000,  // Duración en milisegundos
+      gap: 10,         // Espacio entre iteraciones en píxeles
+      delayBeforeStart: 0,
+      direction: 'left',  // Dirección del desplazamiento ('left' o 'right')
+      duplicated: true 
+    });
+
+    $('.marquee-text-wrap__02').marquee({
+      duration: 5000,  // Duración en milisegundos
+      gap: 10,         // Espacio entre iteraciones en píxeles
+      delayBeforeStart: 0,
+      direction: 'right',  // Dirección del desplazamiento ('left' o 'right')
+      duplicated: true 
+    });
+
+    $('.marquee-text-wrap__03').marquee({
+      duration: 5000,  // Duración en milisegundos
+      gap: 10,         // Espacio entre iteraciones en píxeles
+      delayBeforeStart: 0,
+      direction: 'left',  // Dirección del desplazamiento ('left' o 'right')
+      duplicated: true 
+    });
+
+    $('.marquee-text-wrap__04').marquee({
+      duration: 5000,  // Duración en milisegundos
+      gap: 10,         // Espacio entre iteraciones en píxeles
+      delayBeforeStart: 0,
+      direction: 'right',  // Dirección del desplazamiento ('left' o 'right')
+      duplicated: true 
+    });
+  });
+  /*===== SCROLL SECTIONS ACTIVE LINK =====*/
+  // const sections = document.querySelectorAll('section[id]')
+
+  // window.addEventListener('scroll', scrollActive)
+
+  // function scrollActive(){
+  //     const scrollY = window.scrollY
+
+  //     sections.forEach(current =>{
+  //         const sectionHeight = current.offsetHeight
+  //         const sectionTop = current.offsetTop - 50;
+  //         sectionId = current.getAttribute('id')
+
+  //         if(scrollY > sectionTop && scrollY <= sectionTop + sectionHeight){
+  //             document.querySelector('.nav__menu a[href*=' + sectionId + ']').classList.add('active-link')
+  //         }else{
+  //             document.querySelector('.nav__menu a[href*=' + sectionId + ']').classList.remove('active-link')
+  //         }
+  //     })
+  // }
+</script>

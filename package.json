@@ -1,5 +1,5 @@
 {
-  "name": "portfolio",
+  "name": "eminent-ephemera",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -10,6 +10,18 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^4.0.9"
+    "@astrojs/react": "^3.0.2",
+    "@iconscout/unicons": "^4.0.8",
+    "@splinetool/react-spline": "^2.2.6",
+    "aos": "^2.3.4",
+    "astro": "^3.1.1",
+    "gsap": "^3.12.2",
+    "jquery": "^3.7.1",
+    "jquery.marquee": "^1.6.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/aos": "^3.0.6"
   }
 }
