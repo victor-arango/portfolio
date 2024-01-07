@@ -1184,7 +1184,8 @@ nav{
     }
 
     .intro--banner canvas {
-        width: 330px
+        width: 330px;
+        border: 1px solid red;
     }
 
     .intro--options {
@@ -1235,7 +1236,11 @@ nav{
 }
 
 
-
+.icon-marquee{
+    width: 50px;
+    height: 50px;
+    margin: 22px 20px;
+}
 
 
 
@@ -1251,15 +1256,15 @@ nav{
     font-size: 3.8vw;
     line-height: 1;
     position: absolute;
-    top: -2%;
+    top: -0%;
     bottom: 0%;
     left: 0%;
     right: 0%;
-    transform: rotate(-11deg)
+    /* transform: rotate(-11deg) */
 }
 
 .marquee-text-wrap__01 {
-    transform: translate(-33%)
+    /* transform: translate(-33%) */
 }
 
 .marquee-text {
@@ -1271,7 +1276,7 @@ nav{
 
 .marquee-text.marquee-text--2 {
     /* transform: translate(-10%) */
-    transform: translate(0%)
+    /* transform: translate(0%) */
 }
 
 .marquee-text-wrap__03 {
@@ -1279,7 +1284,7 @@ nav{
 }
 
 .marquee-text-wrap__04 {
-    /* transform: translate(16%) */
-    transform: translate(0%)
+    transform: translate(16%)
+    /* transform: translate(0%) */
 
 }
