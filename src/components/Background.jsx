@@ -50,7 +50,7 @@ const BlobAnimation = () => {
   <div className="backgrounds overlay s-scroll-counter scroll-counter">
     <div className="container-blobs">
     <div className="blob-1 blob">
-      <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+      <svg viewBox="0 0 500 500"
         width="100%" id="blobSvg">
         <defs>
           <linearGradient id="gradient1" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -74,7 +74,7 @@ const BlobAnimation = () => {
 
 
     <div className="blob-2 blob">
-      <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+      <svg viewBox="0 0 500 500"
         width="100%" id="blobSvg">
         <defs>
           <linearGradient id="gradient2" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -94,7 +94,7 @@ const BlobAnimation = () => {
       </svg>
     </div>
     <div className="blob-3 blob">
-      <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+      <svg viewBox="0 0 500 500"
         width="100%" id="blobSvg">
         <defs>
           <linearGradient id="gradient3" x1="0%" y1="0%" x2="0%" y2="100%">

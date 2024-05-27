@@ -216,6 +216,7 @@ svg{
                                        
 /* ==============NAV================ */
 .nav{
+    opacity: 1;
     max-width: 1200px;
     height: var(--header-height);
     display: flex;

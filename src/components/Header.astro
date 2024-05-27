@@ -46,10 +46,10 @@ import Logo  from '../../src/assets/logo.png';
   <ul class="side-nav">
     <li class="is-active"><span> <a href="#inicio">Inicio</a></span></li>
     <li><span> <a href="#info">Info</a></span></li>
-    <li><span> <a href="#skills">Skills</a></span></li>
-    <li><span> <a href="#servicios">Servicios</a></span></li>
-    <li><span> <a href="#portafolio">Portafolio</a> </span></li>
-    <li><span> <a href="#contacto">contacto</a> </span></li>
+    <li><span> <a href="#about">Skills</a></span></li>
+    <li><span> <a href="#skills">Servicios</a></span></li>
+    <li><span> <a href="#servicios">Portafolio</a> </span></li>
+    <li><span> <a href="#portafolio">contacto</a> </span></li>
   </ul>
 </nav>
 
@@ -57,7 +57,7 @@ import Logo  from '../../src/assets/logo.png';
 
 
 <script>
-  import { gsap } from "gsap/dist/gsap-core";
+  import { gsap } from "gsap/dist/gsap";
   import { ScrollTrigger } from "gsap/dist/all";
 
 const hoverLogo = document.querySelector(".logo__transition");
@@ -79,6 +79,35 @@ hoverLogo.addEventListener("mouseout", function () {
     ease: "back.in"
   });
 })
+
+// ================ SIDE NAV ===============
+
+function validateObserver(entries) {
+  entries.forEach(entry => {
+    const sectionId = entry.target.id;
+    console.log("Section ID:", sectionId);
+    const activeLink = document.querySelector(`a[href="#${sectionId}"]`);
+    console.log("Active link  :" + activeLink );
+    if (activeLink) {
+      const navItem = activeLink.closest('li');
+      if (entry.isIntersecting) {
+        navItem.classList.add('is-active');
+      } else {
+        navItem.classList.remove('is-active');
+      }
+    }
+  });
+}
+
+
+let observer = new IntersectionObserver(validateObserver, {});
+
+let sections = document.querySelectorAll(".section");
+
+sections.forEach(section => {
+  observer.observe(section);
+});
+
 
 
 // ================ VER Y OCULAR MENU ===============
