@@ -496,10 +496,11 @@ height: 100%;
 /* ==================SIDE NAV================ */
 
 nav{
-    display: block;
+    display: none;
 }
 
 .l-side-nav {
+
     position: absolute;
     left: 0;
     display: -webkit-box;

@@ -32,14 +32,7 @@ const { title } = Astro.props;
 		<!-- https://gsap.com/community/forums/topic/39445-preload-svg-animation-and-after-loading-complete-site/ -->
 	</head>
 	<style>
-* {
-  margin: 0;
-  padding: 0;
-}
-body {
-  background-color: #e0e0e0;
-  overflow: hidden;
-}
+
 span {
   overflow: hidden;
   display: block;
@@ -60,6 +53,7 @@ span {
   top: 0;
   width: 100vw;
   height: 110vh;
+  stroke: none;
 }
 .loader-wrap .loader-wrap-heading h1 {
   font-size: 120px;
@@ -102,7 +96,7 @@ span {
 		  </svg>
 	
 		  <div class="loader-wrap-heading">
-			<span><h1>Logo</h1></span>
+			<span><h1>VA | Dev</h1></span>
 		  </div>
 		</div>
 		<BlobAnimation client:only>
@@ -133,7 +127,7 @@ const curve = 'M0 502S175 272 500 272s500 230 500 230V0H0Z';
 const flat = 'M0 2S175 1 500 1s500 1 500 1V0H0Z';
 
 tl.from('.loader-wrap-heading h1', {
-  delay: 0.5,
+  delay: 0.8,
   y: 200,
   skewY: 20,
 }).to('.loader-wrap-heading h1', {
