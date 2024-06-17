@@ -42,16 +42,16 @@ import Logo  from '../../src/assets/logo.png';
  
   
 </header>
-<!-- <nav class="l-side-nav">
+<nav class="l-side-nav">
   <ul class="side-nav">
-    <li class="is-active"><span> <a href="#inicio">Inicio</a></span></li>
+    <li class="active"><span> <a href="#inicio">Inicio</a></span></li>
     <li><span> <a href="#info">Info</a></span></li>
     <li><span> <a href="#about">Skills</a></span></li>
     <li><span> <a href="#skills">Servicios</a></span></li>
     <li><span> <a href="#servicios">Portafolio</a> </span></li>
     <li><span> <a href="#portafolio">contacto</a> </span></li>
   </ul>
-</nav> -->
+</nav>
 
 
 
@@ -81,24 +81,26 @@ hoverLogo.addEventListener("mouseout", function () {
 })
 
 // ================ SIDE NAV ===============
-
 function validateObserver(entries) {
   entries.forEach(entry => {
     const sectionId = entry.target.id;
-    console.log("Section ID:", sectionId);
+    console.log(`SectionID ${sectionId}`);  
     const activeLink = document.querySelector(`a[href="#${sectionId}"]`);
-    console.log(":" + activeLink );
     if (activeLink) {
       const navItem = activeLink.closest('li');
-      if (entry.isIntersecting) {
-        navItem.classList.add('is-active');
-      } else {
-        navItem.classList.remove('is-active');
+      const href = activeLink.getAttribute('href');
+      const activeLinkId = href.substring(1); // Obtener el id de la sección del href del enlace
+      console.log(`Esta activo el : ${activeLinkId}`)
+      if (activeLinkId === sectionId) { // Comparar con el id de la sección actual
+        if (entry.isIntersecting) {
+          navItem.classList.add('active');
+        } else {
+          navItem.classList.remove('active');
+        }
       }
     }
   });
 }
-
 
 let observer = new IntersectionObserver(validateObserver, {});
 
@@ -107,9 +109,6 @@ let sections = document.querySelectorAll(".section");
 sections.forEach(section => {
   observer.observe(section);
 });
-
-
-
 // ================ VER Y OCULAR MENU ===============
 
 
