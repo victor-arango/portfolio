@@ -2,10 +2,10 @@
 import "../style/header.css";
 import Model3d from "./Model3d";
 import Model from "../assets/model.png";
+import video from "../assets/prueba3.mp4";
 ---
 
 <style>
-  /* Agrega estilos según sea necesario */
   .marquee-text-wrap__01,
   .marquee-text-wrap__02,
   .marquee-text-wrap__03,
@@ -38,6 +38,10 @@ import Model from "../assets/model.png";
             ><div>Hire us</div><div class="button_hover">wd</div></a>
           </div><div class="home_intro_character">
             <div class="home_spline_roboto">
+              <video autoplay muted loop>
+                <source src={video} type="video/mp4">
+                <source src={video} type="video/webm">
+              </video>
             <!-- <Model3d client:load /> -->
       </div>
     </div>  

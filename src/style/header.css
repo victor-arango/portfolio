@@ -1140,7 +1140,6 @@ nav{
     overflow: hidden;
     justify-content: center;
     align-items: center;
-    transform: rotate(-5deg);
     margin-bottom: 20px;
 }
 
@@ -1386,16 +1385,8 @@ nav{
     bottom: 0%;
     left: 0%;
     right: 0%;
-    transform: rotate(-5deg);
-    /* transform: rotate(-11deg) */
 }
 
-.marquee-text-wrap__01 {
-    transform: rotate(5deg);
-}
-.marquee-text-wrap__02 {
-    transform: rotate(5deg);
-}
 
 .marquee-text {
     white-space: nowrap;
@@ -1403,25 +1394,6 @@ nav{
     display: inline-block;
     transform: translate(0)
 }
-
-.marquee-text.marquee-text--2 {
-    transform: rotate(5deg);
-
-}
-
-.marquee-text-wrap__03 {
-    transform: translate(0%)
-}
-
-.marquee-text-wrap__04 {
-    transform: translate(16%)
-    /* transform: translate(0%) */
-
-}
-
-
-
-
 
 
 .hero_marquee-component {
@@ -1451,7 +1423,6 @@ nav{
     display: flex;
     position: relative;
     overflow: hidden;
-    transform: rotate(-5deg);
 }
 
 
@@ -1548,6 +1519,14 @@ canvas {
     overflow: hidden;
 }
 
+.home_spline_roboto video{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center center;
+    overflow:  hidden;
+}
+
 
 
 .page_intro-grid {
@@ -1633,8 +1612,9 @@ canvas {
     }
 
    
-    .home_spline_roboto.display-tablet {
-        width: 80%;
+    .home_spline_roboto .display-tablet {
+        display: grid;
+        width: 100%;
         object-position: 50% 100%;
         margin-left: auto;
         margin-right: auto;
