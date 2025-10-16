@@ -1,0 +1,44 @@
+---
+const technologies = [
+  "astro",
+  "vue",
+  "react",
+  "typeScript",
+  "tailwindcss",
+  "next",
+  "nodejs",
+  "HTML5",
+  "CSS3",
+  "javaScript",
+  "git",
+  "supabase",
+  "mysql",
+  "bash",
+];
+---
+
+<div class="tech-slider">
+  <div class="tech-slider__fade tech-slider__fade--left"></div>
+  <div class="tech-slider__fade tech-slider__fade--right"></div>
+
+  <div class="tech-slider__track">
+    {
+      [...technologies, ...technologies, ...technologies].map((tech) => (
+        <div class="tech-slider__item">
+          <img
+            src={`/svg/${tech}.svg`}
+            alt={tech}
+            class="tech-slider__icon"
+            width="30"
+            height="30"
+            loading="lazy"
+          />
+          <span class="tech-slider__label">
+            {tech.charAt(0).toUpperCase() + tech.slice(1)}
+          </span>
+        </div>
+      ))
+    }
+  </div>
+</div>
+

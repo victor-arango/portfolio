@@ -1136,7 +1136,6 @@ nav{
     position: relative;
     height: 200px;
     width: 75%;
-    background-color: #b7b7b717;
     overflow: hidden;
     justify-content: center;
     align-items: center;
@@ -1622,3 +1621,81 @@ canvas {
     }
 
 }
+
+
+  .tech-slider {
+    position: relative;
+    overflow-x: hidden;
+    padding: 2rem 0;
+  }
+
+  .tech-slider__fade {
+    pointer-events: none;
+    position: absolute;
+    inset-block: 0;
+    width: 8rem;
+    z-index: 20;
+  }
+
+  .tech-slider__fade--left {
+    left: 0;
+    background:  transparent;
+  }
+
+  .tech-slider__fade--right {
+    right: 0;
+    background:  transparent;
+  }
+
+  .tech-slider__track {
+    display: flex;
+    width: max-content;
+    gap: 3rem;
+    animation: scroll 60s linear infinite;
+  }
+
+  .tech-slider__item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .tech-slider__item:hover .tech-slider__icon {
+    transform: scale(1.1);
+    opacity: 0.9;
+  }
+
+  .tech-slider__icon {
+    height: 1.75rem;
+    width: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0.6;
+  }
+
+  .tech-slider__label {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--white-icon);
+  }
+
+  @keyframes scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .tech-slider__track:hover {
+    animation-play-state: paused;
+  }
+
+  @media (min-width: 768px) {
+    .tech-slider__track {
+      gap: 5rem;
+      animation-duration: 50s;
+    }
+  }
