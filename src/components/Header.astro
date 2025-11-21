@@ -1,6 +1,7 @@
 ---
 import '../style/header.css';
 import Logo  from '../../src/assets/logo.png';
+import LogoVA  from '../../src/assets/logovaDEV.svg';
 
 ---
 <header class="header logo__transition" id="header">
@@ -9,6 +10,9 @@ import Logo  from '../../src/assets/logo.png';
       Arango | Dev</span>
     <div class="nav__menu" id="nav-menu">
       <aside id="mb_nav" class="menu-navegacion">
+         <div class="watermark">
+          <img src={LogoVA.src} alt="">
+      </div>
         <ul>
           <li><a class="nav__link" href="#home">Inicio</a></li>
           <li><a class="nav__link" href="#about">Info</a></li>
@@ -16,8 +20,6 @@ import Logo  from '../../src/assets/logo.png';
           <li><a class="nav__link" href="#servicios">Servicios</a></li>
           <li><a class="nav__link" href="#portafolio">Portafolio</a></li>
           <li><a class="nav__link" href="#contacto">contacto</a></li>
-          
-         
         </ul>
       </aside>
     </div>
@@ -36,7 +38,6 @@ import Logo  from '../../src/assets/logo.png';
         </svg>
       </div>
     </div>
-
   </nav>
  
   

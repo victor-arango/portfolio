@@ -168,7 +168,7 @@ svg{
 
 
 .section{
-
+    width: 70%;
     padding: 2rem 0 4rem;
 }
 
@@ -256,6 +256,23 @@ svg{
 .nav__toggle:hover{
    color: var(--first-color); 
 }
+
+.watermark {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.2;
+  position: absolute;
+  cursor: default;
+  user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+
+}
+
 
 @media screen and (max-width: 767px) {
 
@@ -363,10 +380,7 @@ svg{
     position: relative;
     justify-content: center;
     align-items: center;
-    /* padding: 1.5rem; */
     width: 100%;
-    /* gap: 25px; */
-   /* margin: auto; */
    overflow: hidden;
 
 }
@@ -1348,6 +1362,7 @@ canvas {
 
 
 .home_intro {
+    width: 90%;
     padding-top: 8rem;
     padding-bottom: 0rem;
     position: relative;
