@@ -1,99 +1,41 @@
 ---
 import "../style/header.css";
-import Model3d from "./Model3d";
-import Model from "../assets/model.png";
 import video from "../assets/Prueba3.mp4";
 import Marquee from "./Marquee.astro";
 ---
 
-<style>
-  .marquee-text-wrap__01,
-  .marquee-text-wrap__02,
-  .marquee-text-wrap__03,
-  .marquee-text-wrap__04 {
-    overflow: hidden;
-  }
-</style>
-<script is:inline src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<!-- Incluye jQuery.marquee -->
-<script
-  is:inline
-  src="https://cdn.jsdelivr.net/npm/jquery.marquee@1.6.0/jquery.marquee.min.js"
-></script>
-
-
-  <section class="section home__section" id="home">
-    <div class="home_intro">
-      <di class="container-medium">
-        <div class="home_intro-grid">
-          <div class="home_intro_content">
-            <h1>FullStack<br />Developer</h1>
-            <p>
-              If you’re looking for a forward-thinking team of creatives to build a brand identity that stands out from the crowd, then you’re exactly where you need to be.
-            </p>
-            <p>
-              If you’re looking for a forward-thinking team of creatives to build a brand identity that stands out from the crowd, then you’re exactly where you need to be.
-            </p>
-            <a
-            class="button w-inline-block"
-            >
+<section class="section home__section" id="home">
+  <div class="home_intro">
+    <di class="container-medium">
+      <div class="home_intro-grid">
+        <div class="home_intro_content">
+          <h1>FullStack<br />Developer</h1>
+          <p>
+            If you’re looking for a forward-thinking team of creatives to build
+            a brand identity that stands out from the crowd, then you’re exactly
+            where you need to be.
+          </p>
+          <p>
+            If you’re looking for a forward-thinking team of creatives to build
+            a brand identity that stands out from the crowd, then you’re exactly
+            where you need to be.
+          </p>
+          <a class="home_intro_button">
             <div>Hire us</div>
-            <div class="button_hover">wd</div>
           </a>
-          </div><div class="home_intro_character">
-            <div class="home_spline_roboto">
-              <video autoplay muted loop>
-                <source src={video} type="video/mp4">
-                <source src={video} type="video/webm">
-              </video>
+        </div>
+        <div class="home_intro_character">
+          <div class="home_spline_roboto">
+            <video autoplay muted loop>
+              <source src={video} type="video/mp4" />
+              <source src={video} type="video/webm" />
+            </video>
+          </div>
+        </div>
       </div>
-    </div>  
-    </div>
+    </di>
   </div>
-</div>
-<div class="intro--options">
- <Marquee/>
+  <div class="intro--options">
+    <Marquee />
+  </div>
 </section>
-
-  
-  <section class="section card" id="about">
-    <div></div>
-  </section>
-  <section class="section card2" id="skills">
-    <div></div>
-  </section>
-  <section class="section card2" id="portafolio">
-    <div></div>
-  </section>
-  <section class="section card2" id="servicios">
-    <div></div>
-  </section>
-  <section class="section card2" id="contacto">
-    <div></div>
-  </section>
-
-  
-
-
-<script is:inline>
-  $(document).ready(function () {
-    $(".marquee-text-wrap__01").marquee({
-      duration: 6000, // Duración en milisegundos
-      gap: 10, // Espacio entre iteraciones en píxeles
-      delayBeforeStart: 0,
-      direction: "left", // Dirección del desplazamiento ('left' o 'right')
-      duplicated: true,
-    });
-
-    $(".marquee-text-wrap__02").marquee({
-      duration: 6000, // Duración en milisegundos
-      gap: 10, // Espacio entre iteraciones en píxeles
-      delayBeforeStart: 0,
-      direction: "right", // Dirección del desplazamiento ('left' o 'right')
-      duplicated: true,
-    });
-
-  });
- 
-</script>
-

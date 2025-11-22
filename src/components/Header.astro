@@ -69,35 +69,35 @@ hoverLogo.addEventListener("mouseout", function () {
   });
 })
 
-// ================ SIDE NAV ===============
-function validateObserver(entries) {
-  entries.forEach(entry => {
-    const sectionId = entry.target.id;
-    console.log(`SectionID ${sectionId}`);  
-    const activeLink = document.querySelector(`a[href="#${sectionId}"]`);
-    if (activeLink) {
-      const navItem = activeLink.closest('li');
-      const href = activeLink.getAttribute('href');
-      const activeLinkId = href.substring(1); // Obtener el id de la sección del href del enlace
-      console.log(`Esta activo el : ${activeLinkId}`)
-      if (activeLinkId === sectionId) { // Comparar con el id de la sección actual
-        if (entry.isIntersecting) {
-          navItem.classList.add('active');
-        } else {
-          navItem.classList.remove('active');
-        }
-      }
-    }
-  });
-}
+// // ================ SIDE NAV ===============
+// function validateObserver(entries) {
+//   entries.forEach(entry => {
+//     const sectionId = entry.target.id;
+//     console.log(`SectionID ${sectionId}`);  
+//     const activeLink = document.querySelector(`a[href="#${sectionId}"]`);
+//     if (activeLink) {
+//       const navItem = activeLink.closest('li');
+//       const href = activeLink.getAttribute('href');
+//       const activeLinkId = href.substring(1); // Obtener el id de la sección del href del enlace
+//       console.log(`Esta activo el : ${activeLinkId}`)
+//       if (activeLinkId === sectionId) { // Comparar con el id de la sección actual
+//         if (entry.isIntersecting) {
+//           navItem.classList.add('active');
+//         } else {
+//           navItem.classList.remove('active');
+//         }
+//       }
+//     }
+//   });
+// }
 
-let observer = new IntersectionObserver(validateObserver, {});
+// let observer = new IntersectionObserver(validateObserver, {});
 
-let sections = document.querySelectorAll(".section");
+// let sections = document.querySelectorAll(".section");
 
-sections.forEach(section => {
-  observer.observe(section);
-});
+// sections.forEach(section => {
+//   observer.observe(section);
+// });
 // ================ VER Y OCULAR MENU ===============
 
 
