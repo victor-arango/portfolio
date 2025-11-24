@@ -1,18 +1,19 @@
 ---
-import '../style/header.css';
-import Logo  from '../../src/assets/logo.png';
-import LogoVA  from '../../src/assets/logovaDEV.svg';
-
+import "../style/header.css";
+import Logo from "../../src/assets/logo.png";
+import LogoVA from "../../src/assets/logovaDEV.svg";
 ---
+
 <header class="header logo__transition" id="header">
   <nav class="nav container">
-    <a href="#" class="nav__logo"><img src={Logo.src} alt=""></a><span class="text-logo">Victor
-      Arango | Dev</span>
+    <a href="#" class="nav__logo"><img src={Logo.src} alt="" /></a><span
+      class="text-logo">Victor Arango | Dev</span
+    >
     <div class="nav__menu" id="nav-menu">
       <aside id="mb_nav" class="menu-navegacion">
-         <div class="watermark">
-          <img src={LogoVA.src} alt="">
-      </div>
+        <div class="watermark">
+          <img src={LogoVA.src} alt="" />
+        </div>
         <ul>
           <li><a class="nav__link" href="#home">Inicio</a></li>
           <li><a class="nav__link" href="#about">Info</a></li>
@@ -25,223 +26,211 @@ import LogoVA  from '../../src/assets/logovaDEV.svg';
     </div>
     <div class="nav__btns">
       <!-- cambiar tema -->
-      <svg class="change-theme buttons-menu" id="theme-button" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.8" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
-        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-        <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+      <svg
+        class="change-theme buttons-menu"
+        id="theme-button"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        stroke-width="1.8"
+        stroke="#2c3e50"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <path
+          d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"
+        ></path>
       </svg>
-      <div  id="nav-button">
-        <svg class="buttons-menu" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-          <path d="M4 6h16" />
-          <path d="M7 12h13" />
-          <path d="M10 18h10" />
+      <div id="nav-button">
+        <svg
+          class="buttons-menu"
+          width="28"
+          height="28"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="#2c3e50"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M4 6h16"></path>
+          <path d="M7 12h13"></path>
+          <path d="M10 18h10"></path>
         </svg>
       </div>
     </div>
   </nav>
- 
-  
 </header>
-
-
-
 
 <script>
   import { gsap } from "gsap/dist/gsap";
 
-const hoverLogo = document.querySelector(".logo__transition");
-hoverLogo.addEventListener("mouseover", function () {
-  gsap.to(".text-logo", {
-    duration: 0.9,
-    opacity: 1,
-    x: 10,
-    stagger: 0.1,
-    ease: "back.in"
-  });
-})
-hoverLogo.addEventListener("mouseout", function () {
-  gsap.to(".text-logo", {
-    duration: 0.9,
-    opacity: 0,
-    x: -10,
-    stagger: 0.1,
-    ease: "back.in"
-  });
-})
+  const hoverLogo = document.querySelector(".logo__transition");
 
-// // ================ SIDE NAV ===============
-// function validateObserver(entries) {
-//   entries.forEach(entry => {
-//     const sectionId = entry.target.id;
-//     console.log(`SectionID ${sectionId}`);  
-//     const activeLink = document.querySelector(`a[href="#${sectionId}"]`);
-//     if (activeLink) {
-//       const navItem = activeLink.closest('li');
-//       const href = activeLink.getAttribute('href');
-//       const activeLinkId = href.substring(1); // Obtener el id de la sección del href del enlace
-//       console.log(`Esta activo el : ${activeLinkId}`)
-//       if (activeLinkId === sectionId) { // Comparar con el id de la sección actual
-//         if (entry.isIntersecting) {
-//           navItem.classList.add('active');
-//         } else {
-//           navItem.classList.remove('active');
-//         }
-//       }
-//     }
-//   });
-// }
-
-// let observer = new IntersectionObserver(validateObserver, {});
-
-// let sections = document.querySelectorAll(".section");
-
-// sections.forEach(section => {
-//   observer.observe(section);
-// });
-// ================ VER Y OCULAR MENU ===============
-
-
-const navMenu = document.getElementById('nav-menu'),
-    navToggle = document.getElementById('nav-toggle'),
-    navClose = document.getElementById('nav-close')
-
-
-    // =============VALIDAR SI LA CONSTANTE EXITSTE =======
-    if(navToggle){
-        navToggle.addEventListener('click', () =>{
-            navMenu.classList.add('show-menu')
-        })
-    }
-
-    if(navClose){
-        navClose.addEventListener('click', () =>{
-            navMenu.classList.remove('show-menu')
-        })
-    }
-// =============REMOVER MENU MOVIL===========
-    const navLink = document.querySelectorAll('.nav__link')
-
-function linkAction(){
-    const navMenu = document.getElementById('nav-menu')
-    // When we click on each nav__link, we remove the show-menu class
-    navMenu.classList.remove('show-menu')
-}
-navLink.forEach(n => n.addEventListener('click', linkAction))
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*==================== CHANGE BACKGROUND HEADER ====================*/ 
-function scrollHeader(){
-    const nav = document.getElementById('header')
-    // When the scroll is greater than 200 viewport height, add the scroll-header class to the header tag
-    if(this.scrollY >= 80) nav.classList.add('scroll-header'); else nav.classList.remove('scroll-header')
-}
-window.addEventListener('scroll', scrollHeader)
-
-
-/*==================== SHOW SCROLL TOP ====================*/ 
-// function scrollUp(){
-//     const scrollUp = document.getElementById('scroll-up');
-//     // When the scroll is higher than 560 viewport height, add the show-scroll class to the a tag with the scroll-top class
-//     if(this.scrollY >= 560) scrollUp.classList.add('show-scroll'); else scrollUp.classList.remove('show-scroll')
-// }
-// window.addEventListener('scroll', scrollUp)
-
-
-/*==================== DARK LIGHT THEME ====================*/ 
-const themeButton = document.getElementById('theme-button')
-const darkTheme = 'dark-theme'
-const iconTheme = 'uil-sun'
-
-// Previously selected topic (if user selected)
-const selectedTheme = localStorage.getItem('selected-theme')
-const selectedIcon = localStorage.getItem('selected-icon')
-
-// We obtain the current theme that the interface has by validating the dark-theme class
-const getCurrentTheme = () => document.body.classList.contains(darkTheme) ? 'dark' : 'light'
-const getCurrentIcon = () => themeButton.classList.contains(iconTheme) ? 'uil-moon' : 'uil-sun'
-
-// We validate if the user previously chose a topic
-if (selectedTheme) {
-  // If the validation is fulfilled, we ask what the issue was to know if we activated or deactivated the dark
-  document.body.classList[selectedTheme === 'dark' ? 'add' : 'remove'](darkTheme)
-  themeButton.classList[selectedIcon === 'uil-moon' ? 'add' : 'remove'](iconTheme)
-}
-
-// Activate / deactivate the theme manually with the button
-themeButton.addEventListener('click', () => {
-    // Add or remove the dark / icon theme
-    document.body.classList.toggle(darkTheme)
-    themeButton.classList.toggle(iconTheme)
-    // We save the theme and the current icon that the user chose
-    localStorage.setItem('selected-theme', getCurrentTheme())
-    localStorage.setItem('selected-icon', getCurrentIcon())
-})
-
-
-//Menu items Active.
-// Timeline created and paused
-var tl = gsap.timeline({ paused: true });
-
-function openNav() {
-  animateOpenNav();
-  var navBtn = document.getElementById("nav-button");
-  navBtn.onclick = function (e) {
-    tl.reversed(!tl.reversed());
-    navBtn.classList.toggle("active");
-  };
-
-  // Agregar evento de clic a cada enlace del menú
-  var navLinks = document.querySelectorAll(".nav__link");
-  navLinks.forEach(function (link) {
-    link.addEventListener("click", function () {
-      // Revertir la animación al hacer clic en cualquier enlace del menú
-      tl.reverse();
-      // También puedes cerrar la navegación activando la clase 'active' (si es necesario)
-      navBtn.classList.remove("active");
+  if (hoverLogo instanceof HTMLElement) {
+    hoverLogo.addEventListener("mouseover", function () {
+      gsap.to(".text-logo", {
+        duration: 0.9,
+        opacity: 1,
+        x: 10,
+        stagger: 0.1,
+        ease: "back.in",
+      });
     });
-  });
-}
+  }
+  if (hoverLogo instanceof HTMLElement) {
+    hoverLogo.addEventListener("mouseout", function () {
+      gsap.to(".text-logo", {
+        duration: 0.9,
+        opacity: 0,
+        x: -10,
+        stagger: 0.1,
+        ease: "back.in",
+      });
+    });
+  } // ================ VER Y OCULAR MENU ===============
 
-const buttons = document.getElementsByClassName("buttons-menu");
-function animateOpenNav() {
-  var mobileNav = document.getElementById("mb_nav");
-  tl
-    .to(mobileNav, {
+  const navMenu = document.getElementById("nav-menu"),
+    navToggle = document.getElementById("nav-toggle"),
+    navClose = document.getElementById("nav-close");
+
+  // =============VALIDAR SI LA CONSTANTE EXITSTE =======
+
+  if (navToggle instanceof HTMLElement && navMenu instanceof HTMLElement) {
+    if (navToggle) {
+      navToggle.addEventListener("click", () => {
+        navMenu.classList.add("show-menu");
+      });
+    }
+
+    if (navClose) {
+      navClose.addEventListener("click", () => {
+        navMenu.classList.remove("show-menu");
+      });
+    }
+  }
+  // =============REMOVER MENU MOVIL===========
+  const navLink = document.querySelectorAll(".nav__link");
+
+  function linkAction() {
+    const navMenu = document.getElementById("nav-menu");
+    // When we click on each nav__link, we remove the show-menu class
+    if (navMenu instanceof HTMLElement) {
+      navMenu.classList.remove("show-menu");
+    }
+  }
+  navLink.forEach((n) => n.addEventListener("click", linkAction));
+
+  /*==================== CHANGE BACKGROUND HEADER ====================*/
+  function scrollHeader() {
+    const nav = document.getElementById("header");
+    // When the scroll is greater than 200 viewport height, add the scroll-header class to the header tag
+    if (nav instanceof HTMLElement) {
+      if (this.scrollY >= 80) nav.classList.add("scroll-header");
+      else nav.classList.remove("scroll-header");
+    }
+  }
+  window.addEventListener("scroll", scrollHeader);
+
+  /*==================== SHOW SCROLL TOP ====================*/
+  // function scrollUp(){
+  //     const scrollUp = document.getElementById('scroll-up');
+  //     // When the scroll is higher than 560 viewport height, add the show-scroll class to the a tag with the scroll-top class
+  //     if(this.scrollY >= 560) scrollUp.classList.add('show-scroll'); else scrollUp.classList.remove('show-scroll')
+  // }
+  // window.addEventListener('scroll', scrollUp)
+
+  /*==================== DARK LIGHT THEME ====================*/
+  const themeButton = document.getElementById("theme-button");
+  const darkTheme = "dark-theme";
+  const iconTheme = "uil-sun";
+
+  // Previously selected topic (if user selected)
+  const selectedTheme = localStorage.getItem("selected-theme");
+  const selectedIcon = localStorage.getItem("selected-icon");
+
+  // We obtain the current theme that the interface has by validating the dark-theme class
+  const getCurrentTheme = () =>
+    document.body.classList.contains(darkTheme) ? "dark" : "light";
+
+
+    const getCurrentIcon = () =>
+      themeButton?.classList.contains(iconTheme) ? "uil-moon" : "uil-sun";
+
+    // We validate if the user previously chose a topic
+    if (selectedTheme) {
+      // If the validation is fulfilled, we ask what the issue was to know if we activated or deactivated the dark
+      document.body.classList[selectedTheme === "dark" ? "add" : "remove"](
+        darkTheme
+      );
+      themeButton?.classList[selectedIcon === "uil-moon" ? "add" : "remove"](
+        iconTheme
+      );
+    }
+
+    // Activate / deactivate the theme manually with the button
+    themeButton?.addEventListener("click", () => {
+      // Add or remove the dark / icon theme
+      document.body.classList.toggle(darkTheme);
+      themeButton.classList.toggle(iconTheme);
+      // We save the theme and the current icon that the user chose
+      localStorage.setItem("selected-theme", getCurrentTheme());
+      localStorage.setItem("selected-icon", getCurrentIcon());
+    });
+  
+  //Menu items Active.
+  let tl = gsap.timeline({ paused: true });
+
+  function openNav() {
+    animateOpenNav();
+    let navBtn = document.getElementById("nav-button");
+    if (navBtn instanceof HTMLElement) {
+      navBtn.onclick = function (e) {
+        tl.reversed(!tl.reversed());
+        navBtn.classList.toggle("active");
+      };
+
+      // Agregar evento de clic a cada enlace del menú
+      let navLinks = document.querySelectorAll(".nav__link");
+      navLinks.forEach(function (link) {
+        link.addEventListener("click", function () {
+          // Revertir la animación al hacer clic en cualquier enlace del menú
+          tl.reverse();
+          // También puedes cerrar la navegación activando la clase 'active' (si es necesario)
+          navBtn.classList.remove("active");
+        });
+      });
+    }
+  }
+
+  const buttons = document.getElementsByClassName("buttons-menu");
+  function animateOpenNav() {
+    let mobileNav = document.getElementById("mb_nav");
+    tl.to(mobileNav, {
       duration: 0.3,
       ease: "power4",
       y: 0,
     })
-    .to(buttons, {
-      duration: 0.5,
-      ease: "sine",
-      stroke: "#fff",
+      .to(buttons, {
+        duration: 0.5,
+        ease: "sine",
+        stroke: "#fff",
+      })
 
-    })
-    
-    .set('body', { overflow: 'hidden' })
-    .to(".nav__link", {
-      opacity: 1,
-      ease: "power3.out",
-      y: 0,
-      duration: 0.3,
-      stagger: 0.2,
-    })
-    .reverse();
-}
+      .set("body", { overflow: "hidden" })
+      .to(".nav__link", {
+        opacity: 1,
+        ease: "power3.out",
+        y: 0,
+        duration: 0.3,
+        stagger: 0.2,
+      })
+      .reverse();
+  }
 
-// init
-openNav();
-
-
+  // init
+  openNav();
 </script>
