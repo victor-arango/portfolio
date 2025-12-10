@@ -5,11 +5,6 @@ import Favicon from '../../src/assets/logo.png';
 import BlobAnimation from '../components/Background';
 import '../style/header.css';
 import 'aos/dist/aos.css';
-
-
-
-
-
 import valogo  from '../../src/assets/logovaDEV.svg';
 interface Props {
 	title: string;
@@ -17,7 +12,6 @@ interface Props {
 
 const { title } = Astro.props;
 ---
-
 <!doctype html>
 <html lang="en">
 	<head>
@@ -29,7 +23,6 @@ const { title } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<style>
-
 span {
   overflow: hidden;
   display: block;
@@ -76,7 +69,7 @@ span {
 
 	</style>
 	 <body>
-		<!-- <div class="loader-wrap">
+		<div class="loader-wrap">
 		  <svg viewBox="0 0 1000 1000" preserveAspectRatio="none">
 			<path id="svg" d="M0,1005S175,995,500,995s500,5,500,5V0H0Z"></path>
 		  </svg>
@@ -84,20 +77,15 @@ span {
 		  <div class="loader-wrap-heading">
 			<img src={valogo.src} alt="">
 		  </div>
-		</div> -->
+		</div>
 		<BlobAnimation client:only/> 
 		<Header/>
 		 <main class="main">
 			<slot />
 		</main>		
-		
-		
 	  </body>
-
 	<script >
-
 import { gsap } from "gsap/dist/gsap";
-
 
 const svg = document.getElementById('svg');
 const tl = gsap.timeline({
@@ -110,7 +98,7 @@ const curve = 'M0 502S175 272 500 272s500 230 500 230V0H0Z';
 const flat = 'M0 2S175 1 500 1s500 1 500 1V0H0Z';
 
 tl.from('.loader-wrap-heading img', {
-  delay: 0.8,
+  delay: 0.5,
   y: 200,
 }).to('.loader-wrap-heading img', {
   delay: 0.5,
@@ -120,11 +108,11 @@ tl.from('.loader-wrap-heading img', {
 tl.to(svg, {
   duration: 0.8,
   attr: { d: curve },
-  ease: 'power2.easeIn',
+  ease: 'power4.in',
 }).to(svg, {
   duration: 0.8,
   attr: { d: flat },
-  ease: 'power2.easeOut',
+  ease: 'power4.out',
 });
 tl.to('.loader-wrap', {
   y: -1500,
@@ -133,8 +121,6 @@ tl.to('.loader-wrap', {
   zIndex: -1,
   display: 'none',
 });
-
-
 
 tl.from(
   'nav',
