@@ -61,7 +61,7 @@ import Marquee from "./Marquee.astro";
     //Animation title
     animation && animation.revert();
     animation = gsap.from(split.lines, {
-      delay:3.0,
+      delay:6.0,
       rotationX: -90,
       transformOrigin : "50% 50% ",
       opacity: 0.9,
@@ -81,7 +81,7 @@ import Marquee from "./Marquee.astro";
 
  gsap.to(textAnimation, {
         duration: 0.9,
-        delay:3.0,
+        delay:6.0,
         opacity: 1,
         x: 10,
         stagger: 0.1,
@@ -99,7 +99,7 @@ import Marquee from "./Marquee.astro";
 
     gsap.to(videAnimation,{
       duration: 0.5,
-      delay:3.0,
+      delay:6.0,
       opacity:1,
       x: -10,
       stagger:0.5,
@@ -117,7 +117,7 @@ import Marquee from "./Marquee.astro";
 
     gsap.to(buttonAnimation,{
       duration: 0.9,
-        delay:3.0,
+        delay:6.0,
         opacity: 1,
         x: 10,
         stagger: 0.1,
