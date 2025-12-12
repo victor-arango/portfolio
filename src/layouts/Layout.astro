@@ -23,112 +23,318 @@ const { title } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<style>
-span {
-  overflow: hidden;
-  display: block;
-}
-.loader-wrap {
+.preloader-container {
+ 
   position: fixed;
-  z-index: 10;
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  overflow: hidden;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-}
-.loader-wrap svg {
-  position: absolute;
+  left: 0;
   top: 0;
-  width: 100vw;
-  height: 110vh;
-  stroke: none;
-}
-.loader-wrap .loader-wrap-heading img {
-  width: 200px;
-}
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+  bottom: 0;
   width: 100%;
+  z-index: 1000;
+  pointer-events: auto;
+  opacity: 1;
 }
 
-@media (max-width: 767px) {
-  .loader-wrap svg {
-    width: 200vw;
-    margin-left: -50vw;
-  }
-  .loader-wrap .loader-wrap-heading,
-  .container h1 {
-    font-size: 60px;
-  }
+.top-section,
+.bottom-section {
+  
+  position: absolute;
+  left: 0;
+  right: 0;
 }
+
+.top-section {
+  top: 0;
+  height: 57%;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  padding: 20px;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+.bottom-section {
+  bottom: 0;
+  height: 44%;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+.logo-container,
+.progress-container,
+.percentage-container {
+  opacity: 0;
+}
+
+.logos-wrapper {
+  overflow: hidden;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.logos-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.progress-container {
+  height: 1px;
+  position: relative;
+  margin-top: 1rem;
+}
+
+.progress-track {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(205, 205, 205, 0.65);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform-origin: left;
+  transform: scaleX(0);
+  background-color: #fff;
+}
+
+.percentage-text {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.text {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.percentage-text{
+color: #fff;
+}
+
 
 	</style>
 	 <body>
-		<div class="loader-wrap">
-		  <svg viewBox="0 0 1000 1000" preserveAspectRatio="none">
-			<path id="svg" d="M0,1005S175,995,500,995s500,5,500,5V0H0Z"></path>
-		  </svg>
-	
-		  <div class="loader-wrap-heading">
-			<img src={valogo.src} alt="">
-		  </div>
-		</div>
+ <div 
+  id="preloader"
+  class="preloader-container"
+  style="background-color: #ffffff;"
+>
+  <!-- TOP: 57% -->
+  <div 
+    id="topSection"
+    class="top-section"
+    style="background-color:#000"
+  >
+    <div id="logoContainer" class="logo-container">
+      <div class="logos-wrapper">
+        <div class="logos-inner">
+
+          <!-- Izquierdo -->
+          <div id="logoLeft" class="logo-left">
+           <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 152" width="220" height="152">
+            <style>
+              .s0 { fill: none } 
+              .s1 { fill: #ffffff;stroke: #ffffff } 
+            </style>
+            <path id="backgroundrect" fill-rule="evenodd" class="s0" d="m598 0v152h-599v-152z"/>
+              <g id="Capa_5">
+                <path id="svg_4" class="s1" d="m71 71.38l-12.91-2v-18.14h51.64v18.1l-12.91 2-30.12 80.43h-23.67l-30.12-80.43-12.91-2v-18.1h51.64v18.1l-12.91 2 16.13 46.25z"/>
+              </g>
+              <g id="Capa_4">
+                <path id="svg_5" class="s1" d="m162.42 51.24c18.29 0 31.2 12.87 31.2 29.16v51.28l12.91 2v18.09h-65.61c-20.22 0-31.19-11.46-31.19-29.15 0-13.28 10.54-24.74 24.74-28.16l33.35-7.84v-5.23c0-4.22-3.23-8-7.53-8h-20.44l-2.15 12.06h-19.37v-34.21zm-18.29 78.42h23.69v-21.08l-25.82 5.66c-3.66 0.8-6.45 3.42-6.45 7.44 0.02 1.1 0.27 2.17 0.72 3.17 0.44 1 1.09 1.9 1.89 2.65 0.8 0.75 1.74 1.33 2.77 1.7 1.03 0.38 2.13 0.54 3.22 0.49z"/>
+              </g>
+              
+            </g>
+          </svg>
+          </div>
+
+          <!-- Centro -->
+          <div id="logoCenter" class="logo-center">
+            <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 152" width="70" height="152">
+            <style>
+              .s0 { fill: none } 
+              .s1 { fill: #ffffff;stroke: #ffffff } 
+            </style>
+            <path id="backgroundrect" fill-rule="evenodd" class="s0" d="m333 0v152h-599v-152z"/>
+            <g>
+              <g id="Capa_3">
+                <path id="svg_6" fill-rule="evenodd" class="s1" d="m42.47 5l-41.89 145.21h25.14l40.51-145.21h-23.76z"/>
+              </g>
+            </g>
+          </svg>
+          </div>
+
+          <!-- Derecho -->
+          <div id="logoRight" class="logo-right">
+            <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 152" width="320" height="152">
+            <style>
+              .s0 { fill: none } 
+              .s1 { fill: #ffffff;stroke: #ffffff } 
+            </style>
+            <path id="backgroundrect" fill-rule="evenodd" class="s0" d="m-279 0h599v152h-599z"/>
+            <g>
+              <g id="Capa_8">
+                <path id="svg_1" class="s1" d="m55.5 150.81c-22.38 0-41.74-17.29-41.74-38.2v-33.18c0-16.29 13.55-29.16 31.2-29.16h26.89v-30.16l-12.91-2v-18.1h38.73v130.7l12.91 2v18.09zm16.35-22.12v-56.3h-24.74c-4.31 0-13 5.57-13 9.8v27.92c0 8.05 2.79 19.55 21.55 18.58z"/>
+              </g>
+              <g id="Capa_7">
+                <path id="svg_2" class="s1" d="m158.06 151.81c-22.38 0-40.88-17.29-40.88-38.2v-33.18c0-16.29 12.91-29.16 30.12-29.16h21.52c18.93 0 32.27 12.07 32.27 29.16 0 17.09-13.34 26.14-26.89 29.16l-31.2 7c0.86 8.45 6.88 13.07 15.06 13.07h38.73v22.12zm-7.53-78.42c-4.3 0-7.53 3-7.53 7v13.07l25.82-6c4.3-1 6.45-3.62 6.45-7 0-4.43-3.23-7-7.53-7z"/>
+              </g>
+              <g id="Capa_6">
+                <path id="svg_3" class="s1" d="m280.69 71.38l-12.91-2v-18.14h51.64v18.1l-12.91 2-30.09 80.47h-23.7l-30.12-80.43-12.91-2v-18.14h51.64v18.1l-12.91 2 16.14 46.25z"/>
+              </g>
+            </g>
+          </svg>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Barra -->
+      <div id="progressContainer" class="progress-container">
+        <div class="progress-track"></div>
+        <div id="progressBar" class="progress-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM: 44% -->
+  <div 
+    id="bottomSection"
+    class="bottom-section"
+    style="background-color:#000"
+  >
+    <div id="percentageContainer" class="percentage-container">
+      <div class="percentage-text">
+        (<span id="percentageText">0%</span>)
+      </div>
+    </div>
+  </div>
+</div>
 		<BlobAnimation client:only/> 
 		<Header/>
 		 <main class="main">
 			<slot />
 		</main>		
 	  </body>
-	<script >
-import { gsap } from "gsap/dist/gsap";
+  <script >
 
-const svg = document.getElementById('svg');
-const tl = gsap.timeline({
-  onComplete: () => {
-    document.body.style.overflow = 'visible';
-  },
-});
+  import { gsap } from "gsap/dist/gsap";
 
-const curve = 'M0 502S175 272 500 272s500 230 500 230V0H0Z';
-const flat = 'M0 2S175 1 500 1s500 1 500 1V0H0Z';
+  // refs
+  const container = document.getElementById("preloader");
+  const leftLogo = document.getElementById("logoLeft");
+  const rightLogo = document.getElementById("logoRight");
+  const centerLogo = document.getElementById("logoCenter");
+  const progressBar = document.getElementById("progressBar");
+  const percentageText = document.getElementById("percentageText");
+  const topSection = document.getElementById("topSection");
+  const bottomSection = document.getElementById("bottomSection");
+  const logoContainer = document.getElementById("logoContainer");
+  const progressContainer = document.getElementById("progressContainer");
+  const percentageContainer = document.getElementById("percentageContainer");
 
-tl.from('.loader-wrap-heading img', {
-  delay: 0.5,
-  y: 200,
-}).to('.loader-wrap-heading img', {
-  delay: 0.5,
-  y: -200,
-  opacity: 0
-});
-tl.to(svg, {
-  duration: 0.8,
-  attr: { d: curve },
-  ease: 'power4.in',
-}).to(svg, {
-  duration: 0.8,
-  attr: { d: flat },
-  ease: 'power4.out',
-});
-tl.to('.loader-wrap', {
-  y: -1500,
-});
-tl.to('.loader-wrap', {
-  zIndex: -1,
-  display: 'none',
-});
+  const animationConfig = {
+    showAnimation: { duration: 0.8, ease: "power3.inOut" },
+    revealIntro: { duration: 2, ease: "expo.inOut" },
+    hideAnimation: { duration: 0.5, ease: "expo.inOut" }
+  };
 
-tl.from(
-  'nav',
-  {
-    duration: 1,
-    opacity: 0,
-  },
-  '-=1.2'
-);
-	</script>
+  function start() {
+    gsap.to([logoContainer, progressContainer, percentageContainer], {
+      opacity: 1,
+      duration: animationConfig.showAnimation.duration,
+      ease: animationConfig.showAnimation.ease,
+      delay: 0.2
+    });
+
+    const progress = { value: 0 };
+
+    gsap.to(progress, {
+      value: 100,
+      duration: 2,
+      delay: 0.5,
+      ease: "power2.out",
+      onUpdate: () => {
+        const v = progress.value / 100;
+        gsap.set(progressBar, { scaleX: v });
+
+        if (percentageText) {
+          percentageText.textContent = `${Math.round(progress.value)}%`;
+        }
+      },
+      onComplete: introAnimation
+    });
+  }
+
+  function introAnimation() {
+    gsap.delayedCall(0.3, () => {
+      const tl = gsap.timeline({
+        onComplete: () => { gsap.delayedCall(0.5, exitAnimation); }
+      });
+
+      tl.to(leftLogo, {
+        x: -500,
+        duration: animationConfig.revealIntro.duration,
+        ease: animationConfig.revealIntro.ease
+      });
+
+      tl.to(
+        rightLogo,
+        {
+          x: 500,
+          duration: animationConfig.revealIntro.duration,
+          ease: animationConfig.revealIntro.ease
+        },
+        0
+      );
+
+      tl.to(
+        centerLogo,
+        {
+          opacity: 0,
+          duration: animationConfig.revealIntro.duration * 0.5,
+          ease: "power2.out"
+        },
+        animationConfig.revealIntro.duration * 0.5
+      );
+    });
+  }
+
+  function exitAnimation() {
+    const tl = gsap.timeline({
+      onComplete: () => {
+        gsap.set(container, { autoAlpha: 0 });
+
+        // Evento personalizado equivalente a onFinish()
+        window.dispatchEvent(new Event("preloader:finish"));
+      }
+    });
+
+    tl.to(topSection, {
+      clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
+      duration: animationConfig.hideAnimation.duration,
+      ease: animationConfig.hideAnimation.ease
+    });
+
+    tl.to(
+      bottomSection,
+      {
+        clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+        duration: animationConfig.hideAnimation.duration,
+        ease: animationConfig.hideAnimation.ease
+      },
+      0
+    );
+
+    tl.to(container, { opacity: 0, duration: 0.5 });
+  }
+
+  start();
+  </script>
 </html>
