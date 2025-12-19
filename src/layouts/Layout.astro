@@ -150,81 +150,33 @@ const { title } = Astro.props;
   font-family: 'Terra';
 }
 	</style>
-	 <body>
- <div 
-  id="preloader"
-  class="preloader-container"
-  style="background-color: #ffffff;"
->
-  <!-- TOP: 57% -->
-  <div 
-    id="topSection"
-    class="top-section"
-    style="background-color:#000"
-  >
-    <div id="logoContainer" class="logo-container">
-      <div class="logos-wrapper">
-        <div class="logos-inner">
+	<body>
+		<div 
+			id="preloader"
+			class="preloader-container"
+      style="background-color: #fff;"
+		>
+			<!-- TOP: 57% -->
+			<span id="topSection" class="top-section">
+				<div id="logoContainer" class="logo-container">
+					<div class="logos-wrapper">
+						<div class="logos-inner">
+							<!-- Logo izquierdo -->
+							<div id="logoLeft" class="logo-left">
+							  <span class="text-logo-preload">va</span>
+							</div>
 
-          <!-- Izquierdo -->
-          <div id="logoLeft" class="logo-left">
-           <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 152" width="220" height="152">
-            <style>
-              .s0 { fill: none } 
-              .s1 { fill: #ffffff;stroke: #ffffff } 
-            </style>
-            <path id="backgroundrect" fill-rule="evenodd" class="s0" d="m598 0v152h-599v-152z"/>
-              <g id="Capa_5">
-                <path id="svg_4" class="s1" d="m71 71.38l-12.91-2v-18.14h51.64v18.1l-12.91 2-30.12 80.43h-23.67l-30.12-80.43-12.91-2v-18.1h51.64v18.1l-12.91 2 16.13 46.25z"/>
-              </g>
-              <g id="Capa_4">
-                <path id="svg_5" class="s1" d="m162.42 51.24c18.29 0 31.2 12.87 31.2 29.16v51.28l12.91 2v18.09h-65.61c-20.22 0-31.19-11.46-31.19-29.15 0-13.28 10.54-24.74 24.74-28.16l33.35-7.84v-5.23c0-4.22-3.23-8-7.53-8h-20.44l-2.15 12.06h-19.37v-34.21zm-18.29 78.42h23.69v-21.08l-25.82 5.66c-3.66 0.8-6.45 3.42-6.45 7.44 0.02 1.1 0.27 2.17 0.72 3.17 0.44 1 1.09 1.9 1.89 2.65 0.8 0.75 1.74 1.33 2.77 1.7 1.03 0.38 2.13 0.54 3.22 0.49z"/>
-              </g>
-              
-            </g>
-          </svg>
-          </div>
+							<!-- Logo central -->
+							<div id="logoCenter" class="logo-center">
+								 <span class="text-logo-preload"> /</span>
+							</div>
 
-          <!-- Centro -->
-          <div id="logoCenter" class="logo-center">
-            <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 152" width="70" height="152">
-            <style>
-              .s0 { fill: none } 
-              .s1 { fill: #ffffff;stroke: #ffffff } 
-            </style>
-            <path id="backgroundrect" fill-rule="evenodd" class="s0" d="m333 0v152h-599v-152z"/>
-            <g>
-              <g id="Capa_3">
-                <path id="svg_6" fill-rule="evenodd" class="s1" d="m42.47 5l-41.89 145.21h25.14l40.51-145.21h-23.76z"/>
-              </g>
-            </g>
-          </svg>
-          </div>
-
-          <!-- Derecho -->
-          <div id="logoRight" class="logo-right">
-            <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 152" width="320" height="152">
-            <style>
-              .s0 { fill: none } 
-              .s1 { fill: #ffffff;stroke: #ffffff } 
-            </style>
-            <path id="backgroundrect" fill-rule="evenodd" class="s0" d="m-279 0h599v152h-599z"/>
-            <g>
-              <g id="Capa_8">
-                <path id="svg_1" class="s1" d="m55.5 150.81c-22.38 0-41.74-17.29-41.74-38.2v-33.18c0-16.29 13.55-29.16 31.2-29.16h26.89v-30.16l-12.91-2v-18.1h38.73v130.7l12.91 2v18.09zm16.35-22.12v-56.3h-24.74c-4.31 0-13 5.57-13 9.8v27.92c0 8.05 2.79 19.55 21.55 18.58z"/>
-              </g>
-              <g id="Capa_7">
-                <path id="svg_2" class="s1" d="m158.06 151.81c-22.38 0-40.88-17.29-40.88-38.2v-33.18c0-16.29 12.91-29.16 30.12-29.16h21.52c18.93 0 32.27 12.07 32.27 29.16 0 17.09-13.34 26.14-26.89 29.16l-31.2 7c0.86 8.45 6.88 13.07 15.06 13.07h38.73v22.12zm-7.53-78.42c-4.3 0-7.53 3-7.53 7v13.07l25.82-6c4.3-1 6.45-3.62 6.45-7 0-4.43-3.23-7-7.53-7z"/>
-              </g>
-              <g id="Capa_6">
-                <path id="svg_3" class="s1" d="m280.69 71.38l-12.91-2v-18.14h51.64v18.1l-12.91 2-30.09 80.47h-23.7l-30.12-80.43-12.91-2v-18.14h51.64v18.1l-12.91 2 16.14 46.25z"/>
-              </g>
-            </g>
-          </svg>
-          </div>
-
-        </div>
-      </div>
+							<!-- Logo derecho -->
+							<div id="logoRight" class="logo-right">
+							  <span class="text-logo-preload">dev</span>
+							</div>
+						</div>
+					</div>
 
 					<!-- Barra de progreso -->
 					<div id="progressContainer" class="progress-container">
