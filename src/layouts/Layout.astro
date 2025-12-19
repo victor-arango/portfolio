@@ -5,7 +5,7 @@ import Favicon from '../../src/assets/logo.png';
 import BlobAnimation from '../components/Background';
 import '../style/header.css';
 import 'aos/dist/aos.css';
-import valogo  from '../../src/assets/logovaDEV.svg';
+
 interface Props {
 	title: string;
 }
@@ -23,69 +23,93 @@ const { title } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<style>
+/* Preloader container */
 .preloader-container {
- 
   position: fixed;
   left: 0;
   top: 0;
   bottom: 0;
   width: 100%;
-  z-index: 1000;
   pointer-events: auto;
+  z-index: 1000;
+  color: black;
   opacity: 1;
 }
 
-.top-section,
-.bottom-section {
-  
+/* Top section (57%) */
+.top-section {
   position: absolute;
+  height: 57%;
+  z-index: 2;
+  background-color: #000; /* gray-300 */
+  display: flex;
+  align-items: flex-end;
   left: 0;
   right: 0;
-}
-
-.top-section {
   top: 0;
-  height: 57%;
-  display: flex;
-  align-items: end;
-  justify-content: center;
-  padding: 20px;
-  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  padding-left: 5rem;
+  padding-right: 5rem;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 99.5755%, 0% 99.5755%);
 }
 
+/* Bottom section (44%) */
 .bottom-section {
-  bottom: 0;
+  position: absolute;
   height: 44%;
+  background-color: #000; /* gray-300 */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 5rem;
   display: flex;
-  align-items: end;
-  justify-content: center;
-  padding: 20px;
+  align-items: flex-end;
   text-align: center;
-  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  clip-path: polygon(0% 0.4245%, 100% 0.4245%, 100% 100%, 0% 100%);
 }
 
-.logo-container,
-.progress-container,
-.percentage-container {
+/* Logo container */
+.logo-container {
+  text-align: center;
   opacity: 0;
+  width: 100%;
+  position: relative;
+  opacity: 1;
 }
 
+/* Logos wrapper */
 .logos-wrapper {
   overflow: hidden;
   width: 100%;
-  margin-bottom: 1rem;
+  margin-bottom: 2.5rem;
 }
 
 .logos-inner {
   display: flex;
   justify-content: center;
+  width: 100%;
+}
+
+/* Individual logos */
+.logo-left,
+.logo-center,
+.logo-right {
+  display: inline-flex;
   align-items: center;
 }
 
-.progress-container {
-  height: 1px;
+.logo-center{
   position: relative;
-  margin-top: 1rem;
+  margin-right: 0.5rem;
+}
+
+/* Progress container */
+.progress-container {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  height: 0.15rem;
+  opacity: 1;
 }
 
 .progress-track {
@@ -94,247 +118,201 @@ const { title } = Astro.props;
   background-color: rgba(205, 205, 205, 0.65);
 }
 
+/* Progress bar */
 .progress-bar {
   width: 100%;
   height: 100%;
   position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #fff;
   transform-origin: left;
   transform: scaleX(0);
-  background-color: #fff;
 }
 
-.percentage-text {
+/* Percentage container */
+.percentage-container{
+  overflow: hidden;
+  width: 100%;
+  opacity: 1;
+}
+
+/* Percentage text */
+.percentage-text, #percentageText{
   font-size: 1.5rem;
-  font-weight: 500;
+  font-weight: 300;
+  color: #fff;
 }
 
-.text {
-  font-size: 1.5rem;
-  font-weight: 700;
+.text-logo-preload {
+  font-size: 4rem;
+  color: white;
+  font-family: 'Terra';
 }
-
-.percentage-text{
-color: #fff;
-}
-
-
 	</style>
-	 <body>
- <div 
-  id="preloader"
-  class="preloader-container"
-  style="background-color: #ffffff;"
->
-  <!-- TOP: 57% -->
-  <div 
-    id="topSection"
-    class="top-section"
-    style="background-color:#000"
-  >
-    <div id="logoContainer" class="logo-container">
-      <div class="logos-wrapper">
-        <div class="logos-inner">
+	<body>
+		<div 
+			id="preloader"
+			class="preloader-container"
+      style="background-color: #fff;"
+		>
+			<!-- TOP: 57% -->
+			<span id="topSection" class="top-section">
+				<div id="logoContainer" class="logo-container">
+					<div class="logos-wrapper">
+						<div class="logos-inner">
+							<!-- Logo izquierdo -->
+							<div id="logoLeft" class="logo-left">
+							  <span class="text-logo-preload">va</span>
+							</div>
 
-          <!-- Izquierdo -->
-          <div id="logoLeft" class="logo-left">
-           <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 152" width="220" height="152">
-            <style>
-              .s0 { fill: none } 
-              .s1 { fill: #ffffff;stroke: #ffffff } 
-            </style>
-            <path id="backgroundrect" fill-rule="evenodd" class="s0" d="m598 0v152h-599v-152z"/>
-              <g id="Capa_5">
-                <path id="svg_4" class="s1" d="m71 71.38l-12.91-2v-18.14h51.64v18.1l-12.91 2-30.12 80.43h-23.67l-30.12-80.43-12.91-2v-18.1h51.64v18.1l-12.91 2 16.13 46.25z"/>
-              </g>
-              <g id="Capa_4">
-                <path id="svg_5" class="s1" d="m162.42 51.24c18.29 0 31.2 12.87 31.2 29.16v51.28l12.91 2v18.09h-65.61c-20.22 0-31.19-11.46-31.19-29.15 0-13.28 10.54-24.74 24.74-28.16l33.35-7.84v-5.23c0-4.22-3.23-8-7.53-8h-20.44l-2.15 12.06h-19.37v-34.21zm-18.29 78.42h23.69v-21.08l-25.82 5.66c-3.66 0.8-6.45 3.42-6.45 7.44 0.02 1.1 0.27 2.17 0.72 3.17 0.44 1 1.09 1.9 1.89 2.65 0.8 0.75 1.74 1.33 2.77 1.7 1.03 0.38 2.13 0.54 3.22 0.49z"/>
-              </g>
-              
-            </g>
-          </svg>
-          </div>
+							<!-- Logo central -->
+							<div id="logoCenter" class="logo-center">
+								 <span class="text-logo-preload"> /</span>
+							</div>
 
-          <!-- Centro -->
-          <div id="logoCenter" class="logo-center">
-            <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 152" width="70" height="152">
-            <style>
-              .s0 { fill: none } 
-              .s1 { fill: #ffffff;stroke: #ffffff } 
-            </style>
-            <path id="backgroundrect" fill-rule="evenodd" class="s0" d="m333 0v152h-599v-152z"/>
-            <g>
-              <g id="Capa_3">
-                <path id="svg_6" fill-rule="evenodd" class="s1" d="m42.47 5l-41.89 145.21h25.14l40.51-145.21h-23.76z"/>
-              </g>
-            </g>
-          </svg>
-          </div>
+							<!-- Logo derecho -->
+							<div id="logoRight" class="logo-right">
+							  <span class="text-logo-preload">dev</span>
+							</div>
+						</div>
+					</div>
 
-          <!-- Derecho -->
-          <div id="logoRight" class="logo-right">
-            <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 152" width="320" height="152">
-            <style>
-              .s0 { fill: none } 
-              .s1 { fill: #ffffff;stroke: #ffffff } 
-            </style>
-            <path id="backgroundrect" fill-rule="evenodd" class="s0" d="m-279 0h599v152h-599z"/>
-            <g>
-              <g id="Capa_8">
-                <path id="svg_1" class="s1" d="m55.5 150.81c-22.38 0-41.74-17.29-41.74-38.2v-33.18c0-16.29 13.55-29.16 31.2-29.16h26.89v-30.16l-12.91-2v-18.1h38.73v130.7l12.91 2v18.09zm16.35-22.12v-56.3h-24.74c-4.31 0-13 5.57-13 9.8v27.92c0 8.05 2.79 19.55 21.55 18.58z"/>
-              </g>
-              <g id="Capa_7">
-                <path id="svg_2" class="s1" d="m158.06 151.81c-22.38 0-40.88-17.29-40.88-38.2v-33.18c0-16.29 12.91-29.16 30.12-29.16h21.52c18.93 0 32.27 12.07 32.27 29.16 0 17.09-13.34 26.14-26.89 29.16l-31.2 7c0.86 8.45 6.88 13.07 15.06 13.07h38.73v22.12zm-7.53-78.42c-4.3 0-7.53 3-7.53 7v13.07l25.82-6c4.3-1 6.45-3.62 6.45-7 0-4.43-3.23-7-7.53-7z"/>
-              </g>
-              <g id="Capa_6">
-                <path id="svg_3" class="s1" d="m280.69 71.38l-12.91-2v-18.14h51.64v18.1l-12.91 2-30.09 80.47h-23.7l-30.12-80.43-12.91-2v-18.14h51.64v18.1l-12.91 2 16.14 46.25z"/>
-              </g>
-            </g>
-          </svg>
-          </div>
+					<!-- Barra de progreso -->
+					<div id="progressContainer" class="progress-container">
+						<div class="progress-track"></div>
+						<div id="progressBar" class="progress-bar"></div>
+					</div>
+				</div>
+			</span>
 
-        </div>
-      </div>
+			<!-- BOTTOM: 44% -->
+			<span id="bottomSection" class="bottom-section">
+				<div id="percentageContainer" class="percentage-container">
+					<div>(<span id="percentageText">100%</span>)</div>
+				</div>
+			</span>
+		</div>
 
-      <!-- Barra -->
-      <div id="progressContainer" class="progress-container">
-        <div class="progress-track"></div>
-        <div id="progressBar" class="progress-bar"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- BOTTOM: 44% -->
-  <div 
-    id="bottomSection"
-    class="bottom-section"
-    style="background-color:#000"
-  >
-    <div id="percentageContainer" class="percentage-container">
-      <div class="percentage-text">
-        (<span id="percentageText">0%</span>)
-      </div>
-    </div>
-  </div>
-</div>
-		<BlobAnimation client:only/> 
+		<BlobAnimation client:only/>
 		<Header/>
-		 <main class="main">
+		<main class="main">
 			<slot />
-		</main>		
-	  </body>
-  <script >
+		</main>
+	</body>
+	<script>
+		import { gsap } from "gsap/dist/gsap";
 
-  import { gsap } from "gsap/dist/gsap";
+		// refs
+		const container = document.getElementById("preloader");
+		const leftLogo = document.getElementById("logoLeft");
+		const rightLogo = document.getElementById("logoRight");
+		const centerLogo = document.getElementById("logoCenter");
+		const progressBar = document.getElementById("progressBar");
+		const percentageText = document.getElementById("percentageText");
+		const topSection = document.getElementById("topSection");
+		const bottomSection = document.getElementById("bottomSection");
+		const logoContainer = document.getElementById("logoContainer");
+		const progressContainer = document.getElementById("progressContainer");
+		const percentageContainer = document.getElementById("percentageContainer");
 
-  // refs
-  const container = document.getElementById("preloader");
-  const leftLogo = document.getElementById("logoLeft");
-  const rightLogo = document.getElementById("logoRight");
-  const centerLogo = document.getElementById("logoCenter");
-  const progressBar = document.getElementById("progressBar");
-  const percentageText = document.getElementById("percentageText");
-  const topSection = document.getElementById("topSection");
-  const bottomSection = document.getElementById("bottomSection");
-  const logoContainer = document.getElementById("logoContainer");
-  const progressContainer = document.getElementById("progressContainer");
-  const percentageContainer = document.getElementById("percentageContainer");
+		const animationConfig = {
+			showAnimation: { duration: 0.8, ease: "power3.inOut" },
+			revealIntro: { duration: 2, ease: "expo.inOut" },
+			hideAnimation: { duration: 0.5, ease: "expo.inOut" }
+		};
 
-  const animationConfig = {
-    showAnimation: { duration: 0.8, ease: "power3.inOut" },
-    revealIntro: { duration: 2, ease: "expo.inOut" },
-    hideAnimation: { duration: 0.5, ease: "expo.inOut" }
-  };
+		function start() {
+			// Los elementos ya tienen opacity: 1 desde el CSS, pero mantenemos la animación inicial
+			gsap.to([logoContainer, progressContainer, percentageContainer], {
+				opacity: 1,
+				duration: animationConfig.showAnimation.duration,
+				ease: animationConfig.showAnimation.ease,
+				delay: 0.2
+			});
 
-  function start() {
-    gsap.to([logoContainer, progressContainer, percentageContainer], {
-      opacity: 1,
-      duration: animationConfig.showAnimation.duration,
-      ease: animationConfig.showAnimation.ease,
-      delay: 0.2
-    });
+			const progress = { value: 0 };
 
-    const progress = { value: 0 };
+			gsap.to(progress, {
+				value: 100,
+				duration: 2,
+				delay: 0.5,
+				ease: "power2.out",
+				onUpdate: () => {
+					const v = progress.value / 100;
+					gsap.set(progressBar, { scaleX: v });
 
-    gsap.to(progress, {
-      value: 100,
-      duration: 2,
-      delay: 0.5,
-      ease: "power2.out",
-      onUpdate: () => {
-        const v = progress.value / 100;
-        gsap.set(progressBar, { scaleX: v });
+					if (percentageText) {
+						percentageText.textContent = `${Math.round(progress.value)}%`;
+					}
+				},
+				onComplete: introAnimation
+			});
+		}
 
-        if (percentageText) {
-          percentageText.textContent = `${Math.round(progress.value)}%`;
-        }
-      },
-      onComplete: introAnimation
-    });
-  }
+		function introAnimation() {
+			gsap.delayedCall(0.3, () => {
+				const tl = gsap.timeline({
+					onComplete: () => { gsap.delayedCall(0.5, exitAnimation); }
+				});
 
-  function introAnimation() {
-    gsap.delayedCall(0.3, () => {
-      const tl = gsap.timeline({
-        onComplete: () => { gsap.delayedCall(0.5, exitAnimation); }
-      });
+				tl.to(leftLogo, {
+					x: -500,
+					duration: animationConfig.revealIntro.duration,
+					ease: animationConfig.revealIntro.ease
+				});
 
-      tl.to(leftLogo, {
-        x: -500,
-        duration: animationConfig.revealIntro.duration,
-        ease: animationConfig.revealIntro.ease
-      });
+				tl.to(
+					rightLogo,
+					{
+						x: 500,
+						duration: animationConfig.revealIntro.duration,
+						ease: animationConfig.revealIntro.ease
+					},
+					0
+				);
 
-      tl.to(
-        rightLogo,
-        {
-          x: 500,
-          duration: animationConfig.revealIntro.duration,
-          ease: animationConfig.revealIntro.ease
-        },
-        0
-      );
+				tl.to(
+					centerLogo,
+					{
+						opacity: 0,
+						duration: animationConfig.revealIntro.duration * 0.5,
+						ease: "power2.out"
+					},
+					animationConfig.revealIntro.duration * 0.5
+				);
+			});
+		}
 
-      tl.to(
-        centerLogo,
-        {
-          opacity: 0,
-          duration: animationConfig.revealIntro.duration * 0.5,
-          ease: "power2.out"
-        },
-        animationConfig.revealIntro.duration * 0.5
-      );
-    });
-  }
+		function exitAnimation() {
+			const tl = gsap.timeline({
+				onComplete: () => {
+					gsap.set(container, { autoAlpha: 0 });
 
-  function exitAnimation() {
-    const tl = gsap.timeline({
-      onComplete: () => {
-        gsap.set(container, { autoAlpha: 0 });
+					// Evento personalizado equivalente a onFinish()
+					window.dispatchEvent(new Event("preloader:finish"));
+				}
+			});
 
-        // Evento personalizado equivalente a onFinish()
-        window.dispatchEvent(new Event("preloader:finish"));
-      }
-    });
+			tl.to(topSection, {
+				clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
+				duration: animationConfig.hideAnimation.duration,
+				ease: animationConfig.hideAnimation.ease
+			});
 
-    tl.to(topSection, {
-      clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
-      duration: animationConfig.hideAnimation.duration,
-      ease: animationConfig.hideAnimation.ease
-    });
+			tl.to(
+				bottomSection,
+				{
+					clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+					duration: animationConfig.hideAnimation.duration,
+					ease: animationConfig.hideAnimation.ease
+				},
+				0
+			);
 
-    tl.to(
-      bottomSection,
-      {
-        clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
-        duration: animationConfig.hideAnimation.duration,
-        ease: animationConfig.hideAnimation.ease
-      },
-      0
-    );
+			tl.to(container, { opacity: 0, duration: 0.5 });
+		}
 
-    tl.to(container, { opacity: 0, duration: 0.5 });
-  }
-
-  start();
-  </script>
+		start();
+	</script>
 </html>
