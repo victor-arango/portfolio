@@ -1,0 +1,58 @@
+---
+
+import LogoVA from "../../src/assets/logovaDEV.svg";
+
+---
+<section class="section section_footer">
+     <span class="text-footer-principal">Transforming ideas into exceptional digital experiences through expertise and innovation</span>
+   
+     <div class="logoFooter watermark">
+          <img src={LogoVA.src} alt="" />
+        </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+import ScrollTrigger from "gsap/dist/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+const tl = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".section_footer",
+    start: "top 50%",
+    end: "top 0%",
+    scrub: 1.2,
+    // markers: true,
+  }
+});
+
+
+tl.fromTo('.section_footer',{
+  backgroundColor: "transparent"
+},{
+  backgroundColor: "rgb(39, 39, 39)",
+  duration: 0.8,
+  ease: "sine.inOut",
+})
+
+
+tl.fromTo(
+  ".logoFooter img",
+  {
+    y: 500,
+    opacity: 0,
+    scale: 0.95
+  },
+  {
+    y: -200,
+    opacity: 1,
+    scale: 1,
+    ease: "power3.out"
+  },
+  1.5
+);
+
+
+
+</script>

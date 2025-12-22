@@ -28,6 +28,7 @@
     --stroke-color: #000;
     --color-button-animation: #fff;
     --color-button-animation-hover:#000;
+    --background-color-dark-opacity: rgb(30,30,30,1);
    
 
 
@@ -101,6 +102,7 @@ body.dark-theme{
     --stroke-color: #fff;
     --color-button-animation: #000;
     --color-button-animation-hover:#fff;
+    --background-color-dark-opacity: rgb(30,30,30,1);
 
 
 }
@@ -176,20 +178,16 @@ svg{
 
 
 .section{
-    width: 70%;
-    padding: 2rem 0 4rem;
+    width: 100%;
+    padding: 1rem 4rem;
 }
 
 .main{
     height: auto;
     background: rgba(255, 255, 255, 0.055);
-  
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(4px);
-
-    
-   padding: 0.1rem;
 
 }
 /* =========   contenido ============ */
@@ -460,7 +458,7 @@ svg{
     }
 
     .section{
-        padding: 6rem 0 2rem;
+        padding: 6rem  6rem;
     }
 
 
@@ -534,7 +532,7 @@ svg{
     right: 0;
     height: 100vh;
     width: 100vw;
-    background-color: black;
+    background-color: var( --background-color-dark-opacity);
     list-style-type: none;
     padding: 0;
     margin: 0;
@@ -612,7 +610,7 @@ svg{
 
 
 .home_intro {
-    width: 90%;
+    width: 100%;
     padding-top: 2rem;
     padding-bottom: 0rem;
     position: relative;
@@ -637,7 +635,6 @@ svg{
     -ms-flex-pack: center;
     justify-content: center;
     margin: 0 auto;
-    padding: 0px 30px; 
     grid-column-gap: 3.4375rem;
     grid-row-gap: 1.5rem;
 }
@@ -851,6 +848,7 @@ button {
 
 
   .tech-slider {
+    width: 100%;
     position: relative;
     overflow-x: hidden;
     padding: 2rem 0;
@@ -926,3 +924,39 @@ button {
       animation-duration: 50s;
     }
   }
+
+.section_footer{
+width: 100%;
+height: 100vh;
+overflow: hidden;
+position: relative;
+will-change: background-color, transform;
+}
+
+.text-footer-principal{
+    font-size: 1.5em;
+}
+
+.logoFooter {
+
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  opacity: 0.2;
+  position: absolute;
+  cursor: default;
+  user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  overflow: hidden;
+
+}
+.logoFooter svg{
+    stroke: #fff;
+    fill: #fff;
+    background-color: transparent;
+}
+
