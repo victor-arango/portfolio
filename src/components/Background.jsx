@@ -15,7 +15,7 @@ const BlobAnimation = () => {
     const container = document.querySelector('.container-blobs');
 
     const random = gsap.utils.random;
-    const employeeSize = 40;
+    const employeeSize = 1000;
 
     function randx() {
       return Math.floor(gsap.utils.random(0, window.innerWidth - employeeSize));
