@@ -3,56 +3,120 @@
 import LogoVA from "../../src/assets/logovaDEV.svg";
 
 ---
-<section class="section section_footer">
-     <span class="text-footer-principal">Transforming ideas into exceptional digital experiences through expertise and innovation</span>
-   
-     <div class="logoFooter watermark">
-          <img src={LogoVA.src} alt="" />
+
+    <footer class="footer section_footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-cta">
+                    <h2 class="footer-heading">
+                      
+                        Transforming ideas into exceptional  <span class="italic">digital</span><br>
+                         experiences through expertise and innovation
+                    </h2>
+                    <button class="cta-button">
+                        Stuur een mail
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <nav class="footer-nav">
+                    <div class="nav-column">
+                        <h3 class="nav-title">Menu</h3>
+                        <ul class="nav-links">
+                            <li><a href="#home">Home</a></li>
+                            <li><a href="#work">Werk</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="nav-column">
+                        <h3 class="nav-title">Socials</h3>
+                        <ul class="nav-links">
+                            <li><a href="#linkedin">Linkedin</a></li>
+                            <li><a href="#instagram">Instagram</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="nav-column">
+                        <h3 class="nav-title">Contact</h3>
+                        <ul class="nav-links">
+                            <li><a href="mailto:victorarango.dev@gmail.com">victorarango.dev@gmail.com</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+
+            <div class="footer-brand">
+                <div class="brand-text">va dev</div>
+                <div class="brand-dot"></div>
+            </div>
         </div>
-</section>
+    </footer>
+<!-- <section class="section section_footer">
+  <div class="title-footer">
+    <span class="text-footer-principal">Transforming ideas into exceptional digital experiences through expertise and innovation</span>
+   <span class="line-separator">
+    <span class="line"></span>
+  </span>
+
+  </div>
+     <div class="logoFooter watermark">
+         <LogoVA class:list={"footer-logo"} />
+    </div>
+</section> -->
 
 <script>
   import { gsap } from "gsap";
-import ScrollTrigger from "gsap/dist/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+  import ScrollTrigger from "gsap/dist/ScrollTrigger";
+  import { SplitText } from "gsap/dist/SplitText";
+  gsap.registerPlugin(SplitText);
+  gsap.registerPlugin(ScrollTrigger);
 
 const tl = gsap.timeline({
   scrollTrigger: {
     trigger: ".section_footer",
-    start: "top 50%",
-    end: "top 0%",
-    scrub: 1.2,
-    // markers: true,
+    start: "top 30%",
+    end: "top 40%",
+    markers: true,
   }
 });
 
 
-tl.fromTo('.section_footer',{
-  backgroundColor: "transparent"
-},{
-  backgroundColor: "rgb(39, 39, 39)",
-  duration: 0.8,
-  ease: "sine.inOut",
-})
-
-
 tl.fromTo(
-  ".logoFooter img",
+  ".brand-text",
   {
     y: 500,
     opacity: 0,
-    scale: 0.95
+    scale: 0.95,
+    ease:"power3.in"
   },
   {
-    y: -200,
+    y: 0,
     opacity: 1,
     scale: 1,
-    ease: "power3.out"
+    ease: "power3.out",
+    color: "var(--stroke-color)",
+    // delay:1
   },
-  1.5
+  0.2
 );
 
 
+  tl.fromTo(".footer-heading",{
+      opacity:0,
+      stagger: 0.1,
+      ease: "rough.out",
+    },
+    {
+       duration: 0.9,
+        opacity: 1,
+       
+        stagger: 0.1,
+        ease: "rough.in",
+    }
+  ),
+  0.2
 
 </script>

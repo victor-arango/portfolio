@@ -21,7 +21,7 @@
     --text-color-light:hsl(var(--hue-color), 8%, 65%);
     --input-color: hsl(var(--hue-color), 7%, 96%);
     --body-color: hsl(var(--hue-color), 33%, 100%);
-    /* --body-color: hsl(var(--hue-color), 60%, 99%); */
+    --body-color: hsl(var(--hue-color), 60%, 99%);
     --container-color: #fff;
     --scroll-bar-color: hsl(var(--hue-color), 12%, 90%);
     --scroll-thumb-color: hsl(var(--hue-color), 12%, 80%);
@@ -928,11 +928,235 @@ button {
 .section_footer{
 width: 100%;
 height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
 overflow: hidden;
 position: relative;
 will-change: background-color, transform;
 }
 
+
+/* Footer styles */
+.footer {
+  padding: 5rem 2rem 2rem;
+  position: relative;
+}
+
+.footer-container {
+ padding: 0 2rem ; 
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  margin-bottom: 4rem;
+  align-items: start;
+}
+
+/* Footer CTA Section */
+.footer-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.footer-heading {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 600;
+  line-height: 1.2;
+  color: #1a1a1a;
+}
+
+.footer-heading .italic {
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Footer Navigation */
+.footer-nav {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+}
+
+.nav-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.nav-title {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #999;
+  margin-bottom: 0.5rem;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.nav-links a {
+  font-size: 1rem;
+  color: #1a1a1a;
+}
+
+/* CTA Button */
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.75rem;
+  background-color: #1a1a1a;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: fit-content;
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  opacity: 1;
+}
+
+/* Footer Brand Section */
+.footer-brand {
+  position: relative;
+  padding-top: 2rem;
+}
+
+.brand-text { 
+  font-family: 'Terra';
+  font-size: clamp(4rem, 15vw, 12rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #1a1a1a;
+  line-height: 0.9;
+}
+
+.brand-dot {
+  position: absolute;
+  top: 35%;
+  right: 8%;
+  width: 12px;
+  height: 12px;
+  background-color: #1a1a1a;
+  border-radius: 50%;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .footer-top {
+    gap: 3rem;
+  }
+
+  .footer-nav {
+    gap: 2rem;
+  }
+
+  .brand-text {
+    font-size: clamp(3rem, 12vw, 8rem);
+  }
+
+  .brand-dot {
+    right: 5%;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 2rem 1.5rem 1.5rem;
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  .footer-nav {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .nav-column:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .footer-heading {
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+  }
+
+  .brand-text {
+    font-size: clamp(2.5rem, 10vw, 6rem);
+  }
+
+  .brand-dot {
+    width: 10px;
+    height: 10px;
+    top: 30%;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 1.5rem 1rem 1rem;
+  }
+
+  .footer-top {
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .footer-nav {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .nav-column {
+    gap: 0.75rem;
+  }
+
+  .nav-title {
+    font-size: 0.875rem;
+  }
+
+  .nav-links a {
+    font-size: 0.875rem;
+  }
+
+  .footer-heading {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .cta-button {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .brand-text {
+    font-size: clamp(2rem, 11vw, 4rem);
+  }
+
+  .brand-dot {
+    width: 8px;
+    height: 8px;
+    top: 25%;
+    right: 5%;
+  }
+}
+
+/* 
 .text-footer-principal{
     font-size: 1.5em;
 }
@@ -943,6 +1167,7 @@ will-change: background-color, transform;
   height: 100vh;
   display: flex;
   justify-content: center;
+  align-items: center;
   opacity: 0.2;
   position: absolute;
   cursor: default;
@@ -954,9 +1179,27 @@ will-change: background-color, transform;
   overflow: hidden;
 
 }
-.logoFooter svg{
-    stroke: #fff;
-    fill: #fff;
-    background-color: transparent;
+
+.title-footer{
+    position: relative;
+    display: flex;
+    width: 100%;
+    min-height: 90px;
 }
 
+.line-separator {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 0.2px;
+    overflow: hidden;
+}
+
+.line {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  transform: scaleX(0);
+  transform-origin: left center;
+} */
