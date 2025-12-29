@@ -10,7 +10,15 @@ import LogoVA from "../../src/assets/logovaDEV.svg";
                 <div class="footer-cta">
                     <h2 class="footer-heading">
                       
-                        Transforming ideas into exceptional  <span class="italic">digital</span><br>
+                        Transforming ideas into exceptional
+                        <span class="italic effect">d</span>
+                        <span class="italic effect">i</span>
+                        <span class="italic effect">g</span>
+                        <span class="italic effect">i</span>
+                        <span class="italic effect">t</span>
+                        <span class="italic effect">a</span>
+                        <span class="italic effect">l</span>
+                        <br>
                          experiences through expertise and innovation
                     </h2>
                     <button class="cta-button">
@@ -62,11 +70,14 @@ import LogoVA from "../../src/assets/logovaDEV.svg";
   gsap.registerPlugin(SplitText);
   gsap.registerPlugin(ScrollTrigger);
 
+  let split = SplitText.create(".effect", {type:"words, chars"})
+
 const tl = gsap.timeline({
   scrollTrigger: {
     trigger: ".section_footer",
-    start: "top 30%",
-    end: "top 40%",
+    start: "top 70%",
+    end: "top 100%",
+     toggleActions: "play none none reset",
   }
 });
 
@@ -77,15 +88,14 @@ tl.fromTo(
     y: 500,
     opacity: 0,
     scale: 0.95,
-    ease:"power3.in"
+    ease:"rough.in"
   },
   {
-    y: 0,
+    y: 20,
     opacity: 1,
     scale: 1,
-    ease: "power3.out",
+    ease: "rough.in",
     color: "var(--stroke-color)",
-    // delay:1
   },
   0.2
 );
@@ -105,5 +115,35 @@ tl.fromTo(
     }
   ),
   0.2
+
+  tl.fromTo(".cta-button",{
+      opacity:0,
+      x:-200,
+    },
+    {
+      duration: 0.2,
+      opacity: 1,
+      x:0,
+      ease: "power4.in",
+    },
+    0.5
+  )
+
+gsap.from(split.chars, {
+ autoAlpha: 0,
+ delay:0.5,
+      scale: 4,
+      duration: 1,
+      ease: "power4.inOut",
+      scrollTrigger: {
+    trigger: ".section_footer",
+    start: "top 70%",
+    end: "top 100%",
+    markers: true,
+    toggleActions: "play none none reset",
+  }
+});
+
+
 
 </script>

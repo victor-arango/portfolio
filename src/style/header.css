@@ -1082,6 +1082,8 @@ will-change: background-color, transform;
 .footer-heading .italic {
   font-style: italic;
   font-weight: 400;
+  will-change: transform, opacity;
+  letter-spacing: -12px;
 }
 
 /* Footer Navigation */
