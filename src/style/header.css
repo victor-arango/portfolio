@@ -179,7 +179,7 @@ svg{
 
 .section{
     width: 100%;
-    padding: 1rem 4rem;
+    padding: 1rem 1rem;
 }
 
 .main{
@@ -928,17 +928,7 @@ button {
 .about-section {
   width: 100%;
   min-height: 100vh;
-  padding: clamp(3rem, 8vw, 6rem) clamp(1.5rem, 5vw, 4rem);
 }
-/* 
-.about-container {
-  max-width: 1400px;
-  margin: 0 auto;
-
-  grid-template-columns: 1fr 2fr;
-  gap: clamp(2rem, 5vw, 4rem);
-  align-items: start;
-} */
 
 .about-left {
   display: flex;
@@ -1017,9 +1007,7 @@ button {
 }
 
 @media (max-width: 480px) {
-  .about-section {
-    padding: 2rem 1.25rem;
-  }
+
 
   .about-content {
     gap: 2.5rem;
@@ -1047,15 +1035,11 @@ will-change: background-color, transform;
 }
 
 
-/* Footer styles */
+
 .footer {
-  padding: 5rem 2rem 2rem;
   position: relative;
 }
 
-.footer-container {
- padding: 0 2rem ; 
-}
 
 .footer-top {
   display: grid;
@@ -1184,9 +1168,7 @@ will-change: background-color, transform;
 }
 
 @media (max-width: 768px) {
-  .footer {
-    padding: 2rem 1.5rem 1.5rem;
-  }
+ 
 
   .footer-top {
     grid-template-columns: 1fr;
@@ -1219,9 +1201,7 @@ will-change: background-color, transform;
 }
 
 @media (max-width: 480px) {
-  .footer {
-    padding: 1.5rem 1rem 1rem;
-  }
+
 
   .footer-top {
     gap: 2rem;
