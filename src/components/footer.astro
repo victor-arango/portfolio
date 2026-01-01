@@ -141,5 +141,71 @@ gsap.from(split.chars, {
 });
 
 
+gsap.from(split.chars, {
+ autoAlpha: 0,
+ delay:0.5,
+      scale: 4,
+      duration: 1,
+      ease: "power4.inOut",
+      scrollTrigger: {
+    trigger: ".section_footer",
+    start: "top 70%",
+    end: "top 100%",
+    toggleActions: "play none none reset",
+  }
+});
+
+gsap.fromTo(".nav-column", {
+  opacity: 0,
+  y: 40,
+  scale: 0.98,
+}, {
+  opacity: 1,
+  y: 0,
+  scale: 1,
+  duration: 0.8,
+  stagger: 0.15,
+  ease: "power3.out",
+  scrollTrigger: {
+    trigger: ".section_footer",
+    start: "top 70%",
+    end: "top 100%",
+    toggleActions: "play none none reset",
+  }
+});
+
+gsap.from(splitMenuItems.chars, {
+  autoAlpha: 0,
+  y: 20,
+  duration: 0.6,
+  stagger: 0.03,
+  ease: "power2.out",
+  scrollTrigger: {
+    trigger: ".section_footer",
+    start: "top 70%",
+    end: "top 100%",
+    toggleActions: "play none none reset",
+  }
+});
+
+// Animación para los enlaces de navegación
+gsap.fromTo(".nav-links li", {
+  opacity: 0,
+  x: -15,
+}, {
+  opacity: 1,
+  x: 0,
+  duration: 1,
+  stagger: 0.08,
+  ease: "power2.out",
+  scrollTrigger: {
+    trigger: ".section_footer",
+    start: "top 70%",
+    end: "top 100%",
+    toggleActions: "play none none reset",
+  }
+});
+
+
 
 </script>

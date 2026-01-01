@@ -89,23 +89,34 @@ import Marquee from "./Marquee.astro";
       });
       
 
-//Animation container video
-    gsap.set(videAnimation, {
-      opacity:0,
-      x:10,
-      stagger: 0.1,
-      ease: "rough.out",
-    });
+gsap.set(videAnimation, {
+  opacity: 0,
+  scale: 0.8,
+  rotationY: 15,
+  transformOrigin: "center center",
+  ease: "power2.out",
+});
 
-    gsap.to(videAnimation,{
-      duration: 0.5,
-      delay:6.0,
-      opacity:1,
-      x: -10,
-      stagger:0.5,
-      ease:"rough.in",
-    })
-
+gsap.to(videAnimation, {
+  duration: 1.2,
+  delay: 6.0,
+  opacity: 1,
+  scale: 1,
+  rotationY: 0,
+  ease: "power3.out",
+  onStart: () => {
+    gsap.fromTo(videAnimation, 
+      {
+        clipPath: "inset(10% 10% 10% 10% round 20px)"
+      },
+      {
+        clipPath: "inset(0% 0% 0% 0% round 0px)",
+        duration: 1.2,
+        ease: "power2.out"
+      }
+    );
+  }
+});
 
 //Animation button 
     gsap.set(buttonAnimation, {
