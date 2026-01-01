@@ -1,7 +1,4 @@
 ---
-
-import LogoVA from "../../src/assets/logovaDEV.svg";
-
 ---
 
     <footer class="footer section_footer">
@@ -58,7 +55,6 @@ import LogoVA from "../../src/assets/logovaDEV.svg";
 
             <div class="footer-brand">
                 <div class="brand-text">va dev</div>
-                <div class="brand-dot"></div>
             </div>
         </div>
     </footer>
@@ -71,6 +67,7 @@ import LogoVA from "../../src/assets/logovaDEV.svg";
   gsap.registerPlugin(ScrollTrigger);
 
   let split = SplitText.create(".effect", {type:"words, chars"})
+  let splitMenuItems = SplitText.create(".nav-title", {type:"words, chars"})
 
 const tl = gsap.timeline({
   scrollTrigger: {
@@ -91,7 +88,7 @@ tl.fromTo(
     ease:"rough.in"
   },
   {
-    y: 20,
+    y: -50,
     opacity: 1,
     scale: 1,
     ease: "rough.in",
@@ -139,7 +136,6 @@ gsap.from(split.chars, {
     trigger: ".section_footer",
     start: "top 70%",
     end: "top 100%",
-    markers: true,
     toggleActions: "play none none reset",
   }
 });

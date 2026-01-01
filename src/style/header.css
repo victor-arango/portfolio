@@ -1086,7 +1086,7 @@ will-change: background-color, transform;
   letter-spacing: -12px;
 }
 
-/* Footer Navigation */
+
 .footer-nav {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1104,6 +1104,7 @@ will-change: background-color, transform;
   font-weight: 400;
   color: #999;
   margin-bottom: 0.5rem;
+  will-change: transform;
 }
 
 .nav-links {
@@ -1154,7 +1155,6 @@ will-change: background-color, transform;
   font-weight: 900;
   letter-spacing: -0.02em;
   color: #1a1a1a;
-  line-height: 0.9;
 }
 
 .brand-dot {
@@ -1179,10 +1179,7 @@ will-change: background-color, transform;
 
   .brand-text {
     font-size: clamp(3rem, 12vw, 8rem);
-  }
-
-  .brand-dot {
-    right: 5%;
+  
   }
 }
 
@@ -1209,16 +1206,16 @@ will-change: background-color, transform;
   .footer-heading {
     font-size: clamp(1.75rem, 5vw, 2.5rem);
   }
+  .footer-heading .italic{
+     letter-spacing: -6px;
+
+  }
+
 
   .brand-text {
     font-size: clamp(2.5rem, 10vw, 6rem);
   }
 
-  .brand-dot {
-    width: 10px;
-    height: 10px;
-    top: 30%;
-  }
 }
 
 @media (max-width: 480px) {
@@ -1252,6 +1249,10 @@ will-change: background-color, transform;
     font-size: 1.5rem;
     margin-bottom: 1rem;
   }
+.footer-heading .italic{
+     letter-spacing: -6px;
+
+  }
 
   .cta-button {
     padding: 0.875rem 1.5rem;
@@ -1262,11 +1263,5 @@ will-change: background-color, transform;
     font-size: clamp(2rem, 11vw, 4rem);
   }
 
-  .brand-dot {
-    width: 8px;
-    height: 8px;
-    top: 25%;
-    right: 5%;
-  }
 }
 
