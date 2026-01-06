@@ -504,7 +504,7 @@ svg{
     
 
 } 
-@media (max-width: 767px){
+ @media screen and (max-width: 767px){
     
     .intro--options {
         width: 100%;
@@ -600,7 +600,7 @@ svg{
 
 
 
-@media (max-width: 767px) {
+@media screen and (max-width: 767px) {
    
 
     .intro--options {
@@ -721,7 +721,7 @@ button {
 }
 
 
-@media (hover: hover) {
+ @media screen and (hover: hover) {
   .button.button--stroke:hover {
     color: var(--color-button-animation);
     text-decoration: none;
@@ -782,7 +782,7 @@ button {
   width: 170%;
 }
 
-@media screen and (max-width: 991px) {
+ @media screen and (max-width: 991px) {
    
    
 
@@ -918,56 +918,91 @@ button {
     animation-play-state: paused;
   }
 
-  @media (min-width: 768px) {
+ @media screen and (min-width: 768px) {
     .tech-slider__track {
       gap: 5rem;
       animation-duration: 50s;
     }
   }
 
-.about-section {
-  width: 100%;
-  min-height: 100vh;
+.about-section{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    justify-content: space-between;
+    align-items: start;
+    width: 100%;
+   overflow: hidden;
 }
 
-.about-left {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+.about-container{
+    grid-column-gap: 0rem;
+    grid-row-gap: 6rem;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 1.5fr;
+    grid-auto-columns: 1fr;
+    align-items: start;
+    display: grid
+    
 }
-
-.about-label {
-  padding-top: 0.5rem;
-}
-
-.about-label span {
-  font-size: clamp(0.75rem, 1.5vw, 0.875rem);
-  color: #999;
-  letter-spacing: 0.1em;
-  font-weight: 400;
-}
-
 .about-content {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(3rem, 6vw, 5rem);
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: start;
+    -webkit-justify-content: start;
+    -ms-flex-pack: start;
+    justify-content: start;
+    margin: 0 auto;
+    grid-column-gap: 3.4375rem;
+    grid-row-gap: 1.5rem;
 }
 
-.about-heading {
-  font-size: clamp(1.5rem, 3.5vw, 2.75rem);
-  font-weight: 400;
-  line-height: 1.4;
-  color: #2d2d2d;
-  letter-spacing: -0.01em;
+.about-left{
+    width: 100%;
+    height: 28.75rem;
+    background-position: 50% 100%;
+    position: relative;
 }
 
+
+ @media screen and (max-width: 991px) {
+    .about-container {
+        grid-column-gap: 4rem;
+        grid-row-gap: 4rem
+    }
+}
+
+
+@media screen and (max-width: 767px) {
+
+    .about-content {
+        margin-right: auto
+    }
+
+    .about-container {
+        grid-column-gap: 2rem;
+        grid-row-gap: 2rem;
+        flex-direction: column;
+        display: flex
+    }
+
+}
 .timeline {
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: relative;
   width: 100%;
-  max-width: 800px;
 }
 
 
@@ -985,43 +1020,7 @@ button {
   height: 100%;
   object-fit: cover;
   display: block;
-}
-
-@media (max-width: 768px) {
-  /* .about-container {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  } */
-
-  .about-label {
-    padding-top: 0;
-  }
-
-  .about-image {
-    max-width: 100%;
-  }
-
-  .timeline {
-    margin-top: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-
-
-  .about-content {
-    gap: 2.5rem;
-  }
-
-  .timeline-label {
-    font-size: 0.75rem;
-  }
-
-  .timeline-dot {
-    width: 10px;
-    height: 10px;
-  }
-}
+} 
 
 .section_footer{
 width: 100%;
@@ -1152,7 +1151,7 @@ will-change: background-color, transform;
 }
 
 /* Responsive Design */
-@media (max-width: 1024px) {
+ @media screen and (max-width: 1024px) {
   .footer-top {
     gap: 3rem;
   }
@@ -1167,7 +1166,7 @@ will-change: background-color, transform;
   }
 }
 
-@media (max-width: 768px) {
+@media screen and  (max-width: 768px) {
  
 
   .footer-top {
@@ -1200,7 +1199,7 @@ will-change: background-color, transform;
 
 }
 
-@media (max-width: 480px) {
+ @media screen and (max-width: 480px) {
 
 
   .footer-top {
