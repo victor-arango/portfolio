@@ -932,7 +932,8 @@ button {
     justify-content: space-between;
     align-items: start;
     width: 100%;
-   overflow: hidden;
+
+    height: 100vh;
 }
 
 .about-container{
@@ -942,7 +943,9 @@ button {
     grid-template-columns: 1fr 1.5fr;
     grid-auto-columns: 1fr;
     align-items: start;
-    display: grid
+    display: grid; 
+    overflow: hidden;
+    margin-top: 10rem;
     
 }
 .about-content {
@@ -973,7 +976,15 @@ button {
     width: 100%;
     height: 28.75rem;
     background-position: 50% 100%;
-    position: relative;
+    /* position: relative; */
+}
+
+.about-label{
+  position: absolute;
+  color: #ededed;
+  font-size: 8rem;
+  top: 0;
+    rotate: calc(-1deg - 2 * 0.25deg);
 }
 
 
@@ -1015,7 +1026,7 @@ button {
   aspect-ratio: 7 / 8;
   overflow: hidden;
   border-radius: 8px;
-    rotate: calc(-3deg - 2 * 0.25deg);
+    /* rotate: calc(-3deg - 2 * 0.25deg); */
 
 }
 
