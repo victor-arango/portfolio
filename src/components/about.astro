@@ -1,4 +1,5 @@
 ---
+import profileImage from "../assets/profile-image.png";
 import Marquee from "./Marquee.astro";
 ---
 
@@ -8,7 +9,8 @@ import Marquee from "./Marquee.astro";
       <span class="about-label">ABOUT /</span>
       <div class="about-image">
         <img
-          src="https://fissac.com/wp-content/uploads/2020/11/placeholder.png"
+          src={profileImage.src}
+          class="about-profile-image"
           alt="About us"
           loading="lazy"
         />
@@ -26,3 +28,26 @@ import Marquee from "./Marquee.astro";
     <Marquee />
   </div> -->
 </section>
+<script>
+  import gsap from "gsap";
+  import ScrollTrigger from "gsap/dist/ScrollTrigger";
+  gsap.registerPlugin(ScrollTrigger)
+  
+  gsap.fromTo(".about-label",{
+    top: 100,
+    opacity:0,
+  },{
+    top:0,
+    opacity:1,
+    duration:0.2,
+    stagger:0.15,
+    ease:"power1.in",
+    scrollTrigger: {
+    trigger: ".about-image",
+    start: "top 70%",
+    end: "top 100%",
+    toggleActions: "play none none reset",
+  }
+  })
+
+</script>
