@@ -63,8 +63,7 @@
   import { gsap } from "gsap";
   import ScrollTrigger from "gsap/dist/ScrollTrigger";
   import { SplitText } from "gsap/dist/SplitText";
-  gsap.registerPlugin(SplitText);
-  gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger,SplitText );
 
   let split = SplitText.create(".effect", {type:"words, chars"})
   let splitMenuItems = SplitText.create(".nav-title", {type:"words, chars"})
@@ -206,6 +205,6 @@ gsap.fromTo(".nav-links li", {
   }
 });
 
-
+// smoother.scrollTo(".brand-text", true, "center center");
 
 </script>

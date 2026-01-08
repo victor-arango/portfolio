@@ -974,24 +974,25 @@ button {
     display: flex;
     justify-content: center;
     width: 100%;
-    height: 28.75rem;
-    background-position: 50% 100%;
+      background-position: 50% 100%;
     /* position: relative; */
 }
 
 .about-label{
   position: absolute;
   color: #ededed;
-  font-size: 8rem;
+  font-size: 6rem;
   top: 0;
-    rotate: calc(-1deg - 2 * 0.25deg);
+  rotate: calc(-1deg - 2 * 0.25deg);
 }
 
 
  @media screen and (max-width: 991px) {
     .about-container {
         grid-column-gap: 4rem;
-        grid-row-gap: 4rem
+        grid-row-gap: 4rem;
+        margin-top: 5rem;
+      
     }
 }
 
@@ -1008,6 +1009,10 @@ button {
         flex-direction: column;
         display: flex
     }
+
+  .about-label{
+    font-size: 4rem;
+}
 
 }
 .timeline {
