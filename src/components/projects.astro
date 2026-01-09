@@ -1,131 +1,156 @@
 ---
 import Title from "./title.astro";
+import img1 from "../assets/img1.jpg";
+import img3 from "../assets/img1.jpg";
+import img7 from "../assets/img1.jpg";
+import img8 from "../assets/img1.jpg";
+import img11 from "../assets/img1.jpg";
+import img12 from "../assets/img1.jpg";
 
+const images = [
+  { src: img1.src, name: "Project 1" },
+  { src: img3.src, name: "Project 2" },
+  { src: img7.src, name: "Project 3" },
+  { src: img8.src, name: "Project 4" },
+  { src: img11.src, name: "Project 5" },
+  { src: img12.src, name: "Project 6" },
+];
 ---
 
+<section class="section counter-section section-animation parallax-section">
+  <Title title="Projects" />
+  
+  <div class="gallery-row row-left ">
+    {images.map((img) => (
+      <div class="gallery-item" data-speed="1.2">
+        <div class="gallery-item-inner">
+          <img src={img.src} alt={img.name} />
+          <div class="gallery-overlay">
+            <span class="gallery-title">{img.name}</span>
+          </div>
+        </div>
+      </div>
+    ))}
+    {images.map((img) => (
+      <div class="gallery-item" data-speed="1.2">
+        <div class="gallery-item-inner">
+          <img src={img.src} alt={img.name} />
+          <div class="gallery-overlay">
+            <span class="gallery-title">{img.name}</span>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
 
-<section class="section counter-section section-animation">
-     <Title title="Projects" />
-  <!-- <div class="counter-wrap">
-
-    <div class="counter-single-item first">
-      <div class="counter-content">
-        <div class="counter-item-number">001</div>
-        <div class="count-title paragraph-regular fw-500">Total Awards</div>
+  <div class="gallery-row row-right">
+    {[...images].reverse().map((img) => (
+      <div class="gallery-item" data-speed="0.8">
+        <div class="gallery-item-inner">
+          <img src={img.src} alt={img.name} />
+          <div class="gallery-overlay">
+            <span class="gallery-title">{img.name}</span>
+          </div>
+        </div>
       </div>
-      <div class="counter-number-block">
-        <div class="counterup">16</div>
+    ))}
+    {[...images].reverse().map((img) => (
+      <div class="gallery-item" data-speed="0.8">
+        <div class="gallery-item-inner">
+          <img src={img.src} alt={img.name} />
+          <div class="gallery-overlay">
+            <span class="gallery-title">{img.name}</span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="counter-single-item second">
-      <div class="counter-content">
-        <div class="counter-item-number">002</div>
-        <div class="count-title paragraph-regular fw-500">Years of Services</div>
-      </div>
-      <div class="counter-number-block">
-        <div class="counterup">5</div>
-        <div class="counter-suffix">+</div>
-      </div>
-    </div>
-
-    <div class="counter-single-item third">
-      <div class="counter-content">
-        <div class="counter-item-number">003</div>
-        <div class="count-title paragraph-regular fw-500">Location</div>
-      </div>
-      <div class="counter-number-block">
-        <div class="counterup">6</div>
-      </div>
-    </div>
-
-    <div class="counter-single-item fourth">
-      <div class="counter-content">
-        <div class="counter-item-number">004</div>
-        <div class="count-title paragraph-regular fw-500">Team Members</div>
-      </div>
-      <div class="counter-number-block">
-        <div class="counterup">80</div>
-        <div class="counter-suffix">+</div>
-      </div>
-    </div>
-
-    <div class="counter-single-item fifth">
-      <div class="counter-content">
-        <div class="counter-item-number">005</div>
-        <div class="count-title paragraph-regular fw-500">Happy Clients</div>
-      </div>
-      <div class="counter-number-block">
-        <div class="counterup">350</div>
-        <div class="counter-suffix">+</div>
-      </div>
-    </div>
-
-  </div> -->
+    ))}
+  </div>
 </section>
+
 
 <script>
   import { gsap } from "gsap";
-   import ScrollTrigger from "gsap/dist/ScrollTrigger";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
 
   gsap.registerPlugin(ScrollTrigger);
 
-  gsap.set(".counter-single-item", {
-    opacity: 0,
-    y: 60
-  });
-
-  gsap.set(".counterup", {
-    innerText: 0
-  });
-
-  const counterTL = gsap.timeline({
-    scrollTrigger: {
-      trigger: ".counter-wrap",
-      start: "top 75%",
-      once: true
-    }
-  });
-
-  counterTL.to(".counter-single-item", {
-    opacity: 1,
-    y: 0,
-    duration: 0.8,
-    ease: "power3.out",
-    stagger: 0.15
-  });
-
-  document.querySelectorAll(".counterup").forEach((el) => {
-    const finalValue = parseInt(el.textContent, 10);
-
-    gsap.fromTo(
-      el,
-      { innerText: 0 },
-      {
-        innerText: finalValue,
-        duration: 1.6,
-        ease: "power2.out",
-        snap: { innerText: 1 },
-        scrollTrigger: {
-          trigger: el,
-          start: "top 85%",
-          once: true
-        }
+  function initGalleryParallax() {
+ 
+    gsap.to(".row-left", {
+      x: -800,
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".parallax-section",
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1.5,
       }
-    );
-  });
+    });
 
-  gsap.from(".count-title", {
-    opacity: 0,
-    y: 20,
-    duration: 0.6,
-    ease: "power2.out",
-    stagger: 0.15,
-    scrollTrigger: {
-      trigger: ".counter-wrap",
-      start: "top 75%",
-      once: true
-    }
-  });
+ 
+    gsap.to(".row-right", {
+      x: -400,
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".parallax-section",
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1,
+      }
+    });
+
+
+    gsap.utils.toArray(".gallery-item").forEach((item, index) => {
+      gsap.from(item as HTMLElement, {
+        opacity: 0,
+        y: 60,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: item as HTMLElement ,
+          start: "top bottom-=100",
+          toggleActions: "play none none reverse"
+        },
+        delay: (index % 6) * 0.1
+      });
+    });
+
+
+    gsap.utils.toArray(".gallery-item img").forEach((img) => {
+      const speed = parseFloat(img.closest(".gallery-item").getAttribute("data-speed")) || 1;
+      
+      gsap.to(img as HTMLElement , {
+        y: -50 * speed,
+        ease: "none",
+        scrollTrigger: {
+          trigger: (img as HTMLElement).closest(".gallery-item"),
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 2,
+        }
+      });
+    });
+
+
+    gsap.from(".parallax-section h2, .parallax-section .title", {
+      opacity: 0,
+      y: 50,
+      duration: 1,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: ".parallax-section",
+        start: "top 80%",
+        toggleActions: "play none none reverse"
+      }
+    });
+  }
+
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initGalleryParallax);
+  } else {
+    initGalleryParallax();
+  }
+
+  document.addEventListener('astro:page-load', initGalleryParallax);
 </script>
-

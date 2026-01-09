@@ -17,7 +17,6 @@ const { title } =  Astro.props;
 <script>
   import { gsap } from "gsap";
   import ScrollTrigger from "gsap/dist/ScrollTrigger";
-
   gsap.registerPlugin(ScrollTrigger);
 
   gsap.utils.toArray(".section-animation").forEach((section) => {
@@ -42,7 +41,7 @@ const { title } =  Astro.props;
       {
         y: 0,
         opacity: 1,
-        duration: 0.4,
+        duration: 0.6,
         ease: "power2.out",
       }
     )
@@ -52,9 +51,9 @@ const { title } =  Astro.props;
       width: 0,
     },
     {
-      width: "100",
+      width: "400px",
     },
-      "-=0.25"
+      "-=0.15"
     );
   });
 </script>
