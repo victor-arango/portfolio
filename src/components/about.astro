@@ -1,12 +1,13 @@
 ---
 import profileImage from "../assets/profile-image.png";
 import Marquee from "./Marquee.astro";
+import Title from "./title.astro";
 ---
 
-<section class="section about-section" id="about">
+<section class="section about-section section-animation" id="about">
+  <Title title="About" />
   <div class="about-container">
     <div class="about-left">
-      <span class="about-label">ABOUT /</span>
       <div class="about-image">
         <img
           src={profileImage.src}
@@ -28,26 +29,3 @@ import Marquee from "./Marquee.astro";
     <Marquee />
   </div> -->
 </section>
-<script>
-  import gsap from "gsap";
-  import ScrollTrigger from "gsap/dist/ScrollTrigger";
-  gsap.registerPlugin(ScrollTrigger)
-  
-  gsap.fromTo(".about-label",{
-    top: 100,
-    opacity:0,
-  },{
-    top:0,
-    opacity:1,
-    duration:0.2,
-    stagger:0.15,
-    ease:"power1.in",
-    scrollTrigger: {
-    trigger: ".about-image",
-    start: "top 70%",
-    end: "top 100%",
-    toggleActions: "play none none reset",
-  }
-  })
-
-</script>

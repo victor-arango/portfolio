@@ -1,0 +1,60 @@
+---
+interface Props {
+    title: string;
+}
+
+const { title } =  Astro.props;
+---
+
+<div class="container-heading-title">    
+    <div class="heading-lines">
+        <div class="line"></div>
+        <h4><em class="about-label">{title}</em></h4>
+        <div class="line"></div>
+    </div>
+</div>
+
+<script>
+  import { gsap } from "gsap";
+  import ScrollTrigger from "gsap/dist/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.utils.toArray(".section-animation").forEach((section) => {
+    const label = (section as Element).querySelector(".about-label");
+    const lines = (section as Element).querySelectorAll(".line");
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: section as Element,
+        start: "top 60%",
+        end: "bottom 40%",
+        toggleActions: "play reverse play reverse",
+      },
+    });
+
+    tl.fromTo(
+      label,
+      {
+        y: 80,
+        opacity: 0,
+      },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.4,
+        ease: "power2.out",
+      }
+    )
+    .fromTo(
+      lines,
+      {
+      width: 0,
+    },
+    {
+      width: "100",
+    },
+      "-=0.25"
+    );
+  });
+</script>

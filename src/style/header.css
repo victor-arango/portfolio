@@ -937,10 +937,9 @@ button {
     display: flex;
     flex-direction: column;
     position: relative;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: start;
     width: 100%;
-
     height: 100vh;
 }
 
@@ -986,14 +985,6 @@ button {
     /* position: relative; */
 }
 
-.about-label{
-  position: absolute;
-  color: #ededed;
-  font-size: 6rem;
-  top: 0;
-  rotate: calc(-1deg - 2 * 0.25deg);
-}
-
 
  @media screen and (max-width: 991px) {
     .about-container {
@@ -1017,10 +1008,6 @@ button {
         flex-direction: column;
         display: flex
     }
-
-  .about-label{
-    font-size: 4rem;
-}
 
 }
 .timeline {
@@ -1272,3 +1259,164 @@ will-change: background-color, transform;
 
 }
 
+/* ===== Counter Section ===== */
+.counter-section {
+  width: 100%;
+  height: 100vh;
+}
+
+/* Grid contenedor */
+.counter-wrap {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.5rem;
+}
+
+/* Card individual */
+.counter-single-item {
+  background-color: #ffffff;
+  padding: 1.75rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 180px;
+  will-change: transform, opacity;
+}
+
+/* Contenido superior */
+.counter-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Número decorativo (001, 002…) */
+.counter-item-number {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: #9a9a9a;
+}
+
+/* Título */
+.count-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #111111;
+}
+
+/* Bloque numérico */
+.counter-number-block {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+}
+
+/* Número animado */
+.counterup {
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #111111;
+}
+
+/* Sufijo + */
+.counter-suffix {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1;
+  color: #111111;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 991px) {
+  .counter-wrap {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .counter-wrap {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 479px) {
+  .counter-wrap {
+    grid-template-columns: 1fr;
+  }
+}
+
+.container-heading-title{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+
+.heading-lines {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    width: fit-content;
+    max-width: 100%;
+    padding: 0 1.5rem;
+}
+
+.heading-lines .line {
+    height: 1px;
+    opacity: 0.5;
+}
+
+.heading-lines .line:first-of-type {
+    background: linear-gradient(to right, transparent, currentColor);
+}
+
+.heading-lines .line:last-of-type {
+    background: linear-gradient(to left, transparent, currentColor);
+}
+
+.heading-lines h4 {
+    font-family: "Instrument Serif", serif;
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--text-color);
+    margin: 0;
+    white-space: nowrap;
+}
+
+
+.heading-lines.dark {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.heading-lines.dark h4 {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.heading-lines.small h4 {
+    font-size: 1.125rem;
+}
+
+.heading-lines.large h4 {
+    font-size: 2rem;
+}
+
+.heading-lines.no-lines .line {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .heading-lines {
+        gap: 1rem;
+        padding: 0 1rem;
+    }
+    
+    .heading-lines .line {
+        width: 40px;
+    }
+
+}

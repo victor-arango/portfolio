@@ -1,0 +1,131 @@
+---
+import Title from "./title.astro";
+
+---
+
+
+<section class="section counter-section section-animation">
+     <Title title="Projects" />
+  <!-- <div class="counter-wrap">
+
+    <div class="counter-single-item first">
+      <div class="counter-content">
+        <div class="counter-item-number">001</div>
+        <div class="count-title paragraph-regular fw-500">Total Awards</div>
+      </div>
+      <div class="counter-number-block">
+        <div class="counterup">16</div>
+      </div>
+    </div>
+
+    <div class="counter-single-item second">
+      <div class="counter-content">
+        <div class="counter-item-number">002</div>
+        <div class="count-title paragraph-regular fw-500">Years of Services</div>
+      </div>
+      <div class="counter-number-block">
+        <div class="counterup">5</div>
+        <div class="counter-suffix">+</div>
+      </div>
+    </div>
+
+    <div class="counter-single-item third">
+      <div class="counter-content">
+        <div class="counter-item-number">003</div>
+        <div class="count-title paragraph-regular fw-500">Location</div>
+      </div>
+      <div class="counter-number-block">
+        <div class="counterup">6</div>
+      </div>
+    </div>
+
+    <div class="counter-single-item fourth">
+      <div class="counter-content">
+        <div class="counter-item-number">004</div>
+        <div class="count-title paragraph-regular fw-500">Team Members</div>
+      </div>
+      <div class="counter-number-block">
+        <div class="counterup">80</div>
+        <div class="counter-suffix">+</div>
+      </div>
+    </div>
+
+    <div class="counter-single-item fifth">
+      <div class="counter-content">
+        <div class="counter-item-number">005</div>
+        <div class="count-title paragraph-regular fw-500">Happy Clients</div>
+      </div>
+      <div class="counter-number-block">
+        <div class="counterup">350</div>
+        <div class="counter-suffix">+</div>
+      </div>
+    </div>
+
+  </div> -->
+</section>
+
+<script>
+  import { gsap } from "gsap";
+   import ScrollTrigger from "gsap/dist/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.set(".counter-single-item", {
+    opacity: 0,
+    y: 60
+  });
+
+  gsap.set(".counterup", {
+    innerText: 0
+  });
+
+  const counterTL = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".counter-wrap",
+      start: "top 75%",
+      once: true
+    }
+  });
+
+  counterTL.to(".counter-single-item", {
+    opacity: 1,
+    y: 0,
+    duration: 0.8,
+    ease: "power3.out",
+    stagger: 0.15
+  });
+
+  document.querySelectorAll(".counterup").forEach((el) => {
+    const finalValue = parseInt(el.textContent, 10);
+
+    gsap.fromTo(
+      el,
+      { innerText: 0 },
+      {
+        innerText: finalValue,
+        duration: 1.6,
+        ease: "power2.out",
+        snap: { innerText: 1 },
+        scrollTrigger: {
+          trigger: el,
+          start: "top 85%",
+          once: true
+        }
+      }
+    );
+  });
+
+  gsap.from(".count-title", {
+    opacity: 0,
+    y: 20,
+    duration: 0.6,
+    ease: "power2.out",
+    stagger: 0.15,
+    scrollTrigger: {
+      trigger: ".counter-wrap",
+      start: "top 75%",
+      once: true
+    }
+  });
+</script>
+
