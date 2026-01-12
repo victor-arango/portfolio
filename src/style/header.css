@@ -453,7 +453,7 @@ svg{
         margin-right: auto;
     }
     .main{
-        backdrop-filter: blur(70px);
+        backdrop-filter: blur(25px);
     }
 
     body{
