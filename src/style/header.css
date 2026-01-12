@@ -321,6 +321,8 @@ svg{
     position: Sticky;
     width: auto;
     height: auto;
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
 }
 .backgrounds{
     width: 100vw;
