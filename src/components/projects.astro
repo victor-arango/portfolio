@@ -8,62 +8,39 @@ import img11 from "../assets/img1.jpg";
 import img12 from "../assets/img1.jpg";
 
 const images = [
-  { src: img1.src, name: "Project 1" },
-  { src: img3.src, name: "Project 2" },
-  { src: img7.src, name: "Project 3" },
-  { src: img8.src, name: "Project 4" },
+  { src: img1.src,  name: "Project 1" },
+  { src: img3.src,  name: "Project 2" },
+  { src: img7.src,  name: "Project 3" },
+  { src: img8.src,  name: "Project 4" },
   { src: img11.src, name: "Project 5" },
   { src: img12.src, name: "Project 6" },
 ];
 ---
-
 <section class="section counter-section section-animation parallax-section">
-  <Title title="Projects" />
-  
-  <div class="gallery-row row-left ">
-    {images.map((img) => (
-      <div class="gallery-item" data-speed="1.2">
-        <div class="gallery-item-inner">
-          <img src={img.src} alt={img.name} />
-          <div class="gallery-overlay">
-            <span class="gallery-title">{img.name}</span>
-          </div>
-        </div>
-      </div>
-    ))}
-    {images.map((img) => (
-      <div class="gallery-item" data-speed="1.2">
-        <div class="gallery-item-inner">
-          <img src={img.src} alt={img.name} />
-          <div class="gallery-overlay">
-            <span class="gallery-title">{img.name}</span>
-          </div>
-        </div>
-      </div>
-    ))}
-  </div>
 
-  <div class="gallery-row row-right">
-    {[...images].reverse().map((img) => (
-      <div class="gallery-item" data-speed="0.8">
-        <div class="gallery-item-inner">
-          <img src={img.src} alt={img.name} />
-          <div class="gallery-overlay">
-            <span class="gallery-title">{img.name}</span>
+    <Title title="Projects" />
+
+
+  <div class="gallery-content">
+    <div class="gallery-row-wrapper">
+      <div class="gallery-row row-left">
+        {images.concat(images).map((img) => (
+          <div class="gallery-item" data-speed="1.2">
+            <img src={img.src} alt={img.name} />
           </div>
-        </div>
+        ))}
       </div>
-    ))}
-    {[...images].reverse().map((img) => (
-      <div class="gallery-item" data-speed="0.8">
-        <div class="gallery-item-inner">
-          <img src={img.src} alt={img.name} />
-          <div class="gallery-overlay">
-            <span class="gallery-title">{img.name}</span>
+    </div>
+
+    <div class="gallery-row-wrapper">
+      <div class="gallery-row row-right">
+        {[...images].reverse().concat([...images].reverse()).map((img) => (
+          <div class="gallery-item" data-speed="0.8">
+            <img src={img.src} alt={img.name} />
           </div>
-        </div>
+        ))}
       </div>
-    ))}
+    </div>
   </div>
 </section>
 
@@ -75,82 +52,95 @@ const images = [
   gsap.registerPlugin(ScrollTrigger);
 
   function initGalleryParallax() {
- 
-    gsap.to(".row-left", {
-      x: -800,
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".parallax-section",
-        start: "top bottom",
-        end: "bottom top",
-        scrub: 1.5,
-      }
-    });
+    const section = document.querySelector(".parallax-section");
+    if (!section) return;
 
- 
-    gsap.to(".row-right", {
-      x: -400,
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".parallax-section",
-        start: "top bottom",
-        end: "bottom top",
-        scrub: 1,
-      }
-    });
+    const leftItems = gsap.utils.toArray(".row-left .gallery-item");
+    const rightItems = gsap.utils.toArray(".row-right .gallery-item");
 
-
-    gsap.utils.toArray(".gallery-item").forEach((item, index) => {
-      gsap.from(item as HTMLElement, {
-        opacity: 0,
-        y: 60,
-        duration: 0.8,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: item as HTMLElement ,
-          start: "top bottom-=100",
-          toggleActions: "play none none reverse"
-        },
-        delay: (index % 6) * 0.1
-      });
-    });
-
-
-    gsap.utils.toArray(".gallery-item img").forEach((img) => {
-      const speed = parseFloat(img.closest(".gallery-item").getAttribute("data-speed")) || 1;
-      
-      gsap.to(img as HTMLElement , {
-        y: -50 * speed,
-        ease: "none",
-        scrollTrigger: {
-          trigger: (img as HTMLElement).closest(".gallery-item"),
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 2,
-        }
-      });
-    });
-
-
-    gsap.from(".parallax-section h2, .parallax-section .title", {
+    gsap.set(".gallery-item", { opacity: 0, y: 80, scale: 0.95 });
+    gsap.set(".gallery-item img", { scale: 1.2 });
+    gsap.set(".parallax-section h2, .parallax-section .title", {
       opacity: 0,
-      y: 50,
-      duration: 1,
-      ease: "power3.out",
+      y: 60
+    });
+
+    const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: ".parallax-section",
+        trigger: section,
         start: "top 80%",
         toggleActions: "play none none reverse"
       }
     });
+
+    tl.to(".parallax-section h2, .parallax-section .title", {
+      opacity: 1,
+      y: 0,
+      duration: 1.2,
+      ease: "power3.out"
+    })
+    .to(leftItems, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      stagger: 0.08,
+      duration: 1,
+      ease: "power3.out"
+    }, "-=0.6")
+    .to(rightItems, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      stagger: 0.08,
+      duration: 1,
+      ease: "power3.out"
+    }, "-=0.8");
+
+    gsap.to(".row-left", {
+      x: -800,
+      ease: "none",
+      scrollTrigger: {
+        trigger: section,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1.5
+      }
+    });
+
+    gsap.to(".row-right", {
+      x: -400,
+      ease: "none",
+      scrollTrigger: {
+        trigger: section,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1
+      }
+    });
+
+    gsap.utils.toArray(".gallery-item").forEach((item) => {
+      const img = (item as HTMLElement).querySelector("img");
+      const speed = parseFloat((item as HTMLElement).dataset.speed || "1");
+
+      gsap.to(img, {
+        y: -80 * speed,
+        scale: 1.1,
+        ease: "none",
+        scrollTrigger: {
+          trigger: item as HTMLElement,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 2
+        }
+      });
+    });
   }
 
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initGalleryParallax);
-  } else {
-    initGalleryParallax();
+  function cleanup() {
+    ScrollTrigger.getAll().forEach(st => st.kill());
   }
 
-  document.addEventListener('astro:page-load', initGalleryParallax);
+  initGalleryParallax();
+  document.addEventListener("astro:page-load", initGalleryParallax);
+  document.addEventListener("astro:before-preparation", cleanup);
 </script>
