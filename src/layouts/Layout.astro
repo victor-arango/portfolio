@@ -382,7 +382,13 @@ function initScrollSystem() {
 			animateSection(idx, idx > currentIndex ? 1 : -1);
 		} else {
 			const section = sections[idx];
-			if (section) section.scrollIntoView({ behavior: "smooth" });
+			if (section) {
+				gsap.to(window, {
+					duration: 0.6,
+					ease: "power1.inOut",
+					scrollTo: { y: section, autoKill: true },
+				});
+			}
 		}
 	};
  
@@ -408,6 +414,7 @@ function initScrollSystem() {
 	Observer.getAll().forEach((o) => o.kill());
 	let observer: ReturnType<typeof Observer.create> | null = null;
 	let snapTrigger: ReturnType<typeof ScrollTrigger.create> | null = null;
+	let normalizer: ReturnType<typeof ScrollTrigger.normalizeScroll> | null = null;
  
 	if (isDesktop() && !reduceMotion()) {
 		observer = Observer.create({
@@ -424,10 +431,12 @@ function initScrollSystem() {
 			gsap.set(s, { position: "relative", autoAlpha: 1, yPercent: 0, zIndex: "auto", visibility: "visible" });
 		});
  
-		// Normaliza el scroll para evitar el efecto de "rebote" y parpadeo en móviles
-		ScrollTrigger.normalizeScroll({
+		// Normaliza el scroll para evitar el efecto de "rebote" y parpadeo en móviles.
+		// Sin inercia (momentum: 0): al ser secciones discretas, cualquier inercia
+		// residual pelea contra el snap y produce saltos/overshoot no controlados.
+		normalizer = ScrollTrigger.normalizeScroll({
 			allowNestedScroll: true,
-			momentum: (self) => Math.min(3, self.velocityY / 1000),
+			momentum: () => 0,
 		});
  
 		// Snap equiespaciado — requiere que todas las .section tengan la misma altura
@@ -437,7 +446,8 @@ function initScrollSystem() {
 			end: () => `+=${document.documentElement.scrollHeight - window.innerHeight}`,
 			snap: {
 				snapTo: 1 / (sections.length - 1),
-				duration: { min: 0.2, max: 0.5 },
+				duration: { min: 0.25, max: 0.5 },
+				delay: 0.05, // pequeño respiro para no chocar con el gesto en curso
 				ease: "power1.inOut",
 				inertia: false, // evita que un swipe fuerte se salte una sección
 			},
@@ -463,6 +473,7 @@ function initScrollSystem() {
 	const teardown = () => {
 		observer?.kill();
 		snapTrigger?.kill();
+		normalizer?.kill();
 		Observer.getAll().forEach((o) => o.kill());
 		clearTimeout(resizeTimer);
 		window.removeEventListener("resize", handleResize);
@@ -479,6 +490,7 @@ function initScrollSystem() {
 		setTimeout(run, 100);
 	}
 }
+ 
  
 
 	document.addEventListener("DOMContentLoaded", initScrollSystem);
