@@ -283,186 +283,203 @@ const { title } = Astro.props;
     ignoreMobileResize: true, // Evita saltos por cambios en la barra de direcciones
   });
 
-	function initScrollSystem() {
-		// ── Teardown instancia anterior ─────────────────────────────────────────
-		const prev = (window as any).__scrollTeardown as (() => void) | undefined;
-		if (prev) prev();
-
-		const sections = gsap.utils.toArray<HTMLElement>(".section");
-		if (!sections.length) return;
-
-		let currentIndex = 0;
-		let isAnimating  = false;
-
-		// ── GSAP es la única fuente de verdad para visibilidad ──────────────────
-		// Quitamos clase .active para que el CSS visibility:hidden no interfiera
-		sections.forEach((s, i) => {
-			s.classList.remove("active");
-			gsap.set(s, i === 0
-				? { autoAlpha: 1, yPercent: 0,   zIndex: 1 }
-				: { autoAlpha: 0, yPercent: 100, zIndex: 0 }
-			);
+function initScrollSystem() {
+	// ── Teardown instancia anterior ─────────────────────────────────────────
+	const prev = (window as any).__scrollTeardown as (() => void) | undefined;
+	if (prev) prev();
+ 
+	const sections = gsap.utils.toArray<HTMLElement>(".section");
+	if (!sections.length) return;
+ 
+	let currentIndex = 0;
+	let isAnimating  = false;
+ 
+	// ── GSAP es la única fuente de verdad para visibilidad ──────────────────
+	sections.forEach((s, i) => {
+		s.classList.remove("active");
+		gsap.set(s, i === 0
+			? { autoAlpha: 1, yPercent: 0,   zIndex: 1 }
+			: { autoAlpha: 0, yPercent: 100, zIndex: 0 }
+		);
+	});
+ 
+	// ── Detección de breakpoint ─────────────────────────────────────────────
+	const mqlDesktop = window.matchMedia(DESKTOP_MQ);
+	const mqlReduce  = window.matchMedia(REDUCE_MQ);
+	const isDesktop    = () => mqlDesktop.matches;
+	const reduceMotion = () => mqlReduce.matches;
+ 
+	// ── Transición vertical entre secciones ─────────────────────────────────
+	const animateSection = (nextIndex: number, direction: number) => {
+		if (isAnimating) return;
+		if (nextIndex === currentIndex) return;
+		if (nextIndex < 0 || nextIndex >= sections.length) return;
+ 
+		isAnimating = true;
+ 
+		const cur       = sections[currentIndex];
+		const next      = sections[nextIndex];
+		const dur       = reduceMotion() ? 0 : 1.0;
+		const prevIndex = currentIndex;
+ 
+		gsap.set(next, { yPercent: direction > 0 ? 100 : -100, autoAlpha: 0, zIndex: 2 });
+		gsap.set(cur,  { zIndex: 1 });
+ 
+		currentIndex = nextIndex;
+ 
+		const tl = gsap.timeline({
+			onStart: () => {
+				window.dispatchEvent(new CustomEvent("section:leaving", { detail: { id: cur.id } }));
+			},
+			onComplete: () => {
+				gsap.set(cur, { autoAlpha: 0, zIndex: 0 });
+				isAnimating = false;
+				window.dispatchEvent(new CustomEvent("section:entered", { detail: { id: next.id } }));
+			},
+			onInterrupt: () => {
+				isAnimating  = false;
+				currentIndex = prevIndex;
+			},
 		});
-
-		// ── Detección de breakpoint ─────────────────────────────────────────────
-		const mqlDesktop = window.matchMedia(DESKTOP_MQ);
-		const mqlReduce  = window.matchMedia(REDUCE_MQ);
-		const isDesktop    = () => mqlDesktop.matches;
-		const reduceMotion = () => mqlReduce.matches;
-
-		// ── Transición vertical entre secciones ─────────────────────────────────
-		const animateSection = (nextIndex: number, direction: number) => {
-			if (isAnimating) return;
-			if (nextIndex === currentIndex) return;
-			if (nextIndex < 0 || nextIndex >= sections.length) return;
-
-			isAnimating = true;
-
-			const cur       = sections[currentIndex];
-			const next      = sections[nextIndex];
-			const dur       = reduceMotion() ? 0 : 1.0;
-			const prevIndex = currentIndex;
-
-			gsap.set(next, { yPercent: direction > 0 ? 100 : -100, autoAlpha: 0, zIndex: 2 });
-			gsap.set(cur,  { zIndex: 1 });
-
-			currentIndex = nextIndex;
-
-			const tl = gsap.timeline({
-				onStart: () => {
-					window.dispatchEvent(new CustomEvent("section:leaving", { detail: { id: cur.id } }));
-				},
-				onComplete: () => {
-					gsap.set(cur, { autoAlpha: 0, zIndex: 0 });
-					isAnimating = false;
-					window.dispatchEvent(new CustomEvent("section:entered", { detail: { id: next.id } }));
-				},
-				onInterrupt: () => {
-					isAnimating  = false;
-					currentIndex = prevIndex;
-				},
-			});
-
-			tl.to(cur,  { yPercent: direction > 0 ? -100 : 100, autoAlpha: 0, duration: dur, ease: "power3.inOut" }, 0);
-			tl.to(next, { yPercent: 0, autoAlpha: 1,             duration: dur, ease: "power3.inOut" }, 0);
-		};
-
-		// ── Navegar ─────────────────────────────────────────────────────────────
-		const navigate = (direction: number) => {
-			if (isAnimating) return;
-			const current = sections[currentIndex];
-
-			// Sección horizontal: delegar paneles a projects.astro
-			if (current.dataset.type === "horizontal" && isDesktop()) {
-				const goToPanel  = (window as any).__projectsGoToPanel   as ((i: number) => void) | undefined;
-				const panelCount = (window as any).__projectsPanelCount  as number | undefined;
-				const getCurrent = (window as any).__projectsCurrentPanel as (() => number) | undefined;
-				if (goToPanel && panelCount !== undefined && getCurrent) {
-					const ci = getCurrent();
-					if (direction > 0 && ci < panelCount - 1) { goToPanel(ci + 1); return; }
-					if (direction < 0 && ci > 0)              { goToPanel(ci - 1); return; }
-				}
+ 
+		tl.to(cur,  { yPercent: direction > 0 ? -100 : 100, autoAlpha: 0, duration: dur, ease: "power3.inOut" }, 0);
+		tl.to(next, { yPercent: 0, autoAlpha: 1,             duration: dur, ease: "power3.inOut" }, 0);
+	};
+ 
+	// ── Navegar ─────────────────────────────────────────────────────────────
+	const navigate = (direction: number) => {
+		if (isAnimating) return;
+		const current = sections[currentIndex];
+ 
+		// Sección horizontal: delegar paneles a projects.astro
+		if (current.dataset.type === "horizontal" && isDesktop()) {
+			const goToPanel  = (window as any).__projectsGoToPanel   as ((i: number) => void) | undefined;
+			const panelCount = (window as any).__projectsPanelCount  as number | undefined;
+			const getCurrent = (window as any).__projectsCurrentPanel as (() => number) | undefined;
+			if (goToPanel && panelCount !== undefined && getCurrent) {
+				const ci = getCurrent();
+				if (direction > 0 && ci < panelCount - 1) { goToPanel(ci + 1); return; }
+				if (direction < 0 && ci > 0)              { goToPanel(ci - 1); return; }
 			}
-
-			animateSection(currentIndex + direction, direction);
-		};
-
-		// ── Hash navigation ─────────────────────────────────────────────────────
-		const findByHash = (hash: string) => {
-			const id = hash.replace(/^#/, "");
-			if (!id) return -1;
-			return sections.findIndex((s) => s.id === id);
-		};
-
-		const goToHash = (hash: string) => {
-			const idx = findByHash(hash);
-			if (idx < 0) return;
-			
-			if (isDesktop() && !reduceMotion()) {
-				if (idx === currentIndex) return;
-				animateSection(idx, idx > currentIndex ? 1 : -1);
-			} else {
-				const section = sections[idx];
-				if (section) section.scrollIntoView({ behavior: "smooth" });
-			}
-		};
-
-		const onDocumentClick = (e: MouseEvent) => {
-			const a = (e.target as HTMLElement)?.closest<HTMLAnchorElement>('a[href^="#"]');
-			if (!a) return;
-			const href = a.getAttribute("href") ?? "";
-			if (href === "#" || href === "#!") {
-				e.preventDefault();
-				history.replaceState(null, "", "#home");
-				goToHash("#home");
-				return;
-			}
-			if (findByHash(href) >= 0) {
-				e.preventDefault();
-				history.replaceState(null, "", href);
-				goToHash(href);
-			}
-		};
-		document.addEventListener("click", onDocumentClick, true);
-
-		// ── Observer — desktop + sin reduced-motion ─────────────────────────────
-		Observer.getAll().forEach((o) => o.kill());
-		let observer: ReturnType<typeof Observer.create> | null = null;
-
+		}
+ 
+		animateSection(currentIndex + direction, direction);
+	};
+ 
+	// ── Hash navigation ─────────────────────────────────────────────────────
+	const findByHash = (hash: string) => {
+		const id = hash.replace(/^#/, "");
+		if (!id) return -1;
+		return sections.findIndex((s) => s.id === id);
+	};
+ 
+	const goToHash = (hash: string) => {
+		const idx = findByHash(hash);
+		if (idx < 0) return;
+ 
 		if (isDesktop() && !reduceMotion()) {
-			observer = Observer.create({
-				type: "wheel,touch,pointer",
-				wheelSpeed: -1,
-				onUp:   () => navigate(1),
-				onDown: () => navigate(-1),
-				tolerance: 10,
-				preventDefault: true,
-			});
+			if (idx === currentIndex) return;
+			animateSection(idx, idx > currentIndex ? 1 : -1);
 		} else {
-			// Mobile / reduced-motion: scroll nativo, mostrar todo
-      // Normalizamos el scroll para evitar el efecto de "rebote" y parpadeo en móviles
-      ScrollTrigger.normalizeScroll({
-        allowNestedScroll: true,
-        momentum: (self) => Math.min(3, self.velocityY / 1000)
-      });
-
-			sections.forEach((s) => {
-				gsap.set(s, { position: "relative", autoAlpha: 1, yPercent: 0, zIndex: "auto", visibility: "visible" });
-			});
+			const section = sections[idx];
+			if (section) section.scrollIntoView({ behavior: "smooth" });
 		}
-
-		// ── Resize ─────────────────────────────────────────────────────────────
-		let resizeTimer: ReturnType<typeof setTimeout>;
-		const handleResize = () => {
-			clearTimeout(resizeTimer);
-			resizeTimer = setTimeout(() => {
-				ScrollTrigger.refresh();
-				const wasDesktop = !!observer;
-				const nowDesktop = isDesktop() && !reduceMotion();
-				if (wasDesktop !== nowDesktop) initScrollSystem();
-			}, 200);
-		};
-		window.addEventListener("resize", handleResize);
-
-		// ── Teardown ────────────────────────────────────────────────────────────
-		const teardown = () => {
-			observer?.kill();
-			Observer.getAll().forEach((o) => o.kill());
-			clearTimeout(resizeTimer);
-			window.removeEventListener("resize", handleResize);
-			document.removeEventListener("click", onDocumentClick, true);
-			(window as any).__scrollTeardown = undefined;
-		};
-		(window as any).__scrollTeardown = teardown;
-
-		// ── Hash inicial post-preloader ─────────────────────────────────────────
-		const initialHash = window.location.hash;
-		if (initialHash && findByHash(initialHash) >= 0) {
-			const run = () => goToHash(initialHash);
-			window.addEventListener("preloader:finish", run, { once: true });
-			setTimeout(run, 100);
+	};
+ 
+	const onDocumentClick = (e: MouseEvent) => {
+		const a = (e.target as HTMLElement)?.closest<HTMLAnchorElement>('a[href^="#"]');
+		if (!a) return;
+		const href = a.getAttribute("href") ?? "";
+		if (href === "#" || href === "#!") {
+			e.preventDefault();
+			history.replaceState(null, "", "#home");
+			goToHash("#home");
+			return;
 		}
+		if (findByHash(href) >= 0) {
+			e.preventDefault();
+			history.replaceState(null, "", href);
+			goToHash(href);
+		}
+	};
+	document.addEventListener("click", onDocumentClick, true);
+ 
+	// ── Observer / Snap — desktop vs mobile ─────────────────────────────────
+	Observer.getAll().forEach((o) => o.kill());
+	let observer: ReturnType<typeof Observer.create> | null = null;
+	let snapTrigger: ReturnType<typeof ScrollTrigger.create> | null = null;
+ 
+	if (isDesktop() && !reduceMotion()) {
+		observer = Observer.create({
+			type: "wheel,touch,pointer",
+			wheelSpeed: -1,
+			onUp:   () => navigate(1),
+			onDown: () => navigate(-1),
+			tolerance: 10,
+			preventDefault: true,
+		});
+	} else {
+		// Mobile / reduced-motion: scroll nativo con snap por sección
+		sections.forEach((s) => {
+			gsap.set(s, { position: "relative", autoAlpha: 1, yPercent: 0, zIndex: "auto", visibility: "visible" });
+		});
+ 
+		// Normaliza el scroll para evitar el efecto de "rebote" y parpadeo en móviles
+		ScrollTrigger.normalizeScroll({
+			allowNestedScroll: true,
+			momentum: (self) => Math.min(3, self.velocityY / 1000),
+		});
+ 
+		// Snap equiespaciado — requiere que todas las .section tengan la misma altura
+		snapTrigger = ScrollTrigger.create({
+			trigger: sections[0],
+			start: "top top",
+			end: () => `+=${document.documentElement.scrollHeight - window.innerHeight}`,
+			snap: {
+				snapTo: 1 / (sections.length - 1),
+				duration: { min: 0.2, max: 0.5 },
+				ease: "power1.inOut",
+				inertia: false, // evita que un swipe fuerte se salte una sección
+			},
+		});
+ 
+		ScrollTrigger.refresh();
 	}
+ 
+	// ── Resize ─────────────────────────────────────────────────────────────
+	let resizeTimer: ReturnType<typeof setTimeout>;
+	const handleResize = () => {
+		clearTimeout(resizeTimer);
+		resizeTimer = setTimeout(() => {
+			ScrollTrigger.refresh();
+			const wasDesktop = !!observer;
+			const nowDesktop = isDesktop() && !reduceMotion();
+			if (wasDesktop !== nowDesktop) initScrollSystem();
+		}, 200);
+	};
+	window.addEventListener("resize", handleResize);
+ 
+	// ── Teardown ────────────────────────────────────────────────────────────
+	const teardown = () => {
+		observer?.kill();
+		snapTrigger?.kill();
+		Observer.getAll().forEach((o) => o.kill());
+		clearTimeout(resizeTimer);
+		window.removeEventListener("resize", handleResize);
+		document.removeEventListener("click", onDocumentClick, true);
+		(window as any).__scrollTeardown = undefined;
+	};
+	(window as any).__scrollTeardown = teardown;
+ 
+	// ── Hash inicial post-preloader ─────────────────────────────────────────
+	const initialHash = window.location.hash;
+	if (initialHash && findByHash(initialHash) >= 0) {
+		const run = () => goToHash(initialHash);
+		window.addEventListener("preloader:finish", run, { once: true });
+		setTimeout(run, 100);
+	}
+}
+ 
 
 	document.addEventListener("DOMContentLoaded", initScrollSystem);
 	document.addEventListener("astro:page-load",   initScrollSystem);
