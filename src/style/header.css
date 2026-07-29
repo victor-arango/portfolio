@@ -216,7 +216,7 @@ svg {
 
   .sections-wrapper {
     width: 100%;
-    height: 100%;
+    height: 100vh;
     position: relative;
     overflow-x: hidden;
   }
@@ -1136,8 +1136,8 @@ button {
 }
 
 .section_footer {
-  width: 100%;
-  min-height: 100vh;
+  /* width: 100%;
+  min-height: 100vh; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1192,8 +1192,10 @@ button {
 
 
 .footer-nav {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  /* grid-template-columns: repeat(3, 1fr); */
   gap: 3rem;
 }
 
@@ -1221,7 +1223,10 @@ button {
   font-size: 1rem;
   color: var(--text-color);
 }
-
+.footer-mail a{
+  font-size: 1rem;
+  color: var(--text-color);
+}
 /* CTA Button */
 .cta-button {
   display: inline-flex;
