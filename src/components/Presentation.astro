@@ -94,7 +94,7 @@ import video from "../assets/Prueba3.mp4";
         const tl = gsap.timeline({ delay });
 
         // Title lines entrance
-        tl.fromTo(split!.lines,
+        tl.fromTo(".home-title",
           { rotationX: -90, transformOrigin: "50% 50% -40px", autoAlpha: 0 },
           { rotationX: 0, autoAlpha: 1, duration: 0.8, ease: "power3.out", stagger: 0.1 },
           0
