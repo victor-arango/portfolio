@@ -105,6 +105,7 @@
             ".cta-button",
             ".nav-column",
             ".nav-links li",
+            ".footer-mail"
           ],
           { opacity: 1, clearProps: "all" }
         );
@@ -126,10 +127,24 @@
           autoAlpha: 1,
           y: 0,
           scale: 1,
-          duration: 1.1,
+          duration: 0.8,
           ease: "power4.out",
         },
-        0
+        0.95
+      );
+      
+      // Slide up to from bottom (email-text)
+      tl.fromTo(
+        ".footer-mail",
+        { autoAlpha: 0, y: isDesktop ? 120 : 60, scale: 0.92 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.8,
+          ease: "power4.out",
+        },
+        1.1
       );
 
       // Heading: fade in from below
@@ -139,7 +154,7 @@
         {
           autoAlpha: 1,
           y: 0,
-          duration: 0.85,
+          duration: 0.8,
           ease: "power3.out",
         },
         0.2
@@ -152,7 +167,7 @@
         {
           autoAlpha: 1,
           x: 0,
-          duration: 0.65,
+          duration: 0.8,
           ease: "power3.out",
         },
         0.45
@@ -166,7 +181,7 @@
           autoAlpha: 1,
           y: 0,
           scale: 1,
-          duration: 0.7,
+          duration: 0.8,
           stagger: 0.12,
           ease: "power3.out",
         },
@@ -180,7 +195,7 @@
         {
           autoAlpha: 1,
           x: 0,
-          duration: 0.55,
+          duration: 0.8,
           stagger: 0.06,
           ease: "power2.out",
         },
@@ -193,7 +208,7 @@
         {
           autoAlpha: 0,
           y: 16,
-          duration: 0.5,
+          duration: 0.8,
           stagger: 0.025,
           ease: "power2.out",
         },
@@ -204,7 +219,7 @@
       tl.from(splitEffect.chars, {
         autoAlpha: 0,
         scale: 3.5,
-        duration: 0.9,
+        duration: 0.8,
         stagger: 0.05,
         ease: "power4.out",
       }, "<");
@@ -225,9 +240,11 @@
       } else {
         ScrollTrigger.create({
           trigger: ".section_footer",
-          start: "top 75%",
+          start: "top 55%",
+          markers: true,
+          
           animation: tl,
-          toggleActions: "play none none none",
+          toggleActions: "play none none reverse",
         });
         return () => {
           splitEffect.revert();
