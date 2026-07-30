@@ -438,7 +438,8 @@ svg {
   position: absolute;
   width: 10%;
   height: 10%;
-
+  transform: rotate(-180deg);
+  animation: transform 30s ease-in-out infinite both alternate, movement_two 60s ease-in-out infinite both;
 }
 
 .blob-2 {
@@ -466,6 +467,32 @@ svg {
   width: 20%;
   transform: rotate(-180deg);
   animation: transform 30s ease-in-out infinite both alternate, movement_two 60s ease-in-out infinite both;
+}
+
+@media screen and (max-width: 568px) {
+
+.blob-1 {
+  width: 20%;
+  height: 20%;
+}
+
+.blob-2 {
+  height: 30%;
+  width: 30%;
+}
+
+.blob-3 {
+  height: 40%;
+  width: 40%;
+}
+
+.blob-4 {
+  height: 50%;
+  width: 50%;
+}
+
+
+
 }
 
 
@@ -933,6 +960,10 @@ button {
 
 @media screen and (max-width: 479px) {
 
+  .home_intro_content p{
+    width: 100%;
+  }
+
 
   .grid {
     flex-direction: column;
@@ -1182,6 +1213,8 @@ button {
   line-height: 1.2;
   color: var(--title-color);
 }
+
+
 
 .footer-heading .italic {
   font-style: italic;
