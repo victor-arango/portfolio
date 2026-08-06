@@ -727,8 +727,8 @@ svg {
 
 .home_intro {
   width: 100%;
-  padding-top: 2rem;
-  padding-bottom: 0rem;
+  /* padding-top: 2rem;
+  padding-bottom: 0rem; */
   position: relative;
 }
 
@@ -902,10 +902,10 @@ button {
 
 
 
-  .home_intro {
+  /* .home_intro {
     padding-top: 10vw;
     padding-bottom: 10vw
-  }
+  } */
 
 
   .home_intro-grid {
@@ -922,10 +922,10 @@ button {
 @media screen and (max-width: 767px) {
 
 
-  .home_intro {
+  /* .home_intro {
     padding-top: 2.5rem;
     padding-bottom: 2.5rem
-  }
+  } */
 
 
   .home_intro_content {
@@ -949,7 +949,7 @@ button {
   }
 
   .home_intro_character {
-    height: 16.75rem;
+    height: 12.75rem;
   }
 
   .home_spline_roboto video {

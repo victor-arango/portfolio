@@ -3,19 +3,24 @@ import "../style/header.css";
 import video from "../assets/Prueba3.mp4";
 ---
 
-<section class="section v-panel home__section v-panel active" id="home" data-type="vertical" data-id="v1">
+<section
+  class="section v-panel home__section v-panel active presentation_section"
+  id="home"
+  data-type="vertical"
+  data-id="v1"
+>
   <div class="home_intro">
     <div class="container-medium">
       <div class="home_intro-grid">
         <div class="home_intro_content">
           <h1 class="home-title">Transforming<br />Digital Vision.</h1>
           <p class="home-description">
-            I specialize in building high-performance FullStack applications that merge 
-            clean architecture with exceptional user experiences. 
+            I specialize in building high-performance FullStack applications
+            that merge clean architecture with exceptional user experiences.
           </p>
           <p class="home-description">
-            Focused on turning complex business challenges into seamless, scalable 
-            digital realities through precision and purpose.
+            Focused on turning complex business challenges into seamless,
+            scalable digital realities through precision and purpose.
           </p>
 
           <a href="#contact" class="button button--stroke" data-block="button">
@@ -45,11 +50,15 @@ import video from "../assets/Prueba3.mp4";
     will-change: transform, opacity;
   }
 
-  @media (max-width: 850px) {
+  .presentation_section {
+    border-radius: 1px solid red;
+  }
+
+  /* @media (max-width: 850px) {
     .home__section {
       padding: 2rem 2rem 0rem !important;
     }
-  }
+  } */
 </style>
 
 <script>
@@ -68,7 +77,10 @@ import video from "../assets/Prueba3.mp4";
   }
 
   // Pre-hide elements to prevent jump
-  gsap.set([".home-title", ".home-description", ".button--stroke", ".videoAnimation"], { autoAlpha: 0 });
+  gsap.set(
+    [".home-title", ".home-description", ".button--stroke", ".videoAnimation"],
+    { autoAlpha: 0 },
+  );
 
   function runIntroAnimations(delay = 0) {
     setupSplit();
@@ -81,46 +93,82 @@ import video from "../assets/Prueba3.mp4";
         reduceMotion: "(prefers-reduced-motion: reduce)",
       },
       (context) => {
-        const { reduceMotion } = context.conditions as { reduceMotion: boolean };
+        const { reduceMotion } = context.conditions as {
+          reduceMotion: boolean;
+        };
 
         if (reduceMotion) {
-          gsap.set([".home-title", ".home-description", ".button--stroke", ".videoAnimation"], {
-            autoAlpha: 1,
-            clearProps: "all",
-          });
+          gsap.set(
+            [
+              ".home-title",
+              ".home-description",
+              ".button--stroke",
+              ".videoAnimation",
+            ],
+            {
+              autoAlpha: 1,
+              clearProps: "all",
+            },
+          );
           return;
         }
 
         const tl = gsap.timeline({ delay });
 
         // Title lines entrance
-        tl.fromTo(".home-title",
+        tl.fromTo(
+          ".home-title",
           { rotationX: -90, transformOrigin: "50% 50% -40px", autoAlpha: 0 },
-          { rotationX: 0, autoAlpha: 1, duration: 0.8, ease: "power3.out", stagger: 0.1 },
-          0
+          {
+            rotationX: 0,
+            autoAlpha: 1,
+            duration: 0.8,
+            ease: "power3.out",
+            stagger: 0.1,
+          },
+          0,
         );
 
         // Descriptions slide
-        tl.fromTo(".home-description",
+        tl.fromTo(
+          ".home-description",
           { autoAlpha: 0, x: -20 },
-          { autoAlpha: 1, x: 0, duration: 0.8, ease: "power2.out", stagger: 0.1 },
-          0.3
+          {
+            autoAlpha: 1,
+            x: 0,
+            duration: 0.8,
+            ease: "power2.out",
+            stagger: 0.1,
+          },
+          0.3,
         );
 
         // Character / Video reveal
-        tl.fromTo(".videoAnimation",
-          { autoAlpha: 0, scale: 0.9, clipPath: "inset(10% 10% 10% 10% round 20px)" },
-          { autoAlpha: 1, scale: 1, clipPath: "inset(0% 0% 0% 0% round 0px)", duration: 1.4, ease: "expo.out" },
-          0.1
+        tl.fromTo(
+          ".videoAnimation",
+          {
+            autoAlpha: 0,
+            scale: 0.9,
+            clipPath: "inset(10% 10% 10% 10% round 20px)",
+          },
+          {
+            autoAlpha: 1,
+            scale: 1,
+            clipPath: "inset(0% 0% 0% 0% round 0px)",
+            duration: 1.4,
+            ease: "expo.out",
+          },
+          0.1,
         );
 
         // Contact button
-        tl.fromTo(".button--stroke",
+        tl.fromTo(
+          ".button--stroke",
           { autoAlpha: 0, y: 15 },
           { autoAlpha: 1, y: 0, duration: 0.7, ease: "back.out(1.7)" },
-          0.6
+          0.6,
         );
-      }
+      },
     );
   }
 
@@ -138,7 +186,7 @@ import video from "../assets/Prueba3.mp4";
         (window as any).__preloaderDone = true;
         runIntroAnimations(0.1);
       },
-      { once: true }
+      { once: true },
     );
   }
 
@@ -159,14 +207,15 @@ import video from "../assets/Prueba3.mp4";
     }
 
     private getXY(e: MouseEvent) {
-      const { left, top, width, height } = this.DOM.button.getBoundingClientRect();
+      const { left, top, width, height } =
+        this.DOM.button.getBoundingClientRect();
       const xT = gsap.utils.pipe(
         gsap.utils.mapRange(0, width, 0, 100),
-        gsap.utils.clamp(0, 100)
+        gsap.utils.clamp(0, 100),
       );
       const yT = gsap.utils.pipe(
         gsap.utils.mapRange(0, height, 0, 100),
-        gsap.utils.clamp(0, 100)
+        gsap.utils.clamp(0, 100),
       );
       return { x: xT(e.clientX - left), y: yT(e.clientY - top) };
     }
@@ -176,7 +225,11 @@ import video from "../assets/Prueba3.mp4";
         const { x, y } = this.getXY(e as MouseEvent);
         this.xSet(x);
         this.ySet(y);
-        gsap.to(this.DOM.flair, { scale: 1, duration: 0.4, ease: "power2.out" });
+        gsap.to(this.DOM.flair, {
+          scale: 1,
+          duration: 0.4,
+          ease: "power2.out",
+        });
       });
 
       this.DOM.button.addEventListener("mouseleave", (e) => {
@@ -193,10 +246,17 @@ import video from "../assets/Prueba3.mp4";
 
       this.DOM.button.addEventListener("mousemove", (e) => {
         const { x, y } = this.getXY(e as MouseEvent);
-        gsap.to(this.DOM.flair, { xPercent: x, yPercent: y, duration: 0.4, ease: "power2.out" });
+        gsap.to(this.DOM.flair, {
+          xPercent: x,
+          yPercent: y,
+          duration: 0.4,
+          ease: "power2.out",
+        });
       });
     }
   }
 
-  document.querySelectorAll('[data-block="button"]').forEach((el) => new MagneticButton(el));
+  document
+    .querySelectorAll('[data-block="button"]')
+    .forEach((el) => new MagneticButton(el));
 </script>

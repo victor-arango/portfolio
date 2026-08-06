@@ -2,14 +2,14 @@
 import projects from "../data/projects.json";
 ---
 
-<section class="section h-container" id="work" data-type="horizontal">
+<section class="section projects-section" id="work" data-type="horizontal">
   <div class="projects-grid-bg"></div>
 
   <div class="projects-meta">
     <span class="projects-meta__label">Index</span>
-    <span class="projects-meta__count js-count"
-      >— 01 / {String(projects.length).padStart(2, "0")}</span
-    >
+    <span class="projects-meta__count js-count">
+      — 01 / {String(projects.length).padStart(2, "0")}
+    </span>
   </div>
 
   <nav class="projects-nav" aria-label="Projects navigation">
@@ -19,6 +19,7 @@ import projects from "../data/projects.json";
           class="projects-nav__dot"
           aria-label={`Go to project ${i + 1}`}
           aria-current={i === 0 ? "true" : "false"}
+          data-index={i}
         />
       ))
     }
@@ -28,56 +29,102 @@ import projects from "../data/projects.json";
     <div class="projects-progress__fill js-fill"></div>
   </div>
 
-  {
-    projects.map((project, index) => (
-      <article
-        class={`h-panel ${index === 0 ? "is-active" : ""}`}
-        style={`--accent: ${project.accentColor};`}
-      >
-        <div class="panel__info">
-          <span class="panel__id">{project.id}</span>
-          <span class="panel__cat">
-            {project.category} • {project.year}
-          </span>
-          <h2 class="panel__title">{project.title}
-            
-          </h2>
-          <p class="panel__desc">{project.description}</p>
+  <div class="projects-panels-container">
+    {
+      projects.map((project, index) => (
+        <article
+          class="project-panel"
+          data-index={index}
+          style={`--accent: ${project.accentColor};`}
+        >
+          <div class="panel__info">
+            <div class="panel__meta-row">
+              <span class="panel__id">{project.id}</span>
+              <span class="panel__cat">
+                {project.category} • {project.year}
+              </span>
+            </div>
+            <h2 class="panel__title">{project.title}</h2>
+            <p class="panel__desc">{project.description}</p>
 
-          <ul class="panel__tags">
-            {project.tags.map((tag) => (
-              <li>{tag}</li>
-            ))}
-          </ul>
+            <ul class="panel__tags">
+              {project.tags.map((tag) => (
+                <li>{tag}</li>
+              ))}
+            </ul>
 
-          <div class="panel__foot">
-            <a href={project.link} target="_blank" class="panel__cta">
-              View Source
-            </a>
+            <div class="panel__foot">
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="panel__cta"
+              >
+                <span>View Source</span>
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                  <polyline points="15 3 21 3 21 9" />
+                  <line x1="10" y1="14" x2="21" y2="3" />
+                </svg>
+              </a>
+            </div>
           </div>
-        </div>
 
-        <div class="panel__visual">
-          <div class="panel__visual-glow" />
-          {project.visual.type === "number" ? (
-            <span class="panel__visual-num">{project.visual.value}</span>
-          ) : (
-            <img src={project.visual.value} alt={project.id} class="panel__img" />
-          )}
-        </div>
-      </article>
-    ))
-  }
+          <div class="panel__visual">
+            <div class="panel__visual-glow"></div>
+            {
+              project.visual.type === "number" ? (
+                <span class="panel__visual-num">{project.visual.value}</span>
+              ) : (
+                <img
+                  src={project.visual.value}
+                  alt={`${project.title} preview`}
+                  class="panel__img"
+                  loading={index === 0 ? "eager" : "lazy"}
+                  decoding="async"
+                />
+              )
+            }
+          </div>
+        </article>
+      ))
+    }
+  </div>
+
+  <div class="projects-hint js-hint">
+    <span class="projects-hint__text">Scroll or drag</span>
+    <div class="projects-hint__line"></div>
+  </div>
 </section>
 
 <style>
-  /* ── Section ─────────────────────────────────────────────────────────────── */
-  .section.h-container {
+  /* ═══════════════════════════════════════════════════════════════════════
+     BASE SECTION  —  siempre limitada al viewport
+     ═══════════════════════════════════════════════════════════════════════ */
+  .projects-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;           /* fallback */
+    height: 100dvh;          /* respeta la UI del móvil */
+    max-height: 100vh;
+    max-height: 100dvh;
     background: #060606;
-    overflow: hidden;
+    overflow: hidden;        /* el slide gestiona el contenido, no el scroll nativo */
+    isolation: isolate;
   }
 
-  /* ── Grid bg ───────────────────────────────────────────────────────────── */
+  /* ═══════════════════════════════════════════════════════════════════════
+     GRID BACKGROUND
+     ═══════════════════════════════════════════════════════════════════════ */
   .projects-grid-bg {
     position: absolute;
     inset: 0;
@@ -88,581 +135,846 @@ import projects from "../data/projects.json";
     background-position: center center;
     pointer-events: none;
     z-index: 1;
+    will-change: transform;
   }
 
-  /* ── Meta ────────────────────────────────────────────────────────────────── */
+  /* ═══════════════════════════════════════════════════════════════════════
+     META (top-left)  —  absoluto respecto a la sección
+     ═══════════════════════════════════════════════════════════════════════ */
   .projects-meta {
     position: absolute;
-    top: 3rem;
-    left: 4.5rem;
+    top: 2rem;
+    left: 2.5rem;
     display: flex;
-    gap: 1.5rem;
+    gap: 1rem;
     align-items: center;
     z-index: 10;
     pointer-events: none;
+    user-select: none;
   }
+
   .projects-meta__label {
     font-family: "DM Mono", monospace;
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     letter-spacing: 0.25em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.25);
-    background: rgba(255, 255, 255, 0.03);
-    padding: 0.4rem 0.8rem;
+    color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.04);
+    padding: 0.35rem 0.75rem;
     border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
   }
+
   .projects-meta__count {
     font-family: "DM Mono", monospace;
     font-size: 0.7rem;
     letter-spacing: 0.1em;
     color: #fff;
+    font-variant-numeric: tabular-nums;
   }
 
-  /* ── Dots ────────────────────────────────────────────────────────────────── */
+  /* ═══════════════════════════════════════════════════════════════════════
+     NAV DOTS  —  absoluto respecto a la sección (nunca fixed)
+     ═══════════════════════════════════════════════════════════════════════ */
   .projects-nav {
     position: absolute;
-    bottom: 8.5rem;
-    right: 4.5rem;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 0.875rem;
     z-index: 10;
   }
+
   .projects-nav__dot {
-    width: 8px;
-    height: 8px;
+    width: 9px;
+    height: 9px;
     border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
     background: transparent;
     cursor: pointer;
     padding: 0;
     transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
     position: relative;
+    outline: none;
   }
-  .projects-nav__dot:after {
+
+  .projects-nav__dot::after {
     content: "";
     position: absolute;
-    inset: -6px;
+    inset: -5px;
     border-radius: 50%;
     border: 1px solid var(--accent, #fff);
     opacity: 0;
-    scale: 0.5;
-    transition: all 0.4s ease;
+    transform: scale(0.5);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   }
+
+  .projects-nav__dot:focus-visible {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+  }
+
   .projects-nav__dot[aria-current="true"] {
     background: var(--accent, #fff);
     border-color: var(--accent, #fff);
-    scale: 1.25;
-  }
-  .projects-nav__dot[aria-current="true"]:after {
-    opacity: 1;
-    scale: 1.5;
+    transform: scale(1.3);
   }
 
-  /* ── Progress Bar ───────────────────────────────────────────────────────── */
+  .projects-nav__dot[aria-current="true"]::after {
+    opacity: 0.6;
+    transform: scale(1.8);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     PROGRESS BAR  —  absoluto respecto a la sección (nunca fixed)
+     ═══════════════════════════════════════════════════════════════════════ */
   .projects-progress {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 1px;
+    height: 2px;
     background: rgba(255, 255, 255, 0.05);
     z-index: 10;
   }
+
   .projects-progress__fill {
     height: 100%;
     width: 100%;
     background: var(--accent, #fff);
     transform-origin: left;
-    filter: drop-shadow(0 0 8px var(--accent, #fff));
+    transform: scaleX(0);
+    filter: drop-shadow(0 0 6px var(--accent, #fff));
+    will-change: transform;
   }
 
-  /* ── Panels ──────────────────────────────────────────────────────────────── */
-  .h-panel {
+  /* ═══════════════════════════════════════════════════════════════════════
+     HINT
+     ═══════════════════════════════════════════════════════════════════════ */
+  .projects-hint {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    z-index: 5;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease;
+  }
+
+  .projects-hint.is-visible {
+    opacity: 1;
+  }
+
+  .projects-hint__text {
+    font-family: "DM Mono", monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.25);
+  }
+
+  .projects-hint__line {
+    width: 1px;
+    height: 20px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+    animation: hintPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes hintPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(0.6); }
+    50% { opacity: 1; transform: scaleY(1); }
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     PANELS CONTAINER
+     ═══════════════════════════════════════════════════════════════════════ */
+  .projects-panels-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+
+  .project-panel {
     position: absolute;
     inset: 0;
     display: grid;
-    grid-template-columns: 1fr 1.2fr;
+    grid-template-columns: 1fr 1.15fr;
     align-items: center;
-    gap: 5rem;
-    padding: 2rem 10rem;
+    gap: 3.5rem;
+    padding: 4rem 7rem 3rem 3.5rem;
     opacity: 0;
+    visibility: hidden;
     pointer-events: none;
     z-index: 2;
-    transition: opacity 0.4s ease;
-  }
-  .h-panel.is-active {
-    opacity: 1;
-    pointer-events: auto;
+    transition: opacity 0.1s linear;
   }
 
-  /* ── Panel info ──────────────────────────────────────────────────────────── */
+  .project-panel.is-active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    z-index: 3;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     PANEL INFO
+     ═══════════════════════════════════════════════════════════════════════ */
   .panel__info {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1rem;
+    max-width: 480px;
+    overflow-wrap: break-word;
   }
+
+  .panel__meta-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
   .panel__id {
     font-family: "DM Mono", monospace;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     letter-spacing: 0.5em;
     color: var(--accent);
-    opacity: 0.8;
+    opacity: 0.9;
   }
+
   .panel__cat {
     font-family: "DM Mono", monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
-    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.35);
     text-transform: uppercase;
   }
+
   .panel__title {
     font-family: "Terra", serif;
-    font-size: clamp(3rem, 7vw, 6.5rem);
+    font-size: clamp(2.2rem, 4.5vw, 4.8rem);
     font-weight: 800;
     letter-spacing: -0.02em;
-    line-height: 1.1;
+    line-height: 1.05;
     color: #fff;
     margin: 0;
     text-transform: uppercase;
   }
+
   .panel__desc {
-    font-size: 1rem;
+    font-size: 0.95rem;
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.5);
-    max-width: 45ch;
-    margin: 0.5rem 0;
+    max-width: 42ch;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
+
   .panel__tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 0.4rem;
     list-style: none;
     padding: 0;
+    margin: 0;
   }
+
   .panel__tags li {
     font-family: "DM Mono", monospace;
     font-size: 0.6rem;
-    color: #fff;
+    color: rgba(255, 255, 255, 0.7);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 0.35rem 0.8rem;
+    padding: 0.3rem 0.7rem;
     border-radius: 100px;
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(255, 255, 255, 0.03);
   }
+
+  .panel__foot {
+    margin-top: 0.25rem;
+  }
+
   .panel__cta {
     display: inline-flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.6rem;
     background: transparent;
     color: #fff;
     border: 1px solid rgba(255, 255, 255, 0.15);
-    padding: 1rem 2rem;
+    padding: 0.8rem 1.6rem;
     font-family: "DM Mono", monospace;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     cursor: pointer;
     border-radius: 100px;
     width: fit-content;
-    transition: all 0.4s ease;
+    transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
     overflow: hidden;
     position: relative;
     text-decoration: none;
-    z-index: 10;
-  }
-  .panel__cta:hover {
-    border-color: var(--accent);
-    color: #000;
-    background: var(--accent);
+    outline: none;
   }
 
-  /* ── Panel visual ────────────────────────────────────────────────────────── */
+  .panel__cta::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    z-index: -1;
+  }
+
+  .panel__cta:hover,
+  .panel__cta:focus-visible {
+    border-color: var(--accent);
+    color: #000;
+  }
+
+  .panel__cta:hover::before,
+  .panel__cta:focus-visible::before {
+    transform: scaleX(1);
+  }
+
+  .panel__cta svg {
+    transition: transform 0.3s ease;
+  }
+
+  .panel__cta:hover svg {
+    transform: translate(2px, -2px);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     PANEL VISUAL
+     ═══════════════════════════════════════════════════════════════════════ */
   .panel__visual {
     position: relative;
-    height: 70vh;
-    max-height: 650px;
+    height: clamp(280px, 55vh, 520px);
     border-radius: 12px;
-    background: #111;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: #0a0a0a;
+    border: 1px solid rgba(255, 255, 255, 0.06);
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.5);
+    box-shadow:
+      0 40px 100px -20px rgba(0, 0, 0, 0.6),
+      0 0 0 1px rgba(255, 255, 255, 0.02);
   }
+
   .panel__img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
   }
+
   .panel__visual-glow {
     position: absolute;
-    inset: -20%;
+    inset: -30%;
     background: radial-gradient(
       circle at 50% 50%,
-      color-mix(in srgb, var(--accent) 15%, transparent),
-      transparent 60%
+      color-mix(in srgb, var(--accent) 12%, transparent),
+      transparent 65%
     );
-    filter: blur(40px);
+    filter: blur(50px);
+    pointer-events: none;
+    z-index: 1;
   }
+
   .panel__visual-num {
     font-family: "DM Mono", monospace;
-    font-size: clamp(8rem, 20vw, 18rem);
+    font-size: clamp(5rem, 12vw, 11rem);
     font-weight: 900;
-    color: rgba(255, 255, 255, 0.03);
+    color: rgba(255, 255, 255, 0.04);
     line-height: 1;
     letter-spacing: -0.05em;
     pointer-events: none;
+    user-select: none;
   }
 
-  /* ── Mobile ──────────────────────────────────────────────────────────────── */
-  @media (max-width: 850px) {
-    .projects-meta {
-      left: 1.5rem;
-      top: 1.5rem;
+  /* ═══════════════════════════════════════════════════════════════════════
+     TABLET  (851px – 1100px)
+     ═══════════════════════════════════════════════════════════════════════ */
+  @media (max-width: 1100px) and (min-width: 851px) {
+    .project-panel {
+      padding: 3.5rem 5.5rem 2.5rem 3rem;
+      gap: 2.5rem;
     }
 
-    .projects-nav {
-        left: 78%;
-        bottom: 3rem;
-        right: auto;
-        transform: translateX(-50%);
-        flex-direction: row;
-        gap: 1rem;
-    }
-    }
-
-    .projects-nav__dot {
-      width: 10px;
-      height: 10px;
-    }
-
-    .h-panel {
-      grid-template-columns: 1fr;
-      padding: 4.5rem 1.5rem 4.5rem;
-      gap: 1.5rem;
-      align-content: start;
-    }
-
-    .panel__visual {
-      height: 35vh;
-      min-height: 200px;
-      order: -1;
-      width: 100%;
+    .panel__info {
+      max-width: 380px;
     }
 
     .panel__title {
-      font-size: clamp(2.2rem, 10vw, 3.5rem);
-      font-weight: 800;
-      line-height: 1.1;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+    }
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     MOBILE  (≤850px)  —  SIEMPRE 100dvh, nunca fixed
+     ═══════════════════════════════════════════════════════════════════════ */
+  @media (max-width: 850px) {
+    .projects-section {
+      height: 100dvh;
+      max-height: 100dvh;
+      overflow: hidden;          /* el panel activo gestiona su propio scroll si hace falta */
     }
 
-    .panel__desc {
-      font-size: 0.9rem;
-      max-width: 100%;
+    .projects-meta {
+      left: 1.25rem;
+      top: 1.25rem;
+    }
+
+    .projects-nav {
+      position: absolute;        /* ← absoluto respecto a la sección */
+      bottom: 1.25rem;
+      left: 50%;
+      right: auto;
+      top: auto;
+      transform: translateX(-50%);
+      flex-direction: row;
+      gap: 0.75rem;
+      padding: 0.4rem 0.9rem;
+      background: rgba(10, 10, 10, 0.75);
+      backdrop-filter: blur(10px);
+      border-radius: 100px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .projects-nav__dot {
+      width: 7px;
+      height: 7px;
+    }
+
+    .projects-hint {
+      display: none;
     }
 
     .projects-progress {
-      height: 2px;
+      position: absolute;        /* ← absoluto respecto a la sección */
+    }
+
+    .projects-panels-container {
+      position: relative;
+      height: 100%;
+    }
+
+    .project-panel {
+      position: absolute;
+      inset: 0;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr;
+      padding: 4.5rem 1.25rem 3.5rem;
+      gap: 1rem;
+      align-content: start;
+      align-items: start;
+      overflow-y: auto;          /* scroll interno solo si el contenido excede */
+      scrollbar-width: none;       /* ocultar scrollbar en Firefox */
+    }
+
+    .project-panel::-webkit-scrollbar {
+      display: none;             /* ocultar scrollbar en WebKit */
+    }
+
+    .project-panel:not(.is-active) {
+      display: none;
+    }
+
+    .panel__visual {
+      height: 26vh;
+      min-height: 160px;
+      max-height: 240px;
+      order: -1;
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .panel__info {
+      gap: 0.75rem;
+      max-width: 100%;
+    }
+
+    .panel__title {
+      font-size: clamp(1.8rem, 8vw, 2.6rem);
+      line-height: 1.05;
+    }
+
+    .panel__desc {
+      font-size: 0.85rem;
+      line-height: 1.55;
+      max-width: 100%;
+      -webkit-line-clamp: 3;
+    }
+
+    .panel__tags {
+      gap: 0.35rem;
+    }
+
+    .panel__tags li {
+      font-size: 0.55rem;
+      padding: 0.25rem 0.6rem;
+    }
+
+    .panel__cta {
+      padding: 0.7rem 1.3rem;
+      font-size: 0.6rem;
+    }
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     REDUCED MOTION
+     ═══════════════════════════════════════════════════════════════════════ */
+  @media (prefers-reduced-motion: reduce) {
+    .projects-nav__dot,
+    .panel__cta,
+    .panel__tags li,
+    .panel__img,
+    .projects-hint__line {
+      transition: none;
+      animation: none;
     }
   }
 </style>
 
-
 <script>
   import { gsap } from "gsap";
-  import { SplitText } from "gsap/SplitText";
-  import { Observer } from "gsap/Observer";
 
-  gsap.registerPlugin(SplitText, Observer);
+  /* ═══════════════════════════════════════════════════════════════════════
+     CONFIG
+     ═══════════════════════════════════════════════════════════════════════ */
+  const CONFIG = {
+    slideDuration: 0.65,
+    slideEase: "expo.inOut",
+    charStagger: 0.022,
+    charDuration: 0.32,
+    wheelThreshold: 40,
+    wheelCooldown: 750,
+    touchThreshold: 50,
+  };
 
-  // ── FIX #5: Usar requestAnimationFrame doble para garantizar hidratación ──
-  // En Astro con View Transitions el script puede correr antes de que el DOM
-  // esté pintado. El doble rAF asegura que el layout ya existe.
+  /* ═══════════════════════════════════════════════════════════════════════
+     INIT
+     ═══════════════════════════════════════════════════════════════════════ */
   requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      init();
-    });
+    requestAnimationFrame(initProjectsSlider);
   });
 
-  function init() {
-    const panels = gsap.utils.toArray<HTMLElement>(".h-panel");
+  function initProjectsSlider() {
+    const section = document.querySelector<HTMLElement>("#work");
+    if (!section) return;
+
+    const panels = gsap.utils.toArray<HTMLElement>(".project-panel");
     const dots = gsap.utils.toArray<HTMLButtonElement>(".projects-nav__dot");
-    const countEl = document.querySelector<HTMLElement>(".js-count");
-    const fillEl = document.querySelector<HTMLElement>(".js-fill");
-    const gridBg = document.querySelector<HTMLElement>(".projects-grid-bg");
+    const countEl = section.querySelector<HTMLElement>(".js-count");
+    const fillEl = section.querySelector<HTMLElement>(".js-fill");
+    const gridBg = section.querySelector<HTMLElement>(".projects-grid-bg");
+    const hint = section.querySelector<HTMLElement>(".js-hint");
+
     const total = panels.length;
+    if (total === 0) return;
 
-    let currentPanelIndex = 0;
+    let currentIndex = 0;
     let isAnimating = false;
-    let hasFirstAnimated = false;
+    let hasEntered = false;
+    let wheelLock = false;
+    let touchStartX = 0;
+    let touchStartY = 0;
 
-    // ── FIX #1 + #4: SplitText dentro de init(), después del doble rAF ──────
-    // Se crean aquí (no en top-level) para garantizar que el DOM está listo.
-    // La función recreateSplits() permite rehacerlos limpiamente al hacer revert.
-    let splitTitles: (SplitText | null)[] = [];
+    /* ── Split text manual (sin plugin de pago) ───────────────────────── */
+    const titleChars: HTMLElement[][] = [];
 
-    function recreateSplits() {
-      // FIX #4: revert splits anteriores antes de recrear
-      splitTitles.forEach((s) => s?.revert());
-      splitTitles = panels.map((p) => {
-        const title = p.querySelector<HTMLElement>(".panel__title");
-        if (!title) return null;
-        return new SplitText(title, { type: "chars" });
+    function splitTitles() {
+      titleChars.length = 0;
+      panels.forEach((panel) => {
+        const title = panel.querySelector<HTMLElement>(".panel__title");
+        if (!title) {
+          titleChars.push([]);
+          return;
+        }
+        // Limpiar split anterior si existe
+        if (title.querySelector(".char")) {
+          title.textContent = title.dataset.originalText || title.textContent || "";
+        }
+        if (!title.dataset.originalText) {
+          title.dataset.originalText = title.textContent || "";
+        }
+        const text = title.dataset.originalText;
+        title.innerHTML = "";
+        const chars: HTMLElement[] = [];
+        text.split("").forEach((char) => {
+          const span = document.createElement("span");
+          span.className = "char";
+          span.textContent = char === " " ? "\u00A0" : char;
+          span.style.display = "inline-block";
+          span.style.willChange = "transform, opacity";
+          title.appendChild(span);
+          chars.push(span);
+        });
+        titleChars.push(chars);
       });
     }
 
-    recreateSplits();
+    splitTitles();
 
-    // ── Setup inicial ─────────────────────────────────────────────────────────
+    /* ── Estado inicial ───────────────────────────────────────────────── */
     gsap.set(panels, { autoAlpha: 0, x: 0 });
     panels[0].classList.add("is-active");
     gsap.set(panels[0], { autoAlpha: 1 });
+    titleChars.forEach((chars) => gsap.set(chars, { autoAlpha: 0, y: 45 }));
     updateUI(0);
 
-    // FIX #2: Solo ocultar chars de paneles NO activos.
-    // El panel[0] se animará en la entrada, así que también lo ocultamos,
-    // pero SOLO si esperamos el evento section:entered. Si no hay event system,
-    // animamos inmediatamente como fallback.
-    splitTitles.forEach((s, i) => {
-      if (s) gsap.set(s.chars, { autoAlpha: 0, y: 60 });
-    });
-
+    /* ── Event listeners ──────────────────────────────────────────────── */
     dots.forEach((dot, i) => dot.addEventListener("click", () => goToPanel(i)));
 
-    (window as any).__projectsGoToPanel = (i: number) => goToPanel(i);
-    (window as any).__projectsPanelCount = total;
-    (window as any).__projectsCurrentPanel = () => currentPanelIndex;
-
-    // ── FIX #5: Fallback si section:entered ya se disparó (race condition) ───
-    // Verificamos si la sección ya es visible con IntersectionObserver como
-    // fallback además del evento personalizado.
-    const sectionEl = document.querySelector<HTMLElement>("#work");
-
-    const onEnterSection = (e: any) => {
-      if (e.detail?.id === "work" && !hasFirstAnimated) {
-        hasFirstAnimated = true;
-        animatePanel(panels[0], null, 1);
+    document.addEventListener("keydown", (e) => {
+      if (!section?.matches(":hover, :focus-within")) return;
+      if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+        e.preventDefault();
+        goToPanel(currentIndex + 1);
+      } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+        e.preventDefault();
+        goToPanel(currentIndex - 1);
       }
-    };
-    window.addEventListener("section:entered", onEnterSection);
+    });
 
-    // Fallback: IntersectionObserver por si el evento nunca llega
-    if (sectionEl) {
-      const io = new IntersectionObserver(
-        (entries) => {
-          if (entries[0].isIntersecting && !hasFirstAnimated) {
-            hasFirstAnimated = true;
-            animatePanel(panels[0], null, 1);
-          }
-        },
-        { threshold: 0.3 },
-      );
-      io.observe(sectionEl);
+    const mm = gsap.matchMedia();
 
-      // Limpieza del observer también en cleanup
-      (window as any).__projectsCleanup = () => {
-        window.removeEventListener("section:entered", onEnterSection);
-        io.disconnect();
-        splitTitles.forEach((s) => s?.revert());
+    /* Desktop: wheel + touch */
+    mm.add("(min-width: 851px)", () => {
+      const onWheel = (e: WheelEvent) => {
+        if (wheelLock || isAnimating) return;
+        const delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+        if (Math.abs(delta) < CONFIG.wheelThreshold) return;
+        wheelLock = true;
+        delta > 0 ? goToPanel(currentIndex + 1) : goToPanel(currentIndex - 1);
+        setTimeout(() => { wheelLock = false; }, CONFIG.wheelCooldown);
       };
-    }
+      section.addEventListener("wheel", onWheel, { passive: true });
 
-    // ── Helpers ───────────────────────────────────────────────────────────────
+      const onTouchStart = (e: TouchEvent) => {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      };
+      const onTouchEnd = (e: TouchEvent) => {
+        if (isAnimating) return;
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        const dy = e.changedTouches[0].clientY - touchStartY;
+        const absDx = Math.abs(dx);
+        const absDy = Math.abs(dy);
+        if (Math.max(absDx, absDy) < CONFIG.touchThreshold) return;
+        if (absDx > absDy) {
+          dx > 0 ? goToPanel(currentIndex - 1) : goToPanel(currentIndex + 1);
+        } else {
+          dy > 0 ? goToPanel(currentIndex - 1) : goToPanel(currentIndex + 1);
+        }
+      };
+      section.addEventListener("touchstart", onTouchStart, { passive: true });
+      section.addEventListener("touchend", onTouchEnd, { passive: true });
+
+      return () => {
+        section.removeEventListener("wheel", onWheel);
+        section.removeEventListener("touchstart", onTouchStart);
+        section.removeEventListener("touchend", onTouchEnd);
+      };
+    });
+
+    /* Mobile: swipe horizontal */
+    mm.add("(max-width: 850px)", () => {
+      let startX = 0;
+      const onStart = (e: TouchEvent) => { startX = e.touches[0].clientX; };
+      const onEnd = (e: TouchEvent) => {
+        const diff = e.changedTouches[0].clientX - startX;
+        if (Math.abs(diff) < CONFIG.touchThreshold) return;
+        diff > 0 ? goToPanel(currentIndex - 1) : goToPanel(currentIndex + 1);
+      };
+      section.addEventListener("touchstart", onStart, { passive: true });
+      section.addEventListener("touchend", onEnd, { passive: true });
+      return () => {
+        section.removeEventListener("touchstart", onStart);
+        section.removeEventListener("touchend", onEnd);
+      };
+    });
+
+    /* Re-split en resize */
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        splitTitles();
+        titleChars.forEach((chars, i) => {
+          if (i !== currentIndex) gsap.set(chars, { autoAlpha: 0, y: 0 });
+        });
+      }, 250);
+    });
+
+    /* ── Entrada inicial ──────────────────────────────────────────────── */
+    const triggerEntry = () => {
+      if (hasEntered) return;
+      hasEntered = true;
+      animatePanel(panels[0], null, 1);
+      hint?.classList.add("is-visible");
+      setTimeout(() => hint?.classList.remove("is-visible"), 3500);
+    };
+
+    window.addEventListener("section:entered", (e: any) => {
+      if (e.detail?.id === "work") triggerEntry();
+    });
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !hasEntered) triggerEntry();
+      },
+      { threshold: 0.25 }
+    );
+    io.observe(section);
+
+    /* ── Helpers ──────────────────────────────────────────────────────── */
     function updateUI(index: number) {
       const panel = panels[index];
-      const accent = getComputedStyle(panel).getPropertyValue("--accent").trim();
-      if (countEl)
+      const accent = getComputedStyle(panel).getPropertyValue("--accent").trim() || "#fff";
+
+      if (countEl) {
         countEl.textContent = `— ${String(index + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}`;
+      }
+
       if (fillEl) {
         gsap.to(fillEl, {
           scaleX: (index + 1) / total,
-          duration: 0.8,
+          duration: 0.7,
           ease: "expo.out",
           backgroundColor: accent,
         });
       }
+
       dots.forEach((dot, i) => {
-        dot.setAttribute("aria-current", i === index ? "true" : "false");
-        if (i === index) dot.style.setProperty("--accent", accent);
+        const isCurrent = i === index;
+        dot.setAttribute("aria-current", isCurrent ? "true" : "false");
+        if (isCurrent) dot.style.setProperty("--accent", accent);
       });
     }
 
     function animatePanel(
       inPanel: HTMLElement,
       outPanel: HTMLElement | null,
-      direction: number,
+      direction: number
     ) {
       if (isAnimating) return;
       isAnimating = true;
 
-      const tl = gsap.timeline({
-        onComplete: () => {
-          isAnimating = false;
-        },
-      });
-
-      const inIndex = panels.indexOf(inPanel);
-      const split = splitTitles[inIndex];
-
-      if (gridBg) {
-        gsap.to(gridBg, {
-          x: -direction * 40,
-          duration: 2,
-          ease: "power2.out",
-        });
-      }
-
-      // ── FIX #3: Calcular offset de overlap dinámicamente ─────────────────
-      // Si no hay outPanel (primer render), la animación de entrada empieza
-      // en t=0 sin overlap negativo que pueda producir t<0.
+      const tl = gsap.timeline({ onComplete: () => { isAnimating = false; } });
+      const inIdx = panels.indexOf(inPanel);
+      const inChars = titleChars[inIdx];
       const hasOut = outPanel !== null;
-      const overlapIn = hasOut ? "-=0.6" : "0";       // panel slide-in
-      const overlapChars = hasOut ? "-=0.7" : "-=0.7"; // chars siempre relativo a slide-in
-      const overlapInfo = hasOut ? "-=0.6" : "-=0.5";
-      const overlapVisual = hasOut ? "-=1" : "-=0.9";
 
+      /* Grid bg parallax */
+      if (gridBg) {
+        gsap.to(gridBg, { x: -direction * 30, duration: 1.8, ease: "power2.out" });
+      }
+
+      /* OUT */
       if (hasOut) {
-        const outIndex = panels.indexOf(outPanel!);
-        const outSplit = splitTitles[outIndex];
-        if (outSplit) {
-          tl.to(
-            outSplit.chars,
-            {
-              y: direction > 0 ? -40 : 40,
-              autoAlpha: 0,
-              stagger: 0.02,
-              duration: 0.2,
-              ease: "power2.in",
-            },
-            0,
-          );
+        const outIdx = panels.indexOf(outPanel!);
+        const outChars = titleChars[outIdx];
+        if (outChars?.length) {
+          tl.to(outChars, {
+            y: direction > 0 ? -30 : 30,
+            autoAlpha: 0,
+            stagger: 0.012,
+            duration: 0.22,
+            ease: "power2.in",
+          }, 0);
         }
-        tl.to(
-          outPanel!,
-          {
-            autoAlpha: 0,
-            x: direction > 0 ? -100 : 100,
-            filter: "blur(10px)",
-            scale: 0.95,
-            duration: 0.4,
-            ease: "expo.inOut",
-            onComplete: () => outPanel!.classList.remove("is-active"),
-          },
-          0,
-        );
-      }
-
-      tl.fromTo(
-        inPanel,
-        {
+        tl.to(outPanel!, {
           autoAlpha: 0,
-          x: direction > 0 ? 100 : -100,
-          scale: 0.95,
-          filter: "blur(10px)",
-        },
-        {
-          autoAlpha: 1,
-          x: 0,
-          scale: 1,
-          filter: "blur(0px)",
-          duration: 0.6,
+          x: direction > 0 ? -70 : 70,
+          filter: "blur(8px)",
+          scale: 0.97,
+          duration: 0.4,
           ease: "expo.inOut",
-          onStart: () => inPanel.classList.add("is-active"),
-        },
-        overlapIn,
-      );
-
-      // FIX #1/#2: Asegurarse de que los chars están en estado inicial antes
-      // de animarlos (por si el split fue recreado o el estado quedó corrupto)
-      if (split) {
-        gsap.set(split.chars, { autoAlpha: 0, y: direction > 0 ? 60 : -60 });
-        tl.to(
-          split.chars,
-          {
-            y: 0,
-            autoAlpha: 1,
-            stagger: 0.03,
-            duration: 0.4,
-            ease: "back.out(1.4)",
-          },
-          overlapChars,
-        );
+          onComplete: () => outPanel!.classList.remove("is-active"),
+        }, 0);
       }
 
-      const infoChildren = inPanel.querySelector(".panel__info")?.children;
-      if (infoChildren) {
-        const infoEls = gsap.utils
-          .toArray<Element>(infoChildren)
-          .filter((el) => !el.classList.contains("panel__title"));
-        tl.from(
-          infoEls,
-          {
-            autoAlpha: 0,
-            y: 20,
-            stagger: 0.08,
-            duration: 0.3,
-            ease: "power2.out",
-          },
-          overlapInfo,
-        );
+      /* IN */
+      tl.fromTo(inPanel, {
+        autoAlpha: 0,
+        x: direction > 0 ? 90 : -90,
+        scale: 0.97,
+        filter: "blur(8px)",
+      }, {
+        autoAlpha: 1,
+        x: 0,
+        scale: 1,
+        filter: "blur(0px)",
+        duration: 0.5,
+        ease: "expo.inOut",
+        onStart: () => inPanel.classList.add("is-active"),
+      }, hasOut ? "-=0.3" : 0);
+
+      /* Title chars */
+      if (inChars?.length) {
+        gsap.set(inChars, { autoAlpha: 0, y: direction > 0 ? 45 : -45 });
+        tl.to(inChars, {
+          y: 0,
+          autoAlpha: 1,
+          stagger: CONFIG.charStagger,
+          duration: CONFIG.charDuration,
+          ease: "back.out(1.5)",
+        }, hasOut ? "-=0.35" : "-=0.25");
       }
 
+      /* Info elements */
+      const infoEls = inPanel.querySelectorAll(".panel__info > *:not(.panel__title)");
+      if (infoEls.length) {
+        tl.from(infoEls, {
+          autoAlpha: 0,
+          y: 16,
+          stagger: 0.06,
+          duration: 0.3,
+          ease: "power2.out",
+        }, hasOut ? "-=0.45" : "-=0.25");
+      }
+
+      /* Visual */
       const visual = inPanel.querySelector(".panel__visual");
       if (visual) {
-        tl.from(
-          visual,
-          { scale: 1.1, autoAlpha: 0, duration: 0.6, ease: "expo.out" },
-          overlapVisual,
-        );
+        tl.from(visual, {
+          scale: 1.06,
+          autoAlpha: 0,
+          duration: 0.6,
+          ease: "expo.out",
+        }, hasOut ? "-=0.55" : "-=0.35");
       }
     }
 
     function goToPanel(nextIndex: number) {
-      if (nextIndex === currentPanelIndex || isAnimating) return;
+      if (nextIndex === currentIndex || isAnimating) return;
       if (nextIndex < 0 || nextIndex >= total) return;
-      const direction = nextIndex > currentPanelIndex ? 1 : -1;
-      const outPanel = panels[currentPanelIndex];
+
+      const direction = nextIndex > currentIndex ? 1 : -1;
+      const outPanel = panels[currentIndex];
       const inPanel = panels[nextIndex];
-      currentPanelIndex = nextIndex;
+
+      currentIndex = nextIndex;
       updateUI(nextIndex);
       animatePanel(inPanel, outPanel, direction);
     }
 
-    // ── FIX #4: Recrear splits en resize para evitar chars duplicados ────────
-    const mm = gsap.matchMedia();
-    mm.add(
-      {
-        isDesktop: "(min-width: 851px)",
-        isMobile: "(max-width: 850px)",
-      },
-      (context) => {
-        const { isDesktop } = context.conditions as { isDesktop: boolean };
-
-        // Recrear splits porque el tamaño de fuente cambió (clamp en title)
-        recreateSplits();
-
-        // Re-ocultar chars de paneles inactivos tras recrear
-        splitTitles.forEach((s, i) => {
-          if (s && i !== currentPanelIndex) {
-            gsap.set(s.chars, { autoAlpha:0, y: 0 });
-          }
-        });
-
-        if (!isDesktop) {
-          const obs = Observer.create({
-            target: ".h-container",
-            type: "touch,pointer",
-            onLeft: () => goToPanel(currentPanelIndex + 1),
-            onRight: () => goToPanel(currentPanelIndex - 1),
-            tolerance: 60,
-            preventDefault: false,
-            dragMinimum: 10,
-          });
-          // FIX #4: cleanup correcto del observer en mm
-          return () => obs.kill();
-        }
-      },
-    );
+    /* Cleanup para View Transitions */
+    (window as any).__projectsCleanup = () => {
+      io.disconnect();
+      mm.revert();
+    };
   }
 </script>
