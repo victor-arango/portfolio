@@ -1,4 +1,5 @@
 ---
+const highlighted = "digital";
 ---
 
 <footer
@@ -12,20 +13,31 @@
       <div class="footer-cta">
         <h2 class="footer-heading">
           Transforming ideas into exceptional
-          <span class="italic effect">d</span>
-          <span class="italic effect">i</span>
-          <span class="italic effect">g</span>
-          <span class="italic effect">i</span>
-          <span class="italic effect">t</span>
-          <span class="italic effect">a</span>
-          <span class="italic effect">l</span>
+
+          {
+            Array.from(highlighted).map((char) => (
+              <span class="italic effect">{char}</span>
+            ))
+          }
+
           <br />
           experiences through expertise and innovation
         </h2>
         <button class="cta-button">
           Contact
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M1 8H15M15 8L8 1M15 8L8 15"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
           </svg>
         </button>
       </div>
@@ -59,13 +71,15 @@
       </nav>
     </div>
 
-
     <div class="footer-brand">
       <div class="brand-text">va dev</div>
-      
     </div>
     <div>
-      <div class="footer-mail" > <a href="mailto:victorarango.dev@gmail.com">victorarango.dev@gmail.com</a></div>
+      <div class="footer-mail">
+        <a href="mailto:victorarango.dev@gmail.com"
+          >victorarango.dev@gmail.com</a
+        >
+      </div>
     </div>
   </div>
 </footer>
@@ -77,7 +91,6 @@
 
   gsap.registerPlugin(ScrollTrigger, SplitText);
 
-  // ── matchMedia: handles responsive + prefers-reduced-motion ───────────────
   const mm = gsap.matchMedia();
 
   mm.add(
@@ -93,8 +106,6 @@
         reduceMotion: boolean;
       };
 
-      // ── SplitText ──────────────────────────────────────────────────────────
-      const splitEffect = SplitText.create(".effect", { type: "chars" });
       const splitTitles = SplitText.create(".nav-title", { type: "chars" });
 
       if (reduceMotion) {
@@ -105,21 +116,18 @@
             ".cta-button",
             ".nav-column",
             ".nav-links li",
-            ".footer-mail"
+            ".footer-mail",
+            ".effect",
           ],
-          { opacity: 1, clearProps: "all" }
+          { opacity: 1, clearProps: "all" },
         );
-        // Cleanup SplitText on context revert
         return () => {
-          splitEffect.revert();
           splitTitles.revert();
         };
       }
 
-      // ── Master timeline ────────────────────────────────────────────────────
       const tl = gsap.timeline({ paused: isDesktop });
 
-      // Brand: slide up from bottom (big text)
       tl.fromTo(
         ".brand-text",
         { autoAlpha: 0, y: isDesktop ? 120 : 60, scale: 0.92 },
@@ -130,10 +138,8 @@
           duration: 0.8,
           ease: "power4.out",
         },
-        0.95
+        0.95,
       );
-      
-      // Slide up to from bottom (email-text)
       tl.fromTo(
         ".footer-mail",
         { autoAlpha: 0, y: isDesktop ? 120 : 60, scale: 0.92 },
@@ -144,10 +150,9 @@
           duration: 0.8,
           ease: "power4.out",
         },
-        1.1
+        1.1,
       );
 
-      // Heading: fade in from below
       tl.fromTo(
         ".footer-heading",
         { autoAlpha: 0, y: 30 },
@@ -157,10 +162,9 @@
           duration: 0.8,
           ease: "power3.out",
         },
-        0.2
+        0.2,
       );
 
-      // CTA button: slide from left
       tl.fromTo(
         ".cta-button",
         { autoAlpha: 0, x: isDesktop ? -50 : -25 },
@@ -170,10 +174,9 @@
           duration: 0.8,
           ease: "power3.out",
         },
-        0.45
+        0.45,
       );
 
-      // Nav columns: staggered entrance
       tl.fromTo(
         ".nav-column",
         { autoAlpha: 0, y: 30, scale: 0.97 },
@@ -185,10 +188,9 @@
           stagger: 0.12,
           ease: "power3.out",
         },
-        0.35
+        0.35,
       );
 
-      // Nav links: staggered fade in
       tl.fromTo(
         ".nav-links li",
         { autoAlpha: 0, x: -12 },
@@ -199,10 +201,9 @@
           stagger: 0.06,
           ease: "power2.out",
         },
-        0.55
+        0.55,
       );
 
-      // Nav title chars: scatter in
       tl.from(
         splitTitles.chars,
         {
@@ -212,29 +213,28 @@
           stagger: 0.025,
           ease: "power2.out",
         },
-        0.5
+        0.5,
       );
 
-      // "digital" chars: scale pop-in
-      tl.from(splitEffect.chars, {
-        autoAlpha: 0,
-        scale: 3.5,
-        duration: 0.8,
-        stagger: 0.05,
-        ease: "power4.out",
-      }, "<");
+      tl.from(
+        ".effect",
+        {
+          autoAlpha: 0,
+          scale: 3.5,
+          duration: 0.8,
+          stagger: 0.05,
+          ease: "power4.out",
+        },
+        "<",
+      );
 
-      // ── Triggering ─────────────────────────────────────────────────────────
       if (isDesktop) {
         const onEnter = (e: any) => {
-          if (e.detail.id === "contact") {
-            tl.restart();
-          }
+          if (e.detail?.id === "contact") tl.restart();
         };
         window.addEventListener("section:entered", onEnter);
         return () => {
           window.removeEventListener("section:entered", onEnter);
-          splitEffect.revert();
           splitTitles.revert();
         };
       } else {
@@ -245,15 +245,19 @@
           toggleActions: "play none none reverse",
         });
         return () => {
-          splitEffect.revert();
           splitTitles.revert();
         };
       }
-    }
+    },
   );
 </script>
 
 <style>
+  .effect {
+    display: inline-block;
+    margin-left: 2%;
+    will-change: transform, opacity;
+  }
   @media (max-width: 850px) {
     .section_footer {
       padding: 3rem 1rem 0rem !important;
