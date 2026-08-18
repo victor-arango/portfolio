@@ -2,18 +2,31 @@
 import "../style/header.css";
 import Logo from "../../src/assets/logo.png";
 import LogoVA from "../../src/assets/logovaDEV.svg";
+
+
+
+
 ---
 
 <header class="header logo__transition" id="header">
   <nav class="nav container">
-    <a href="#" class="nav__logo"><img src={Logo.src} alt="" /></a><span
-      class="text-logo">Victor Arango | Dev</span
+    <a href="#home" class="nav__logo">
+      <img src={Logo.src} alt="Victor Arango Dev" />
+    </a>
+
+    <span class="text-logo">Victor Arango | Dev</span>
+
+    <button
+      class="nav__menu"
+      id="nav-menu"
+      aria-expanded="false"
+      type="button"
     >
-    <div class="nav__menu" id="nav-menu">
       <aside id="mb_nav" class="menu-navegacion">
         <div class="watermark">
           <img src={LogoVA.src} alt="" />
         </div>
+
         <ul>
           <li><a class="nav__link" href="#home">Home</a></li>
           <li><a class="nav__link" href="#about">About</a></li>
@@ -21,12 +34,13 @@ import LogoVA from "../../src/assets/logovaDEV.svg";
           <li><a class="nav__link" href="#contact">Contact</a></li>
         </ul>
       </aside>
-    </div>
+    </button>
+
     <div class="nav__btns">
-      <!-- cambiar tema -->
-      <svg
-        class="change-theme buttons-menu"
-        id="theme-button"
+      <!-- Cambiar tema -->
+       <button class="change-theme"
+        id="theme-button">
+        <!-- <svg
         width="20"
         height="20"
         viewBox="0 0 24 24"
@@ -39,8 +53,17 @@ import LogoVA from "../../src/assets/logovaDEV.svg";
         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
         <path
           d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"
-        ></path>
-      </svg>
+        >
+      </path>
+      </svg> -->
+      <svg 
+      class="buttons-menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-moon">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454l0 .008" />
+</svg>
+       </button>
+      
+
       <div id="nav-button">
         <svg
           class="buttons-menu"
@@ -48,7 +71,7 @@ import LogoVA from "../../src/assets/logovaDEV.svg";
           height="28"
           viewBox="0 0 24 24"
           stroke-width="1.5"
-          stroke="#2c3e50"
+          stroke= "currentColor"
           fill="none"
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -62,178 +85,122 @@ import LogoVA from "../../src/assets/logovaDEV.svg";
     </div>
   </nav>
 </header>
-
 <script>
   import { gsap } from "gsap/dist/gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* ==================== SELECTORES DOM ==================== */
   const hoverLogo = document.querySelector(".logo__transition");
-
-  if (hoverLogo instanceof HTMLElement) {
-    hoverLogo.addEventListener("mouseover", function () {
-      gsap.to(".text-logo", {
-        duration: 0.9,
-        opacity: 1,
-        x: 10,
-        stagger: 0.1,
-        ease: "rough.in",
-      });
-    });
-  }
-  if (hoverLogo instanceof HTMLElement) {
-    hoverLogo.addEventListener("mouseout", function () {
-      gsap.to(".text-logo", {
-        duration: 0.9,
-        opacity: 0,
-        x: -10,
-        stagger: 0.1,
-        ease: "rough.out",
-      });
-    });
-  } // ================ VER Y OCULAR MENU ===============
-
-  const navMenu = document.getElementById("nav-menu"),
-    navToggle = document.getElementById("nav-toggle"),
-    navClose = document.getElementById("nav-close");
-
-  // =============VALIDAR SI LA CONSTANTE EXITSTE =======
-
-  if (navToggle instanceof HTMLElement && navMenu instanceof HTMLElement) {
-    if (navToggle) {
-      navToggle.addEventListener("click", () => {
-        navMenu.classList.add("show-menu");
-      });
-    }
-
-    if (navClose) {
-      navClose.addEventListener("click", () => {
-        navMenu.classList.remove("show-menu");
-      });
-    }
-  }
-  // =============REMOVER MENU MOVIL===========
-  const navLink = document.querySelectorAll(".nav__link");
-
-  function linkAction() {
-    const navMenu = document.getElementById("nav-menu");
-    // When we click on each nav__link, we remove the show-menu class
-    if (navMenu instanceof HTMLElement) {
-      navMenu.classList.remove("show-menu");
-    }
-  }
-  navLink.forEach((n) => n.addEventListener("click", linkAction));
-
-  /*==================== CHANGE BACKGROUND HEADER ====================*/
-  function scrollHeader() {
-    const nav = document.getElementById("header");
-    // When the scroll is greater than 200 viewport height, add the scroll-header class to the header tag
-    if (nav instanceof HTMLElement) {
-      if (this.scrollY >= 80) nav.classList.add("scroll-header");
-      else nav.classList.remove("scroll-header");
-    }
-  }
-  window.addEventListener("scroll", scrollHeader);
-
-  /*==================== SHOW SCROLL TOP ====================*/
-  // function scrollUp(){
-  //     const scrollUp = document.getElementById('scroll-up');
-  //     // When the scroll is higher than 560 viewport height, add the show-scroll class to the a tag with the scroll-top class
-  //     if(this.scrollY >= 560) scrollUp.classList.add('show-scroll'); else scrollUp.classList.remove('show-scroll')
-  // }
-  // window.addEventListener('scroll', scrollUp)
-
-  /*==================== DARK LIGHT THEME ====================*/
+  const navButton = document.getElementById("nav-button");
+  const mobileNav = document.getElementById("mb_nav");
+  const navLinks = document.querySelectorAll(".nav__link");
+  const buttons = document.querySelectorAll(".buttons-menu"); 
   const themeButton = document.getElementById("theme-button");
+
   const darkTheme = "dark-theme";
   const iconTheme = "uil-sun";
 
-  // Previously selected topic (if user selected)
+  /* ==================== ESTADO GLOBAL ==================== */
+  let isInProjects = false; // Nos dirá si estamos en la sección projects
+
+  /* ==================== CONTROLADOR DE COLOR ==================== */
+  // Esta función decide de qué color deben ser los botones evaluando tus 3 reglas
+  function updateButtonColor() {
+    const isDark = document.body.classList.contains(darkTheme);
+    const isMenuOpen = navButton?.classList.contains("active");
+
+    // REGLAS: 
+    // 1. Si está en Dark Mode, O
+    // 2. Si el menú está abierto, O
+    // 3. Si está scrolleando en la sección Projects
+    if (isDark || isMenuOpen || isInProjects) {
+      gsap.to(buttons, { stroke: "white", duration: 0.3, ease: "power2.out" });
+    } else {
+      gsap.to(buttons, { stroke: "black", duration: 1.9, ease: "power2.out" });
+    }
+  }
+
+  /* ==================== LOGO HOVER ==================== */
+  if (hoverLogo instanceof HTMLElement) {
+    hoverLogo.addEventListener("mouseenter", () => {
+      gsap.to(".text-logo", { duration: 0.9, opacity: 1, x: 10, ease: "rough.in" });
+    });
+    hoverLogo.addEventListener("mouseleave", () => {
+      gsap.to(".text-logo", { duration: 0.9, opacity: 0, x: -10, ease: "rough.out" });
+    });
+  }
+
+  /* ==================== SCROLLTRIGGER PROJECTS ==================== */
+  // Usamos los callbacks para actualizar nuestra variable de estado y disparar el color
+  ScrollTrigger.create({
+    trigger: ".projects-section",
+    start: "top 50%",
+    end: "bottom 50%",
+    onEnter: () => { isInProjects = true; updateButtonColor(); },
+    onLeave: () => { isInProjects = false; updateButtonColor(); },
+    onEnterBack: () => { isInProjects = true; updateButtonColor(); },
+    onLeaveBack: () => { isInProjects = false; updateButtonColor(); },
+  });
+
+  /* ==================== DARK / LIGHT THEME ==================== */
   const selectedTheme = localStorage.getItem("selected-theme");
   const selectedIcon = localStorage.getItem("selected-icon");
 
-  // We obtain the current theme that the interface has by validating the dark-theme class
-  const getCurrentTheme = () =>
-    document.body.classList.contains(darkTheme) ? "dark" : "light";
+  const getCurrentTheme = () => document.body.classList.contains(darkTheme) ? "dark" : "light";
+  const getCurrentIcon = () => themeButton?.classList.contains(iconTheme) ? "uil-moon" : "uil-sun";
 
-
-    const getCurrentIcon = () =>
-      themeButton?.classList.contains(iconTheme) ? "uil-moon" : "uil-sun";
-
-    // We validate if the user previously chose a topic
-    if (selectedTheme) {
-      // If the validation is fulfilled, we ask what the issue was to know if we activated or deactivated the dark
-      document.body.classList[selectedTheme === "dark" ? "add" : "remove"](
-        darkTheme
-      );
-      themeButton?.classList[selectedIcon === "uil-moon" ? "add" : "remove"](
-        iconTheme
-      );
-    }
-
-    // Activate / deactivate the theme manually with the button
-    themeButton?.addEventListener("click", () => {
-      // Add or remove the dark / icon theme
-      document.body.classList.toggle(darkTheme);
-      themeButton.classList.toggle(iconTheme);
-      // We save the theme and the current icon that the user chose
-      localStorage.setItem("selected-theme", getCurrentTheme());
-      localStorage.setItem("selected-icon", getCurrentIcon());
-    });
-  
-  //Menu items Active.
-  let tl = gsap.timeline({ paused: true });
-
-  function openNav() {
-    animateOpenNav();
-    let navBtn = document.getElementById("nav-button");
-    if (navBtn instanceof HTMLElement) {
-      navBtn.onclick = function (e) {
-        tl.reversed(!tl.reversed());
-        navBtn.classList.toggle("active");
-      };
-
-      // Agregar evento de clic a cada enlace del menú
-      let navLinks = document.querySelectorAll(".nav__link");
-      navLinks.forEach(function (link) {
-        link.addEventListener("click", function () {
-          // Revertir la animación al hacer clic en cualquier enlace del menú
-          tl.reverse();
-          // También puedes cerrar la navegación activando la clase 'active' (si es necesario)
-          navBtn.classList.remove("active");
-        });
-      });
-    }
+  // Cargar tema inicial
+  if (selectedTheme) {
+    document.body.classList[selectedTheme === "dark" ? "add" : "remove"](darkTheme);
+    themeButton?.classList[selectedIcon === "uil-moon" ? "add" : "remove"](iconTheme);
   }
 
-  const buttons = document.getElementsByClassName("buttons-menu");
-  function animateOpenNav() {
-    let mobileNav = document.getElementById("mb_nav");
-    tl.to(mobileNav, {
-      duration: 0.3,
-      ease: "power4",
-      y: 0,
-    })
-    .set(buttons,{
-        duration: 0.5,
-        ease: "sine",
-        stroke: "#000",
-     })
-      .to(buttons, {
-        duration: 0.5,
-        ease: "sine",
-        stroke: "#fff",
-      })
+  // Cambiar tema
+  themeButton?.addEventListener("click", () => {
+    document.body.classList.toggle(darkTheme);
+    themeButton.classList.toggle(iconTheme);
 
+    localStorage.setItem("selected-theme", getCurrentTheme());
+    localStorage.setItem("selected-icon", getCurrentIcon());
+
+    updateButtonColor(); // Evaluar color tras cambiar de tema
+  });
+
+  /* ==================== MOBILE MENU ==================== */
+  const menuTimeline = gsap.timeline({ paused: true });
+
+  if (mobileNav instanceof HTMLElement) {
+    // Hemos removido los cambios de color del timeline, lo maneja updateButtonColor
+    menuTimeline
+      .to(mobileNav, { duration: 0.3, ease: "power4.out", y: 0 })
       .set("body", { overflow: "hidden" })
-      .to(".nav__link", {
-        opacity: 1,
-        ease: "power3.out",
-        y: 0,
-        duration: 0.3,
-        stagger: 0.2,
-      })
+      .to(".nav__link", { opacity: 1, y: 0, duration: 0.3, ease: "power3.out", stagger: 0.2 })
       .reverse();
   }
 
-  // init
-  openNav();
+  if (navButton instanceof HTMLElement) {
+    navButton.addEventListener("click", () => {
+      navButton.classList.toggle("active");
+      menuTimeline.reversed(!navButton.classList.contains("active"));
+      updateButtonColor(); // Evaluar color al abrir/cerrar el menú
+    });
+  }
+
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      navButton?.classList.remove("active");
+      menuTimeline.reverse();
+
+      const navMenu = document.getElementById("nav-menu");
+      if (navMenu instanceof HTMLElement) {
+        navMenu.setAttribute("aria-expanded", "false");
+      }
+      
+      updateButtonColor(); // Evaluar color al cerrar el menú (navegar)
+    });
+  });
+
+  updateButtonColor();
 </script>

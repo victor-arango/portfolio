@@ -9,7 +9,7 @@ import video from "../assets/Prueba3.mp4";
   data-type="vertical"
   data-id="v1"
 >
-  <div class="home_intro">
+  <div class="home_intro" id="home">
     <div class="container-medium">
       <div class="home_intro-grid">
         <div class="home_intro_content">
@@ -28,7 +28,7 @@ import video from "../assets/Prueba3.mp4";
             <span class="button__label">Contact</span>
           </a>
         </div>
-        <div class="home_intro_character">
+        <div class="home_intro_character ">
           <div class="home_spline_roboto">
             <video autoplay muted loop playsinline class="videoAnimation">
               <source src={video} type="video/mp4" />
@@ -50,15 +50,12 @@ import video from "../assets/Prueba3.mp4";
     will-change: transform, opacity;
   }
 
-  .presentation_section {
-    border-radius: 1px solid red;
-  }
 
-  /* @media (max-width: 850px) {
+   @media (max-width: 850px) {
     .home__section {
       padding: 2rem 2rem 0rem !important;
     }
-  } */
+  } 
 </style>
 
 <script>

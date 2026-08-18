@@ -121,8 +121,10 @@ body.dark-theme {
 }
 
 .change-theme {
+    border: none;
+  background-color: transparent !important;
   font-size: 1.25rem;
-  color: var(--title-color);
+  /* color: var(--title-color); */
   margin-right: var(--mb-1);
   cursor: pointer;
 }
@@ -130,6 +132,7 @@ body.dark-theme {
 .change-theme:hover {
   color: var(--first-color);
 }
+
 
 /* =============base=============== */
 * {
@@ -595,8 +598,10 @@ svg {
   }
 
   .change-theme {
+
     margin: 0;
   }
+
 
   .home__section {
 
@@ -953,7 +958,7 @@ button {
   }
 
   .home_spline_roboto video {
-    object-position: center top;
+    object-position: center bottom;
   }
 
 }
@@ -1593,4 +1598,3 @@ button {
 }
 
 
- 

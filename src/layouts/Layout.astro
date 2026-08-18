@@ -204,9 +204,7 @@ const { title } = Astro.props;
 	<!-- ── PRELOADER ──────────────────────────────────────────────────────────── -->
 	<script>
 		import { gsap } from "gsap/dist/gsap";
-		import ScrollTrigger from "gsap/dist/ScrollTrigger";
 
-		gsap.registerPlugin(ScrollTrigger);
 
 		const container          = document.getElementById("preloader");
 		const leftLogo           = document.getElementById("logoLeft");
@@ -272,8 +270,9 @@ const { title } = Astro.props;
 	import { gsap } from "gsap";
 	import { Observer } from "gsap/Observer";
 	import { ScrollTrigger } from "gsap/ScrollTrigger";
+	import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 
-	gsap.registerPlugin(Observer, ScrollTrigger);
+	gsap.registerPlugin(Observer, ScrollTrigger, ScrollToPlugin);
 
 	const DESKTOP_MQ = "(min-width: 851px)";
 	const REDUCE_MQ  = "(prefers-reduced-motion: reduce)";
